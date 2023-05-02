@@ -1,0 +1,298 @@
+<template>
+    <div class="topText">
+
+        <h1>More to love</h1>
+
+
+    </div>
+
+
+    <div class="products-Container">
+
+
+        <div class="product" v-for="item in 9" key="item">
+
+            <img src="https://enovathemes.com/propharm/wp-content/uploads/product80-300x300.jpg" alt="">
+
+            <div class="product-text">
+
+                <v-rating bg-color="orange-lighten-1" color="#fcb900"></v-rating>
+
+                <h5>
+                    FatBlaster Keto-Fit Whey Protein</h5>
+
+                <p>$23.95</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr class="hr">
+
+
+<div class="full-container">
+
+<div class="cata">
+
+<img src="../assets/wallet.png" alt="">
+<h4>100% Money back</h4>
+
+</div>
+
+<div  class="cata">
+
+    <img src="../assets/email.png" alt="">
+<h4>Non-contact shipping</h4>
+
+
+</div>
+
+<div  class="cata">
+
+    <img src="../assets/vehicle.png" alt="">
+<h4>Free delivery over $200</h4>
+
+</div>
+
+
+</div>
+
+
+<div class="bottomText">
+
+<h2>Best Selling Products in</h2>
+
+
+</div>
+
+
+<div class="text-container">
+   
+
+    <div class="Categories-btn">
+      <v-btn> Supplements </v-btn>
+
+      <v-btn> MedicinesHerbs </v-btn>
+
+      <v-btn> Herbs </v-btn>
+    </div>
+  </div>
+
+  <div class="Categories-pro">
+    <productGridcomp :items="MoreToLove" />
+  </div>
+
+
+
+</template>
+
+
+
+<script lang="ts" setup>
+
+
+import productGridcomp from './productGridcomp.vue'
+
+import Store from '../Store/index';
+
+
+let MoreToLove:any = JSON.parse(JSON.stringify(Store.state.storeProduct.filter((item:{ brand: string; })  => item.brand === "Bticin")))
+
+
+
+</script>
+<style lang="scss">
+.topText {
+
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+
+}
+
+hr{
+
+width: 95%;
+margin: auto;
+}
+
+
+.products-Container{
+
+  
+    width: 95%;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: white;
+    margin-bottom: 80px;
+   
+
+   
+   
+    .product{
+
+    
+        display: flex;
+        background-color: white;
+       margin-bottom: 20px;
+
+     
+
+    }
+
+    .product-text{
+
+        padding-left: 20px;
+    padding-top: 6px;
+    }
+
+    .product img{
+
+        width: 105px;
+        height: 105px;
+        border-radius: 9px;
+    }
+
+    .product h5{
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+    }
+
+    
+
+}
+
+
+.Categories-pro{
+
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 20px;
+margin-left: 10px;
+margin-right: 10px;
+margin-bottom: 20px;
+margin-top: 20px;
+}
+
+.full-container{
+
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-around;
+margin-top: 50px;
+
+.cata{
+
+    display: flex ;
+    align-items: center;
+    gap: 20px;
+  width: 30%;
+    padding: 20px 20px;
+   border-radius: 10px;
+    justify-content: center;
+    background-color: #fafafa;
+}
+
+
+
+
+}
+
+
+.bottomText{
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+@media only screen and (max-width: 1054px){
+
+   .products-Container {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+
+}
+
+@media only screen and (max-width: 720px){
+
+.products-Container {
+display: grid;
+grid-template-columns: repeat(1, 1fr);
+
+}
+
+
+
+}
+
+
+
+@media only screen and (max-width: 785px){
+
+.products-Container {
+display: grid;
+grid-template-columns: repeat(1, 1fr);
+
+}
+
+
+.cata {
+    
+ flex-direction: column;
+
+}
+
+
+
+}
+
+@media only screen and (max-width: 720px){
+
+    .full-container {
+   
+    flex-direction: column;
+}
+.full-container  .cata {
+  
+ flex-direction: row;
+ width: 84%;
+ margin-top: 10px;
+
+}
+
+}
+
+
+
+@media only screen and (max-width: 720px){
+
+.text-container .Categories-btn {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+}
+
+</style>
+
+
