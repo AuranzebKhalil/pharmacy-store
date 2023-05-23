@@ -8,9 +8,11 @@ export type State = {
     hameburger:boolean,
     searchItem:boolean,
     storeSidebar:boolean,
-    populercata:Array<Populercata>
-    Supplementcata:Array<Supplement>
-    wishlistproduct:Array<wishlist>
+    populercata:Array<Populercata>,
+    Supplementcata:Array<Supplement>,
+    wishlistproduct:Array<any>
+    bodyLoader:boolean
+    allproduct:Array<any>
 }
 
 
@@ -45,7 +47,7 @@ export type cartProductsType ={
 }
 
 
-export type wishlist ={
+export type wishlisttype ={
 
   rating: string;
   name: string;

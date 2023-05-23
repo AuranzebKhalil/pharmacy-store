@@ -50,10 +50,6 @@ const Submint = async () => {
       } catch (error) {
         console.error('Error', error)
       }
-
-      
-    
-
     }
   
 

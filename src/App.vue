@@ -1,6 +1,9 @@
 <template>
   <v-app class="bannner">
-    <v-main>
+    <div class="pre-loader mx-auto" v-if="store.state.bodyLoader">
+      <img src="https://www.acbar.org/Website/Loader/loader3.gif" alt="" />
+    </div>
+    <v-main v-else>
       <state class="alls" v-if="data" />
       <searchhome class="alls" v-if="item" />
       <storeSidebar class="alls" v-if="side" />
@@ -40,11 +43,14 @@ import footers from "./views/footer.vue";
 onMounted(() => {
   store.dispatch("getPoducts");
 
+  setTimeout(() => {}, 1000);
+
+  // store.commit("catasupplement");
+
+  // store.dispatch("wishlistproducts");
+  store.dispatch("getCartProducts");
 });
 
-onMounted(() => {
-  store.commit("catasupplement");
-});
 // onMounted(() => {
 //   store.dispatch('getPoducts');
 // });
@@ -61,20 +67,12 @@ let sum = ref(true);
 </script>
 
 <style lang="scss">
-.all {
-  // position: relative;
-  // transform: translateX(0);
-  // transform: translateY(-20%);
-
-  // transform: translateX(10%);
-  // transition: transform 2.5s ease-out;
-}
-
 .bannner {
   height: auto;
-  max-width: 1250px;
+  max-width: 1450px;
   width: 100%;
   margin: auto;
+  background-color: white;
 }
 
 .alls {
@@ -83,6 +81,18 @@ let sum = ref(true);
 
   margin: auto;
   height: 100vh;
+}
+
+.pre-loader {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 300px;
+  }
 }
 
 .abs {

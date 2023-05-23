@@ -1,6 +1,6 @@
 <template>
   <div class="producs">
-    <v-card>
+    <v-card class="v-card">
       <v-tabs bg-color="deep-purple-darken-4" center-active>
         <v-tab>
           <img
@@ -9,7 +9,7 @@
             src="../assets/baby-socks.png"
             alt=""
           />
-          Baby
+          <p class="cata-text">Baby</p>
         </v-tab>
         <v-tab>
           <img
@@ -18,8 +18,8 @@
             src="../assets/skincare.png"
             alt=""
           />
-          Beauty</v-tab
-        >
+          <p class="cata-text">Beauty</p>
+        </v-tab>
         <v-tab>
           <img
             @click="render('Grocery')"
@@ -27,7 +27,7 @@
             src="../assets/food.png"
             alt=""
           />
-          Grocery
+          <p class="cata-text">Grocery</p>
         </v-tab>
         <v-tab>
           <img
@@ -36,7 +36,7 @@
             src="../assets/healthcare.png"
             alt=""
           />
-          Health Topics
+          <p class="cata-text">Health Topics</p>
         </v-tab>
 
         <v-tab>
@@ -46,7 +46,7 @@
             src="../assets/mortar.png"
             alt=""
           />
-          Herbs
+          <p class="cata-text">Herbs</p>
         </v-tab>
 
         <v-tab>
@@ -56,7 +56,7 @@
             src="../assets/pills.png"
             alt=""
           />
-          Meadicines
+          <p class="cata-text">Meadicines</p>
         </v-tab>
 
         <v-tab>
@@ -66,7 +66,7 @@
             src="../assets/personal-hygiene.png"
             alt=""
           />
-          Personal care
+          <p class="cata-text">Personal care</p>
         </v-tab>
 
         <v-tab>
@@ -76,7 +76,7 @@
             src="../assets/pets-allowed.png"
             alt=""
           />
-          Pets
+          <p class="cata-text">Pets</p>
         </v-tab>
 
         <v-tab>
@@ -85,24 +85,22 @@
             class="product-img"
             src="../assets/proteins.png"
             alt=""
-          />Protein
+          />
+          <p class="cata-text">Protein</p>
         </v-tab>
 
         <v-tab>
           <img class="product-img" src="../assets/protein-powder.png" alt="" />Spots
-          Nutrition</v-tab
-        >
+          <p class="cata-text">Nutrition</p>
+        </v-tab>
         <v-tab>
-          <img
-            class="product-img"
-            src="../assets/supplement.png"
-            alt=""
-          />supplements</v-tab
+          <img class="product-img" src="../assets/supplement.png" alt="" />
+          <p class="cata-text">supplements</p></v-tab
         >
         <v-tab>
           <img class="product-img" src="../assets/vitamin.png" alt="" />
-          vitamin</v-tab
-        >
+          <p class="cata-text">vitamin</p>
+        </v-tab>
       </v-tabs>
     </v-card>
   </div>
@@ -121,38 +119,78 @@ let render = (val: any) => {
 <style lang="scss">
 .producs {
   width: 100%;
-  height: 150px;
+  height: 174px;
   margin-top: 0px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  margin-top: 25px;
+  margin-top: 1px;
+
   .v-slide-group__next,
   .v-slide-group__prev {
     color: black;
   }
 
   .v-slide-group__content {
-    gap: 52px;
+    gap: 18px;
   }
 
-  .v-tabs--density-default {
-    --v-tabs-height: 91px;
-  }
-  .product-img {
-    width: 48px;
+  .v-tab--selected .v-tab__slider {
+    display: none;
   }
 
-  .v-btn__content {
-    color: black;
+  .cata-text {
+    font-family: PT Sans;
+    text-transform: none;
+    font-weight: 700;
+    color: #184363;
+    font-size: 15px;
+    padding-left: 10px;
   }
-
   .bg-deep-purple-darken-4 {
     background-color: white !important;
-    margin-bottom: 23px;
   }
+
+  .v-slide-group__prev {
+    background: white !important;
+  }
+
+  .v-slide-group__next {
+    background: white !important;
+  }
+
+  .v-card {
+    height: 146px;
+    display: 1px solid;
+
+    display: flex;
+    align-items: center;
+  }
+}
+
+.v-tabs--density-default {
+  --v-tabs-height: 91px;
+}
+.product-img {
+  width: 48px;
+}
+.v-slide-group__container {
+  margin-right: 0px !important;
+}
+
+.v-btn__content {
+  color: black;
+}
+
+.bg-deep-purple-darken-4 {
+  background-color: white !important;
+  margin-bottom: 23px;
+}
+
+.v-slide-group__content {
+  background-color: white;
 }
 
 .producs .v-btn__content {
@@ -170,18 +208,18 @@ a {
 .producs .bg-deep-purple-darken-4 {
   background-color: white;
   border: none;
-  margin-bottom: 0px;
+  margin-bottom: 17px;
 }
 
 @media only screen and (max-width: 1024px) {
   .producs {
     width: 100%;
     height: 150px;
-    // margin-top: 25px;
+
     max-width: 100%;
-    width: 95%;
-    margin: auto;
+
     border: none;
+    max-width: 100%;
   }
 }
 </style>

@@ -1,9 +1,9 @@
 import { computed } from "vue";
-import type { cartProductsType ,Populercata, Supplement, wishlist} from "../types";
+import type { cartProductsType ,Populercata, Supplement} from "../types";
 
 export default {
 
-
+    allproduct:[],
     storeProduct : [] ,
     SaleProduct : [] ,
     cataProduct:[],
@@ -15,6 +15,7 @@ export default {
     storeSidebar:false,
     populercata:Array<Populercata>(),
     Supplementcata:Array<Supplement>(),
-    wishlistproduct:[]
+    wishlistproduct:[],
+    bodyLoader:false
 }
 

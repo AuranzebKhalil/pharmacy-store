@@ -31,7 +31,8 @@ store.dispatch("getPoducts");
 
 <style scoped lang="scss">
 .app {
-  background-color: white;
+  // background-color: white;
+  background-color: aqua;
 
   .v-layout--full-height {
     --v-scrollbar-offset: inherit;

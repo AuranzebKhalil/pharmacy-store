@@ -9,14 +9,17 @@ export default {
  getPoducts: async({commit , state}:{commit: Commit;  state:State}) =>{
 
 
+  state.bodyLoader = true
   const querySnapshot = await db.collection("products").get();
+  state.bodyLoader = false;
   state.storeProduct = []
   querySnapshot.forEach((response) => {
-    let data = response.data()
-    
+  let data = {...response.data(), id: response.id, showOptions: false}
   commit('setProduct',data)
    
   });
+
+
 },
 
 
@@ -46,7 +49,7 @@ cartProduct: async({commit}:{commit: Commit}) =>{
   querySnapshot.forEach((response) => {
 
   
-//  commit('cartsproduct',response.data())
+ commit('cartsproduct',response.data())
 
    
   });
@@ -96,23 +99,19 @@ getCartProducts: ({commit, state}:{commit: Commit, state: State})=>{
 },
 
 
-wishlistProduct: async({commit, state}:{commit: Commit; state: State}) =>{
-
+wishlistproducts: async({commit, state}:{commit: Commit; state: State}) =>{
   const collectionRef = db.collection('WishlistProduct');
   collectionRef.onSnapshot((snapshot) => { 
-    state.cartProducts = []
+
+    state.wishlistproduct = []
+
   snapshot.forEach((doc) => {
     let data = {...doc.data()}
-    commit('WishlistProducts', data)
-
-
-
+    commit('setwishlistProducts', data)
   });
 });
 
 },
-
-
 
 
 
@@ -141,6 +140,27 @@ deleatQuantity: async ({}, payload:string)=>{
 
 },
 
+wishlistdeleatitem: async ({}, payload:string)=>{
+
+  db.collection("WishlistProduct").doc(payload)
+   .delete()
+   .then(() => {
+     console.log("Item successfully deleted!");
+   })
+   .catch((error) => {
+     console.error("Error removing item: ", error);
+   });
+
+
+  // console.log(payload , 'deleact')
+
+},
+
+
+
+
+
+
 selectedCategoryBrandProduct: async ({commit}:{commit: Commit},  payload: {Category:any, Breand:any})=>{
 
 
@@ -154,7 +174,12 @@ selectedCategoryhomeProduct: async ({commit}:{commit: Commit},  payload: {Catego
 
   commit('CategoryhomeProduct' , payload )
  
-}
+},
+
+
+
+
+
 
 
 

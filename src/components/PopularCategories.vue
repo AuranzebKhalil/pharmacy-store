@@ -3,7 +3,7 @@
     <h2>Popular Categories</h2>
 
     <div class="Categories-btn">
-      <v-btn @click="supplement"> Supplements </v-btn>
+      <v-btn :class="{ active: isActive }" @click="supplement"> Supplements </v-btn>
 
       <v-btn @click="MedicinesHerbs"> MedicinesHerbs </v-btn>
 
@@ -39,9 +39,14 @@ import Store from "../Store/index";
 
 let data = computed(() => Store.state.Supplementcata);
 
+let isActive = ref(false);
+
 let supplement = () => {
   Store.commit("catasupplement");
+  isActive.value = !isActive.value;
 };
+
+let catadata = Store.dispatch("supplements");
 
 let MedicinesHerbs = () => {
   Store.commit("MedicinesHerbs");
@@ -61,10 +66,21 @@ let Herbs = () => {
   gap: 20px;
   margin-top: 30px;
 
+  .active {
+    background-color: red;
+    color: #184363;
+  }
+
+  .btn__underlay {
+    color: #184363;
+  }
+
   .v-btn.v-btn--density-default {
     border-radius: 34px;
     color: #ffffff;
-    background-color: #184363;
+    // background-color: #184363;
+    color: #184363;
+    background-color: #ffffff;
     font-size: 14px;
     width: 166px;
     height: 40px;
@@ -74,6 +90,10 @@ let Herbs = () => {
   .Categories-btn {
     gap: 10px;
     display: flex;
+  }
+
+  .v-tab--selected .v-tab__slider {
+    display: none;
   }
 }
 
@@ -236,6 +256,33 @@ let Herbs = () => {
   .product-banner img {
     padding-top: 0px;
     width: 41%;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .text-container .Categories-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 85%;
+  }
+
+  .text-container .v-btn.v-btn--density-default {
+    border-radius: 34px;
+    color: #ffffff;
+    background-color: #184363;
+    font-size: 14px;
+    width: 100%;
+    height: 40px;
+    font-weight: 800;
+  }
+}
+
+@media only screen and (max-width: 510px) {
+  .Categories-product {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

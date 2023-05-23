@@ -252,9 +252,6 @@
     gap: 30px;
   }
 
-  .section-container {
-    margin-left: 20px !important;
-  }
 
   .section-container .socalmedia {
     width: 69%;

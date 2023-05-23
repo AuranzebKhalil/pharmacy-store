@@ -39,8 +39,8 @@
         ></v-range-slider>
       </div>
       <div class="contant pl-3 d-flex align-center">
-        <input v-model="minprice" class="custom-input" type="number" /> -
-        <input v-model="maxprice" class="custom-input" type="number" />
+        <input lable="0" v-model="minprice" class="custom-input" type="number"/> -
+        <input lable="100" v-model="maxprice" class="custom-input" type="number"/>
       </div>
     </div>
     <h3 class="prices">Brand</h3>
@@ -55,11 +55,11 @@
         ></VRadio>
 
         <VRadio
-          v-on:click="brend('Amere')"
+          v-on:click="brend('Mockup')"
           class="d-flex"
           label="
-Amere"
-          value="Amere"
+Mockup"
+          value="Mockup"
         ></VRadio>
 
         <VRadio
@@ -182,12 +182,26 @@ function onPriceRangeChange() {
 </script>
 
 <style scoped lang="scss">
+
+.v-main .v-radio-group > .v-input__control {
+   
+    width: 230px !important;
+}
+
 .v-main {
   padding-left: 20px;
+  // position: fixed;
 
   .navbar {
     gap: 6px;
     margin-top: 40px;
+    position: initial !important;
+  }
+
+  .v-main .Categorie {
+    display: flex;
+    flex-direction: column;
+    position: initial !important;
   }
 
   .v-theme--myCustomLightTheme {
@@ -215,8 +229,15 @@ function onPriceRangeChange() {
     align-items: center;
     display: flex;
     min-height: 32px;
-    width: 100% !important;
+    width: 280px !important;
     margin-right: 21px;
+  }
+
+  .v-slider.v-input--horizontal .v-input__control {
+    align-items: center;
+    display: flex;
+    min-height: 32px;
+    width: 300px !important;
   }
 
   .Categorie .v-theme--myCustomLightTheme {
@@ -232,6 +253,17 @@ function onPriceRangeChange() {
     margin-top: 10px;
   }
 
+  .v-slider.v-input--horizontal .v-input__control {
+    align-items: center;
+    display: flex;
+    min-height: 32px;
+    width: 197px !important;
+}  width: 212px !important;
+
+.v-slider__container {
+
+    width: 203px !important; 
+}
   .sideBar-navlist:hover li {
     // color: #15a9e3;
     cursor: pointer;
@@ -250,16 +282,18 @@ function onPriceRangeChange() {
     list-style: none;
   }
 
-  .v-slider.v-input--horizontal {
-    font-size: 14px;
-    font-weight: 400;
-    font-family: PT Sans;
-    line-height: 24px;
-    letter-spacing: 0px;
-    color: #56778f;
-    width: 65%;
-    margin: auto;
-  }
+
+
+  .v-slider__container {
+
+    width: 73% !important;
+}
+
+
+.min-max{
+
+  margin-left: 11px;
+}
 
   .prices {
     font-size: 18px;
@@ -270,7 +304,13 @@ function onPriceRangeChange() {
     margin-top: 50px;
     margin-bottom: 10px;
   }
+  
 
+  .v-main .v-selection-control--density-default[data-v-be320b00] {
+    --v-selection-control-size: 41px;
+    margin-left: 25px;
+    width: 136px !important;
+}
   .price {
     font-size: 20px;
     line-height: 8px;
@@ -284,6 +324,13 @@ function onPriceRangeChange() {
   .contant {
     gap: 7px;
     margin-left: -11px;
+    width: 60% !important;
+
+    .v-input__control {
+      align-items: center;
+      display: flex;
+      width: 300px !important;
+    }
   }
 
   .custom-input {
@@ -345,7 +392,7 @@ function onPriceRangeChange() {
     line-height: 13px;
     letter-spacing: 0px;
     color: blue !important;
-    width: 86%;
+    width: 280px !important;
     margin: auto;
     height: 40px;
   }
@@ -355,8 +402,25 @@ function onPriceRangeChange() {
     flex-direction: column;
     grid-area: control;
     height: 204px;
-
     overflow: auto;
+    margin-bottom: 21px;
   }
+
+
+  .v-main .v-main .v-slider.v-input--horizontal[data-v-be320b00][data-v-be320b00] {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: PT Sans;
+    line-height: 13px;
+    letter-spacing: 0px;
+    color: blue !important;
+    width: 198px !important;
+    margin: auto;
+    height: 40px;
+    width: -19px;
 }
+}
+
+
+
 </style>

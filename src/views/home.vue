@@ -8,7 +8,6 @@
       <FeaturedProducts />
       <some />
       <more />
-      <bottomfooter />
       <newlist />
       <lastSection />
     </v-main>
@@ -28,14 +27,25 @@ import some from "../components/Specialoffers.vue";
 import more from "../components/MoreToLove.vue";
 import newlist from "../components/joinnewlist.vue";
 import lastSection from "../components/section.vue";
+import Store from "../Store";
+
 import { onMounted } from "vue";
+
+
+
+onMounted(() => {
+  Store.commit("catasupplement");
+  Store.commit("featuredprojuct");
+});
+
 </script>
 
 <style scoped lang="scss">
 .app {
-  max-width: 1250px;
+  max-width: 1350px;
   margin: auto;
   height: auto;
-  position: absolute;
+  overflow: hidden;
+  position: revert !important;
 }
 </style>

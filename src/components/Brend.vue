@@ -96,6 +96,7 @@ let Brands = (val: any) => {
   align-items: center;
   justify-content: center;
   position: absolute;
+  background-color: white;
 
   .v-tabs--density-default {
     height: 100px;

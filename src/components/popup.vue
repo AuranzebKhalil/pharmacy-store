@@ -39,7 +39,8 @@
           </div>
 
           <button class="addtocartbtn" @click="Sending(data)">
-            <img src="../assets/shopping-cart (1).png" alt="" /> Add to Cart
+            <img class="cart-img" src="../assets/shopping-cart (1).png" alt="" /> Add to
+            Cart
           </button>
         </div>
       </div>
@@ -53,10 +54,11 @@ import quatity from "./quantity.vue";
 import { reactive } from "vue";
 import Store from "../Store/index";
 import db from "../Firebase/firebase";
+import { uuidv4 } from "@firebase/util";
 // import UniqueId from 'vue-unique-id';
 const emits = defineEmits(["cut"]);
 
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 let quantity: any = ref(0);
 
@@ -123,11 +125,11 @@ let Sending = async (data: any) => {
   background-color: rgba($color: #000000, $alpha: 1);
 
   width: 90%;
-  height: 90vh;
+  // height: 90vh;
 
   border-radius: 10px;
   margin: 30px;
-  margin-left: 70px;
+  margin-left: 38px;
   display: flex;
   background-color: white;
 
@@ -160,7 +162,7 @@ let Sending = async (data: any) => {
   }
 
   .popup-img-section {
-    width: 100%;
+    width: 50%;
 
     background-color: white;
     border-radius: 20px;
@@ -271,21 +273,67 @@ let Sending = async (data: any) => {
 }
 
 @media only screen and (max-width: 1215px) {
-  .popup-container .popup-cart {
-    width: 90%;
-  }
 
-  .popup-container {
-    height: 85vh;
+}
+@media only screen and (max-width: 1150px) {
+  .popup-cart {
+    width: 95% !important;
   }
 }
-@media only screen and (max-width: 815px) {
-  .popup-container {
-    height: 68vh;
+
+@media only screen and (max-width: 800px) {
+  .popup-cart {
+    width: 95% !important;
   }
 
-  .popup-img {
+  .popup-container {
+    margin: 0px !important;
+    margin-left: 1px !important;
     width: 100% !important;
+    flex-direction: column;
+    align-items: center;
+    // position: ;
+  }
+
+  .cart-img {
+    display: none;
+  }
+  // .popup-prodect-con img {
+  //   position: absolute;
+  //   top: 0px;
+  //   right: 0;
+  //   padding-top: 9px;
+  //   padding-right: -6px;
+  // }
+
+  .popup-container .popup-prodect-con img {
+    width: 25px;
+    padding-right: 5px;
+    padding-top: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 6px;
+    margin-right: 10px;
+  }
+
+  .popup-container .popup-prodect-con {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 455px) {
+  .popup-cart {
+    flex-direction: column;
+    height: 150px !important;
+  }
+
+  .popup-container .quantity-container {
+    margin-top: 27px;
+  }
+
+  .addtocartbtn {
+    margin-bottom: 10px;
   }
 }
 </style>

@@ -1,25 +1,32 @@
 <template>
   <div class="wish-container">
-    <div class="p-10">
+    <div class="">
       <ul class="list d-flex">
         <li @click="home">Home</li>
         <li>></li>
-        <li>Wishlist</li>
+        <li @click="wish">Wishlist</li>
       </ul>
     </div>
 
-    <div class="wish">
-      <div class="product-wish" v-for="item in items">
-        <div class="product-wish-img"></div>
+    <div class="wish" v-for="item in wishdata">
+      <div class="product-wish">
+        <div class="product-wish-img">
+          <img :src="item.url" alt="" />
 
-        <div class="wish-contant">
-          <h3></h3>
+          <div class="wish-contant">
+            <h3>{{ item.name }}</h3>
 
-          <p>$</p>
+            <p>${{ item.price }}</p>
+          </div>
         </div>
 
         <div class="closing">
-          <img @click="close" class="close" src="../assets/close.png" alt="" />
+          <img
+            @click="closing(item.uId)"
+            class="close"
+            src="../assets/close (1).png"
+            alt=""
+          />
         </div>
       </div>
     </div>
@@ -27,24 +34,31 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import router from "../router";
 import Store from "../Store/index";
+import db from "../Firebase/firebase";
 
-onMounted(() => {
-  Store.dispatch("wishlistProduct");
-
-  // console.log("asdasdasdasd");
+let wishdata: any = computed(() => {
+  return JSON.parse(JSON.stringify(Store.state.wishlistproduct));
 });
 
-let items = JSON.parse(JSON.stringify(Store.state.wishlistproduct));
+onMounted(() => {
+  Store.dispatch("wishlistproducts");
+});
 
 let home = () => {
   router.push("/");
 };
 
-let close = () => {
-  console.log(items, "llllllllllooooooooooooo");
+let wish = () => {
+  // console.log("sadsd");
+
+  router.push("/store");
+};
+
+let closing = (id: string) => {
+  Store.dispatch("wishlistdeleatitem", id);
 };
 </script>
 
@@ -53,10 +67,13 @@ let close = () => {
   max-width: 100%;
   width: 90%;
   margin: auto;
-
   border: 1px solid black;
-
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13px;
+  background-color: white;
 }
 
 .list li {
@@ -72,28 +89,33 @@ let close = () => {
   margin-top: 20px;
   margin: auto;
   display: flex;
-  margin-top: 10px;
-  padding-top: 10px;
+  height: 100px;
+  // padding-top: 10px;
   padding-bottom: 10px;
   //   position: absolute;
-  border: 1px solid black;
+  // border: 1px solid black;
   align-items: center;
   justify-content: space-between;
 }
 
 .product-wish-img {
-  width: 70px;
+  // width: 70px;
   height: 70px;
 
   border-radius: 10px;
   display: flex;
-  align-items: center;
+
   justify-content: center;
   margin-top: 10px;
 }
 
 .product-wish-img img {
-  width: 68%;
+  width: 69px;
+  border-radius: 10px;
+}
+
+.wish-contant {
+  margin-left: 12px;
 }
 
 .closing {
@@ -102,7 +124,7 @@ let close = () => {
 
 .wish-contant h3 {
   display: block;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
   margin-bottom: 4px;
   font-family: PT Sans;
@@ -113,11 +135,11 @@ let close = () => {
 
 .wish-contant p {
   color: #15a9e3 !important;
+  font-size: 14px;
 }
 
 .close {
   width: 20px;
   height: 20px;
-  background-color: #184363;
 }
 </style>

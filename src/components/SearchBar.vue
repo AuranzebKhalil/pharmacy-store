@@ -142,6 +142,7 @@ let selected = () => {
     outline: none;
     border-color: 3px solid #edf4f6;
     background-color: #edf4f6;
+    padding-left: 19px;
   }
 
   .v-btn--elevated {

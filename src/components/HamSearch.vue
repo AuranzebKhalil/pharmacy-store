@@ -104,7 +104,7 @@ let Searchbars = () => [store.commit("Searchbars", true)];
   align-items: center;
   justify-content: center;
   gap: 10px;
-  flex-direction: column;
+  // flex-direction: column;
 }
 
 .close {

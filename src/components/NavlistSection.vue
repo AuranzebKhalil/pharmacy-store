@@ -8,11 +8,15 @@
 
       <!-- <v-spacer></v-spacer> -->
 
-      <v-layout class="navlist">
-        <v-list @click="home"> Home </v-list>
+      <v-layout class="navlist" @mouseenter="Hovering = false">
+        <v-list @click="home" @mouseenter="isHovering = false"> Home </v-list>
 
-        <v-list @mouseenter="isHovering = true">Shop by Brand</v-list>
-        <v-list @mouseenter="Hovering = true">Shop by Category</v-list>
+        <v-list @mouseenter="isHovering = true" v-on:mouseleave="isHovering = false">
+          <p @mouseenter="Hovering = false">Shop by Brand</p>
+        </v-list>
+        <v-list @mouseenter="Hovering = true" v-on:mouseleave="Hovering = false"
+          >Shop by Category</v-list
+        >
         <v-list>Blog</v-list>
         <v-list @click="shop"> Shop</v-list>
         <v-list @click="Element">Element</v-list>
@@ -22,6 +26,8 @@
       <v-spacer></v-spacer>
 
       <div class="d-flex justify-space-around">
+        <div class="heart-length"><p>{{ wish.length }}</p></div>
+
         <img
           color="black"
           class="icon"
@@ -30,6 +36,9 @@
           alt=""
         />
 
+        <div class="wish-length">
+          <p>{{ heart.length }}</p>
+        </div>
         <img
           @click="cart"
           color="black"
@@ -47,16 +56,16 @@
     @mouseleave="Hovering = false"
     v-on:mouseleave="isHovering = false"
   >
-    <PoductBrend />
+    <PoductBrend @mouseenter="isHovering = true" />
   </div>
 
   <div class="brand" v-show="Hovering" @mouseleave="Hovering = false">
-    <ProductCategory />
+    <ProductCategory @mouseenter="Hovering = true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import PoductBrend from "../components/Brend.vue";
 import ProductCategory from "../components/ProductCategory.vue";
 import router from "../router/index";
@@ -64,6 +73,13 @@ import Store from "../Store/index";
 
 const isHovering = ref(false);
 const Hovering = ref(false);
+
+let storelenght = JSON.parse(JSON.stringify(Store.state.cartProducts));
+
+let heart = computed(() => Store.state.cartProducts) 
+
+
+let wish = computed(() => Store.state.wishlistproduct) 
 
 let home = () => {
   router.push("/");
@@ -78,6 +94,7 @@ let cart = () => {
 
 let shop = () => {
   router.push("./store");
+  // Store.state.bodyLoader = true;
 };
 
 let Element = () => {
@@ -112,7 +129,14 @@ let form = () => {
   font-size: 14px;
   font-weight: 700;
   /* font-family: PT Sans; */
-  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }
 
 .parent {
@@ -136,6 +160,43 @@ let form = () => {
   height: 12px;
 }
 
+.heart-length {
+  width: 14px;
+  border-radius: 20px;
+  height: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -26px;
+
+  margin-top: -4px;
+  background-color: #15a9e3;
+}
+
+.wish-length {
+  width: 14px;
+  border-radius: 20px;
+  height: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #15a9e3;
+  margin-left: 29px;
+  position: absolute;
+  margin-top: -3px;
+}
+
+.heart-length p {
+  font-size: 11px;
+  color: #ebe4e4;
+}
+
+.wish-length p {
+  font-size: 11px;
+  color: #ebe4e4;
+}
 .allbtn {
   width: 156px;
   height: 45px;
@@ -145,6 +206,10 @@ let form = () => {
 
 .navlist {
   margin-left: 70px;
+  height: 114px;
+
+  display: flex;
+  align-items: center;
 }
 
 .v-toolbar__content > .v-btn:first-child {

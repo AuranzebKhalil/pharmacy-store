@@ -1,6 +1,6 @@
 <template>
   <div class="featured-text">
-    <h2>Featured Products</h2>
+    <h2 @click="answer">Featured Products</h2>
   </div>
 
   <div class="Categories-product">
@@ -13,12 +13,13 @@ import { reactive } from "vue";
 import productGridcomp from "./productGridcomp.vue";
 
 import store from "../Store/index";
+import Store from "../Store/index";
 
-let FeaturedProducts: any = JSON.parse(
-  JSON.stringify(
-    store.state.storeProduct.filter((item: { brand: string }) => item.brand === "Mockup")
-  )
-);
+import { computed, onMounted } from "vue";
+
+const FeaturedProducts = computed(() => {
+  return Store.state.allproduct.slice(0, 5);
+});
 </script>
 
 <style lang="scss">
@@ -145,6 +146,12 @@ let FeaturedProducts: any = JSON.parse(
 @media only screen and (max-width: 720px) {
   .Categories-product {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 495px) {
+  .Categories-product {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

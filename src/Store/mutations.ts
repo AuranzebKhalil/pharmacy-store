@@ -1,77 +1,79 @@
-import { reactive, ref } from "vue";
-import type { cartProductsType, State, Populercata , wishlist } from "../types";
+import { onMounted, reactive, ref } from "vue";
+import type { cartProductsType, State, Populercata, wishlisttype } from "../types";
 
 export default {
   setProduct(state: State, responseData: any) {
+
     state.storeProduct.push(responseData);
-  },
-
-
-  supplementproduct(state: State, payload:Populercata) {
-
-
-  
-  state.populercata.push(payload);
-
+    state.allproduct.push(responseData)
 
   },
 
-  catasupplement(state: State){
+
+  supplementproduct(state: State, payload: Populercata) {
+
+
+
+    state.populercata.push(payload);
+
+
+  },
+  catasupplement(state: State) {
+
+    // onMounted(() => {
+
+    // });
+    let catagory = []
+
+    catagory = state.storeProduct.filter((item: { catagory: string }) => item.catagory === "Supplements Vitamins")
+
+    state.Supplementcata = catagory
+
+
+  },
+
+
+  MedicinesHerbs(state: State) {
+
+    state.Supplementcata = []
 
     let catagory = JSON.parse(
       JSON.stringify(
-        state.populercata.filter(
-          (item: { catagory: string }) => item.catagory === "Supplements Vitamins"
-        )
-      )
-    );
-
-
-  state.Supplementcata = catagory
-
-
-  },
-  
-
-  MedicinesHerbs(state: State){
-
-    let catagory = JSON.parse(
-      JSON.stringify(
-        state.populercata.filter(
+        state.storeProduct.filter(
           (item: { catagory: string }) => item.catagory === "Supplements"
         )
       )
     );
 
 
-  state.Supplementcata = catagory
+    state.Supplementcata = catagory
 
 
   },
 
 
-  Herbs(state: State){
+  Herbs(state: State) {
 
     let catagory = JSON.parse(
       JSON.stringify(
-        state.populercata.filter(
+        state.storeProduct.filter(
           (item: { catagory: string }) => item.catagory === "Baby"
         )
       )
     );
 
 
-  state.Supplementcata = catagory
+    state.Supplementcata = catagory
 
 
   },
-  
+
 
 
 
 
   SaleProduct(state: State, responseData: any) {
-     let c = JSON.parse(
+    let c = JSON.parse(
       JSON.stringify(
         state.storeProduct.filter(
           (item: { Sale: string }) => item.Sale === "Sale"
@@ -80,13 +82,13 @@ export default {
     );
 
     state.storeProduct = c
-   
-    ;
+
+      ;
   },
 
   Catagory(state: State, responseData: String) {
 
-   
+
 
     let b = JSON.parse(
       JSON.stringify(
@@ -110,7 +112,7 @@ export default {
     );
 
     state.storeProduct = brands
-   
+
   },
 
   PriceData(state: State, payload: { min: number; max: number }) {
@@ -123,24 +125,26 @@ export default {
       )
     );
 
-    
+
     state.storeProduct = pro
 
   },
   setCartProducts: (state: State, payload: cartProductsType) => {
     state.cartProducts.push(payload);
+
+
+
   },
 
-  WishlistProducts: (state: State, payload:wishlist) => {
+  setwishlistProducts: (state: State, payload: wishlisttype) => {
+
     state.wishlistproduct.push(payload);
 
-    console.log(payload, 'kopppppppppppppppppppppp')
- 
-
+    console.log(payload, 'mutations')
   },
 
 
-  CategoryBrandProduct:(state: State, payload: any)=>{
+  CategoryBrandProduct: (state: State, payload: any) => {
 
 
     let Catagorys = JSON.parse(
@@ -164,10 +168,10 @@ export default {
   },
 
 
-  HomeCategory:(state: State, payload: String)=>{
+  HomeCategory: (state: State, payload: String) => {
 
 
-    console.log(payload , 'lpoooooooooooooo')
+    console.log(payload, 'lpoooooooooooooo')
 
     let Catagorys = JSON.parse(
       JSON.stringify(
@@ -176,67 +180,89 @@ export default {
         )
       )
     )
-    
+
     state.storeProduct = Catagorys
 
 
-        },
+  },
 
-
-        HomeBranbs:(state: State, payload: String)=>{
-
-
-          console.log(payload , 'lpoooooooooooooo')
-      
-          let homeBrands = JSON.parse(
-            JSON.stringify(
-              state.storeProduct.filter(
-                (item: { brand: string }) => item.brand === payload
-              )
-            )
-          )
-          
-          state.storeProduct = homeBrands
-      
-      
-              },
-      
-
-              hamburger:(state: State, payload: boolean)=>{
-
-
-                   state.hameburger = payload
-
-               console.log('asdasd', state.hameburger)
-            
-                    },
-
-
-                    Searchbars:(state: State, payload: boolean)=>{
-
-
-                      state.searchItem = payload
-   
-                 
-               
-                       },
-
-
-                       storeSidebar:(state: State, payload: boolean)=>{
-
-
-                        state.storeSidebar = payload
-     
-                   
-                 
-                         },
-
-
-                         CategoryhomeProduct:(state: State, payload: any)=>{
+  cartsproduct: (state: State, payload: String) => {
+    state.cartProducts.push(payload)
+    console.log(payload)
+  },
 
 
 
-   let brands = JSON.parse(
+  HomeBranbs: (state: State, payload: String) => {
+
+
+
+    let homeBrands = JSON.parse(
+      JSON.stringify(
+        state.storeProduct.filter(
+          (item: { brand: string }) => item.brand === payload
+        )
+      )
+    )
+
+    state.storeProduct = homeBrands
+
+
+  },
+
+
+  hamburger: (state: State, payload: boolean) => {
+
+
+    state.hameburger = payload
+
+    console.log('asdasd', state.hameburger)
+
+  },
+
+
+  Searchbars: (state: State, payload: boolean) => {
+
+
+    state.searchItem = payload
+
+
+
+  },
+  featuredprojuct: (state: State) => {
+
+
+
+    let data = JSON.parse(
+      JSON.stringify(
+        state.storeProduct.filter((item: { brand: string }) => item.brand === "Mockup")
+      )
+    );
+
+    state.BrandProduct = data
+
+    //  console.log(data , 'oooooooooooooooooooooo')
+
+
+  },
+
+
+
+  storeSidebar: (state: State, payload: boolean) => {
+
+
+    state.storeSidebar = payload
+
+
+
+  },
+
+
+  CategoryhomeProduct: (state: State, payload: any) => {
+
+
+
+    let brands = JSON.parse(
       JSON.stringify(
         state.storeProduct.filter(
           (item: { brand: string }) => item.brand === payload.Brand
@@ -246,23 +272,23 @@ export default {
 
 
     let allpro = JSON.parse(
-       JSON.stringify(
+      JSON.stringify(
         brands.filter(
-           (item: { catagory: string }) => item.catagory === payload.Category
-         )
-       )
-     );
- 
-   state.storeProduct = allpro
- 
- 
+          (item: { catagory: string }) => item.catagory === payload.Category
+        )
+      )
+    );
+
+    state.storeProduct = allpro
 
 
 
 
 
 
-                         }
-   
+
+
+  }
+
 
 }

@@ -6,13 +6,13 @@
 
          <ul class="navlist">
 
-                <li > Home </li>
+                <li @click="home"> Home </li>
  
-<li>inner pages</li>
+                <li>inner pages</li>
                 <li>Blog</li>
-                <li> <router-link to="/store">Shop</router-link></li>
-                <li> <router-link to="/element">Element</router-link></li>
-                <li> <router-link to="/form">Form</router-link></li>
+                <li @click="Shop">Shop</li>
+                <li @click="element">Element</li>
+                <li @click="form">Form</li>
 
 
 
@@ -35,6 +35,38 @@
     </template>
     
     <script setup lang="ts">
+import router from '../router';
+
+
+
+
+let home = () =>{
+
+router.push('/')
+}
+
+
+let Shop = () =>{
+
+router.push('/store')
+}
+
+
+
+let element = () =>{
+
+router.push('/element')
+}
+
+
+
+
+let form = () =>{
+
+router.push('/form')
+}
+
+
 
     
    

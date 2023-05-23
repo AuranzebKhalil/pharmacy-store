@@ -1,8 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../views/home.vue";
 import element from '../views/Element.vue'
-import feature from '../views/feature.vue'
-import topnavbar from '../views/navbar.vue'
 import Store from '../views/Store.vue'
 import cart from '../views/cart.vue'
 import Form from '../views/Form.vue'
@@ -15,9 +13,7 @@ const routes = [
     name: "Home",
     component: Home,
   },
-
   
-
   {
     path: "/element",
     name: "element",

@@ -1,70 +1,90 @@
 <template>
-  <div class="product-item" v-for="(item, index) in items" :key="index">
-    <div class="d-flex">
-      <img
-        :src="item.url"
-        @click="showing(item)"
-        @mouseenter="Hoverings = true"
-        @mouseleave="Hoverings = true"
-        alt=""
-      />
+  <div class="product-item" v-for="item in items" :key="item.id">
+    <div
+      class="d-flex"
+      @mouseleave="showOptions(false)"
+      @mouseover="showOptions(item.id)"
+    >
+      <img :src="item.url" @click="showing(item)" alt="" />
 
       <div class="Sale" v-if="item.Sale === 'Sale'">
         <p>{{ item.Sale }}</p>
       </div>
 
-      <div class="imgages" v-if="Hoverings">
+      <div class="imgages" v-if="item.showOptions">
         <img src="../assets/heart.png" alt="" />
         <img @click="Wishlist(item)" src="../assets/commit-git.png" alt="" />
         <img src="../assets/search.png" alt="" />
       </div>
     </div>
     <div class="product-contant-text">
+      <div class="imgage">
+        <img class="heart-img" src="../assets/heart.png" alt="" />
+        <img
+          class="gitpng"
+          @click="Wishlist(item)"
+          src="../assets/commit-git.png"
+          alt=""
+        />
+        <img class="searcpng" src="../assets/search.png" alt="" />
+      </div>
+
       <span>{{ item.catagory }}</span>
 
       <p class="postiotion">{{ item.name }}</p>
       <div class="ratings">
         <!-- <StarRating></StarRating> -->
-        <v-rating v-model="item.Rating" :max="5" class="rating"></v-rating>
+
+        <v-rating
+          v-model="item.Rating"
+          item-aria-label="custom icon label text {0} of {1}"
+        ></v-rating>
+
         <p>{{ item.Rating }}</p>
       </div>
       <h5>$ {{ item.Price }}</h5>
 
-      <button class="addtocartbtn">
-        <img @click="Sending(item)" src="../assets/shopping-cart (1).png" alt="" /> Add to
-        Cart
+      <button @click="Sending(item)" class="addtocartbtn" v-if="selecteditem">
+        <img src="../assets/shopping-cart (2).png" alt="" /> Add to Cart
+      </button>
+      <button @click="cartview" v-if="viewitems" class="addtocartbtn">
+        <img src="../assets/shopping-cart (2).png" alt="" /> View to Cart
       </button>
     </div>
   </div>
   <div v-if="shows">
-    <popup :showes="allsum" @cut="clear" />
+    <router-view> <popup :showes="allsum" @cut="clear" /> </router-view>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import Store from "../Store";
 import popup from "../components/popup.vue";
+import vue3starRatings from "vue3-star-ratings";
 
 import { PropType, ref } from "vue";
-// import Store from "../Store/index";
 import db from "../Firebase/firebase";
-// import StarRating from "vue-star-rating";
-
-// var StarRating = require('vue-star-rating');
 
 import { v4 as uuidv4 } from "uuid";
+import router from "../router";
 
-let props = defineProps({
-  items: {
-    type: Array as PropType<any[]>,
-    default: () => [],
-  },
-});
+const props = defineProps<{
+  items: Array<any>;
+}>();
 
-let Hoverings = ref(true);
+let selecteditem: any = ref(true);
 
+let viewitems: any = ref(false);
+
+let hoveredProduct = ref(null);
 let shows = ref();
+
+let cartview = () => {
+  viewitems.value = false;
+  selecteditem.value = true;
+  router.push("/store");
+};
 
 let allsum = reactive([]);
 
@@ -75,6 +95,18 @@ function showing(data: any) {
 
 let clear = () => {
   shows.value = !shows.value;
+};
+
+let optionsStatus = ref(false);
+
+const showOptions = (id: string) => {
+  props.items.forEach((e) => {
+    if (e.id == id) {
+      e.showOptions = true;
+    } else {
+      e.showOptions = false;
+    }
+  });
 };
 
 let Sending = async (data: any) => {
@@ -103,6 +135,20 @@ let Sending = async (data: any) => {
   } catch (error) {
     console.error("Error", error);
   }
+
+  // selecteditem.value = false;
+  // viewitems.value = true;
+
+  props.items.forEach((e) => {
+    if (e.id == data.id) {
+      viewitems.value = true; 
+      // selecteditem.value = false     
+
+    } else {
+        selecteditem.value = true;
+        viewitems.value = false;
+    }
+  });
 };
 
 let Wishlist = async (data: any) => {
@@ -131,10 +177,13 @@ let Wishlist = async (data: any) => {
   } catch (error) {
     console.error("Error", error);
   }
+
+
+
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .product-item {
   width: 100%;
   height: auto;
@@ -145,6 +194,39 @@ let Wishlist = async (data: any) => {
   overflow: hidden;
   margin-bottom: 5px;
 }
+
+.imgage {
+  width: 100px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+  display: none;
+}
+
+.heart-img {
+  width: 25px !important;
+  background-color: #f0efef;
+  padding: 4px;
+}
+
+.gitpng {
+  width: 25px !important;
+  background-color: #f0efef;
+  padding: 4px;
+}
+
+.searcpng {
+  width: 25px !important;
+  background-color: #f0efef;
+  padding: 4px;
+}
+
+.product-contant-text span {
+  color: #15a9e3;
+  font-size: 13px;
+  padding: 4px;
+}
+
 .product-item img {
   width: 100%;
   height: 1%;
@@ -162,9 +244,8 @@ let Wishlist = async (data: any) => {
 }
 
 .imgages {
-  position: absolute;
-  display: none;
-  margin-left: 192px;
+  z-index: 1000;
+  margin-left: -39px;
   display: flex;
   margin-top: 16px;
   flex-direction: column;
@@ -174,6 +255,18 @@ let Wishlist = async (data: any) => {
   display: flex;
 }
 
+.ratings {
+  display: flex;
+
+  .vue3-star-ratings[data-v-786b615e] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 0rem; */
+    height: 22px;
+    width: 100%;
+  }
+}
 .Sale {
   position: absolute;
   margin-left: 15px;
@@ -189,12 +282,6 @@ let Wishlist = async (data: any) => {
   height: 21px;
   background: #39cb74;
   color: white;
-}
-
-.product-contant-text span {
-  color: #15a9e3;
-  font-size: 14px;
-  padding: 4px;
 }
 
 .product-contant-text {
@@ -213,7 +300,7 @@ let Wishlist = async (data: any) => {
 .v-rating__item .v-btn .v-icon {
   /* transition: inherit; */
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  border: 1px solid black !important;
+
   height: 27px !important;
   position: absolute !important;
 }
@@ -239,12 +326,21 @@ let Wishlist = async (data: any) => {
   padding-top: 4px;
 }
 
+.product-contant-text span {
+  color: #15a9e3;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.v-rating__item .v-btn .v-icon {
+  transition: inherit;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  color: #f2971f;
+}
+
 .rating {
   color: #f2971f;
   padding-left: 4px;
-}
-
-.ratings {
   display: flex;
 }
 
@@ -278,4 +374,8 @@ let Wishlist = async (data: any) => {
   font-size: 17px;
   font-weight: bold;
 }
+
+// imgages
+
+
 </style>

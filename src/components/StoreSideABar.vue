@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="contant-container d-flex">
+      <div class="contant-container d-flex aligh-center">
         <div class="diraction mr-3">
           <img src="../assets/list.png" alt="" />
           <img src="../assets/menu.png" alt="" />
@@ -28,12 +28,12 @@
 
         <!-- <VSpacer></VSpacer> -->
 
-        <div class="radio-container d-flex aligh-center">
-          <p class="allStore font-size-12" @click="products">All store Product</p>
+        <div class="radio-container">
+          <p class="allStore font-size-12" @click="products">Reset</p>
 
           <div class="storeradio d-flex">
             <VRadioGroup @click="handleClick()">
-              <VRadio label="Only products on sale" value="Sale"> </VRadio>
+              <VRadio label="Sale Products"></VRadio>
             </VRadioGroup>
           </div>
         </div>
@@ -75,7 +75,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="products-items">
         <div class="grid-componet-product">
           <ProductGridcomp :items="all" />
         </div>
@@ -131,16 +131,13 @@ let storeSidebar = () => {
 };
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
 .main-container {
   display: flex;
-
-  max-width: 1250px;
-
+  max-width: 1350px;
   width: 100%;
   margin: auto;
   background-color: white;
-
   .side-bar {
     width: 20%;
     height: 100vh;
@@ -152,14 +149,7 @@ let storeSidebar = () => {
     width: 234p !important;
   }
 
-  .radio-container {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-left: 30px;
-    margin-top: 20px;
-  }
+
   .contant-container {
     width: 100%;
 
@@ -167,19 +157,17 @@ let storeSidebar = () => {
     justify-content: space-between;
   }
 
-  .v-selection-control-group {
-    width: 212px;
-    position: fixed;
-  }
+  // .v-selection-control-group {
+  //   width: 212px;
+  //   position: fixed;
+  // }
 
-  .radio-bar {
-  }
-
-  .storeradio {
-    width: 200px;
-    margin-right: 20px;
-  }
-
+ 
+  .v-main .v-input--density-default {
+    --select-chips-margin-bottom: 0px;
+    height: 40px !important;
+    width: 100% !important;
+}
   .paragraph {
     font-size: 14px;
     font-weight: 400;
@@ -202,24 +190,26 @@ let storeSidebar = () => {
 
     height: auto;
     margin-top: 130px;
+    margin-bottom: 20px;
   }
 
-  .v-selection-control .v-label {
-    font-size: 14px;
-    font-weight: 400;
-    font-family: PT Sans;
-    line-height: 24px;
-    letter-spacing: 0px;
-    color: #56778f;
-  }
+  // .v-selection-control .v-label {
+  //   font-size: 14px;
+  //   font-weight: 400;
+  //   font-family: PT Sans;
+  //   line-height: 24px;
+  //   letter-spacing: 0px;
+  //   color: #56778f;
+  // }
 
-  .v-selection-control .v-label {
-    height: 100%;
-    white-space: normal;
-    width: 100%;
-    word-break: break-word;
-    justify-content: end;
-  }
+
+  // .v-selection-control .v-label {
+  //   height: 100%;
+  //   white-space: normal;
+  //   width: 100%;
+  //   word-break: break-word;
+  //   justify-content: end;
+  // }
   .radio-bar {
     --select-chips-margin-bottom: 0px;
     width: 100%;
@@ -228,6 +218,12 @@ let storeSidebar = () => {
     display: flex !important;
     justify-content: end;
     align-items: center;
+  }
+
+  .main-container .v-input--density-default {
+    --select-chips-margin-bottom: 0px;
+    width: 143px;
+    height: 22px;
   }
 
   .diraction {
@@ -270,14 +266,22 @@ let storeSidebar = () => {
   }
 
   .grid-componet-product {
-    height: auto;
+ 
 
     margin-left: 10px;
     margin-top: 20px;
-    display: grid;
+   
+    height: auto;
 
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+ 
+display: grid;
+
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+
+width: 97%;
+    // display: none;
+
   }
 
   .firstall {
@@ -313,6 +317,18 @@ let storeSidebar = () => {
   display: none;
 }
 
+
+.radio-container{
+  display: flex !important;
+  align-items: center ;
+
+}
+
+// .v-main .v-selection-control-group {
+
+//     height: 66px !important;
+ 
+// }
 .navidation ul {
   width: 100%;
   display: flex;
@@ -338,6 +354,11 @@ let storeSidebar = () => {
   margin-bottom: 20px;
 }
 
+.main-container .storeradio[data-v-1797f120] {
+    width: 200px;
+    margin-right: 20px;
+    height: 39px;
+}
 .main-container .paragraph[data-v-1797f120] {
   width: 60% !important;
 }
@@ -403,25 +424,14 @@ let storeSidebar = () => {
   }
 }
 
-@media only screen and (max-width: 910px) {
-  .grid-componet-product {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-
-  .rating {
-    display: contents !important;
-    height: 26px;
-    border: 1px solid black;
-  }
-}
 
 @media only screen and (max-width: 640px) {
-  .v-selection-control-group {
-    display: flex;
-    flex-direction: column;
-    grid-area: control;
-    width: 224% !important;
-  }
+  // .v-selection-control-group {
+  //   display: flex;
+  //   flex-direction: column;
+  //   grid-area: control;
+  //   width: 224% !important;
+  // }
 }
 
 @media only screen and (max-width: 500px) {
@@ -445,9 +455,24 @@ let storeSidebar = () => {
     align-items: baseline;
   }
 
+
+  
+
   .v-input--density-default {
     --select-chips-margin-bottom: 0px;
     justify-content: end !important;
   }
 }
+
+@media only screen and (max-width: 780px) {
+
+.ratings{
+
+  display: none !important;
+
+}
+
+}
+
+
 </style>

@@ -31,13 +31,15 @@ let storeSide = () => {
 
 .leftbar {
   width: 40%;
-  height: 100vh;
+
   background-color: white;
   overflow: auto;
 }
 
 .rightbar {
-  width: 40%;
+ 
+  width: 60%;
+
   height: 100vh;
 }
 
@@ -47,15 +49,13 @@ let storeSide = () => {
 @media only screen and (max-width: 850px) {
   .leftbar {
     width: 70% !important;
+    padding-left: 29px;
   }
 
   .rightbar {
     width: 0% !important;
   }
 
-  .storeSidebar {
-    // width: 7%;
-  }
 }
 
 @media only screen and (max-width: 500px) {
@@ -67,8 +67,6 @@ let storeSide = () => {
     width: 0% !important;
   }
 
-  .storeSidebar {
-    // width: 7%;
-  }
+
 }
 </style>

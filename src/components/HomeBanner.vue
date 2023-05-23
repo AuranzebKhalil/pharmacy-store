@@ -1,9 +1,4 @@
 <template>
-
-
-
-
-
   <div class="banner-container">
     <div class="banner">
       <v-carousel>
@@ -35,16 +30,13 @@
             <div>
               <p>New Formula</p>
 
-              <h1 class="banner-h1">
-                Ultra Orgaic <br />
-                
-              </h1>
+              <h1 class="banner-h1">Ultra Orgaic <br /></h1>
 
               <button class="banner-btns">Buy it Now ></button>
             </div>
 
-            <div class=" bannerimg">
-              <img  class="imgone" src="../assets/slider-1-as8.png" alt="" />
+            <div class="bannerimg">
+              <img class="imgone" src="../assets/slider-1-as8.png" alt="" />
               <!-- <img src="../assets/slider-1-as7.png" alt="" /> -->
             </div>
           </div>
@@ -66,7 +58,7 @@
               <button class="banner-btns">Buy it Now ></button>
             </div>
 
-            <div  class="bannerimg">
+            <div class="bannerimg">
               <img class="imgone" src="../assets/slider-1-as8.png" alt="" />
               <!-- <img src="../assets/slider-1-as7.png" alt="" /> -->
             </div>
@@ -106,9 +98,7 @@
 
         <h3>or</h3>
         <input class="Sku-input" type="text" placeholder="Enter SKU" />
-        <button @click="selected" class="Sku-btn">
-          <RouterLink to="/store">Shop Now</RouterLink>
-        </button>
+        <button @click="selected" class="Sku-btn">Shop Now</button>
       </div>
     </div>
   </div>
@@ -117,6 +107,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import Store from "../Store";
+import router from "../router";
 // import slider from "./storeRespons.vue"
 
 let selectedCategory = ref<string>();
@@ -130,6 +121,8 @@ let selected = () => {
     Category: selectedCategory.value,
     Brand: selectedBrand.value,
   });
+
+  router.push("/store");
 };
 </script>
 
@@ -141,35 +134,30 @@ let selected = () => {
   margin-top: 50px;
 }
 
-
-.imgone{
-
+.imgone {
   // position: absolute;
   width: 100%;
-
-
 }
 
-.bannerimg{
-
+.bannerimg {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
+
+
+
+
 
 .banner .v-carousel__controls {
-    background: none;
-    display: none;
+  background: none;
+  display: none;
 }
-.imgtwo{
-
+.imgtwo {
   position: relative;
   left: 164px;
-    top: 74px;
-    width: 88%;
-
-
+  top: 74px;
+  width: 88%;
 }
 
 .banner-btns {
@@ -182,12 +170,15 @@ let selected = () => {
   margin-left: 5px;
 }
 
+
+
 .v-carousel__controls {
   background: none;
 }
 
 .banner-h1 {
   font-size: 40px;
+  line-height:41px;
 }
 
 .first-banner-text {
@@ -248,6 +239,7 @@ let selected = () => {
 
 .slectProduct-container {
   width: 100%;
+  margin-bottom: 30px;
 
   .v-img {
     height: inherit;
@@ -367,15 +359,10 @@ let selected = () => {
     height: 100%;
   }
 
- 
-
   .four-product {
     margin-top: 12px;
   }
-
-
 }
-
 
 @media only screen and (max-width: 1100px) {
   .secound-banner-text {
@@ -383,205 +370,154 @@ let selected = () => {
     height: 100%;
   }
 
-  .slect-container{
-
-width: 90% !important;
-
-}
-
+  .slect-container {
+    width: 90% !important;
+  }
 
   .four-product {
     margin-top: 12px;
   }
-
-
 }
 
 @media only screen and (max-width: 1024px) {
   .slectProduct-container .v-input__control {
     width: 143px;
+  }
 
-}
+  .slect-container {
+    width: 85%;
+  }
 
-.slect-container{
-
-  width: 85%;
-
-}
-
-
-.banner-h1 {
+  .banner-h1 {
     font-size: 2rem;
-}
+  }
 
-.imgone{
+  .imgone {
+    width: 64%;
+  }
 
-  width: 64%;
-}
-
-.Sku-btn {
+  .Sku-btn {
     width: 143px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.slectProduct-container .container.container{
-
-  gap: 1px;
-
-}
-
-
-.slectProduct-container .slect-container {
-  
-    top: -1px;
-    margin-bottom: 20px;
-
-}
-
-}
-
-
-
-
-@media only screen and (max-width: 908px) {
-
-
-
-  .first-banner-text{
-
-    height: 300px;
-    
-
-
   }
 
-.slectProduct-container .slect-container{
+  .slectProduct-container .container.container {
+    gap: 1px;
+  }
 
-  position: inherit;
-  top: 0px;
-  margin-top: 0px;
-  height: auto;
+  .slectProduct-container .slect-container {
+    top: -1px;
+    margin-bottom: 20px;
+  }
 }
 
-.container{
-
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  width: 100%;
-  justify-content: center;
-
+@media only screen and (max-width: 908px) {
+  .first-banner-text {
+    height: 300px;
+  }
+  
+  .v-main .v-input--density-default {
+    --select-chips-margin-bottom: 0px;
+    height: 70px !important;
+    width: 100% !important;
 }
+  .slectProduct-container .slect-container {
+    position: inherit;
+    top: 0px;
+    margin-top: 0px;
+    height: auto;
+  }
 
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    justify-content: center;
+  }
 
-.v-input--density-default {
+  .v-input--density-default {
     --select-chips-margin-bottom: 0px;
     width: 100%;
     display: flex !important;
-   align-items: center;
-   justify-content: center;
+    align-items: center;
+    justify-content: center;
     // margin-left: ;
-}
+  }
 
-.slectProduct-container .v-input__control {
+  .slectProduct-container .v-input__control {
     width: 90%;
     margin-left: 35px;
     margin-top: 7px;
-
-
-}
-.slectProduct-container .container h3 {
+  }
+  .slectProduct-container .container h3 {
     padding-top: 7px;
     font-size: 18px;
     font-weight: 500;
-}
-.slectProduct-container .Sku-input{
+  }
+  .slectProduct-container .Sku-input {
+    width: 90%;
+    margin-top: 7px;
+  }
+  .slectProduct-container .Sku-btn {
+    width: 90%;
+    margin-top: 7px;
+    margin-bottom: 30px;
+  }
 
-  width: 90%;
-  margin-top: 7px;
-
-
-}
-.slectProduct-container .Sku-btn{
-
-width: 90%;
-margin-top: 7px;
-margin-bottom: 30px;
-
-}
-
-.v-btn--icon.v-btn--density-default {
+  .v-btn--icon.v-btn--density-default {
     height: calc(var(--v-btn-height) + 12px);
     width: calc(var(--v-btn-height) + 12px);
-    display: none;
+    // display: none;
+  }
 }
 
+@media only screen and (max-width: 500px) {
+  .banner-h1 {
+    font-size: 27px;
+  }
 
-}
-
-@media only screen and (max-width: 500px){
-
-.banner-h1{
-
-  font-size:27px ;
-
-}
-
-.imgone {
+  .imgone {
     width: 100%;
-}
+  }
 
-.bannerimg {
+  .bannerimg {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40%;
-}
+  }
 
-.first-banner-text {
+  .first-banner-text {
     // height: 300px;
     height: 50%;
-}
+  }
 
-
-.v-btn--icon.v-btn--density-default {
+  .v-btn--icon.v-btn--density-default {
     height: calc(var(--v-btn-height) + 12px);
     width: calc(var(--v-btn-height) + 12px);
-    display: none;
+    // display: none;
+  }
 }
-
-}
-
 
 @media only screen and (max-width: 1024px) {
-
-
- 
-
   .banner-container {
     width: 100%;
     margin-top: 0px;
+
+  }
+
+  .v-window__controls * {
+    pointer-events: auto;
+    display: none !important;
+}
+
+  .first-banner-text {
+    margin-top: 1rem;
+  }
 }
 
 
-
-.first-banner-text{
-
-  margin-top: 1rem;
-}
-
-
-}
-
-// @media only screen and (max-width: 908px){
-
-// .banner-h1{
-
-//   font-size:30px ;
-
-// }
-
-// }
 </style>
