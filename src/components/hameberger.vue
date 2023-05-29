@@ -28,11 +28,11 @@ import shop from "../components/Shophome.vue";
 import Store from "../Store";
 
 
-let homes = ref<boolean>(false)
+let homes = ref<boolean>(true)
 
 
 
-let shops = ref<boolean>(true)
+let shops = ref<boolean>(false)
 
 
 let Menu=() =>{

@@ -67,7 +67,6 @@ let closing = (id: string) => {
   max-width: 100%;
   width: 90%;
   margin: auto;
-  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   align-items: center;

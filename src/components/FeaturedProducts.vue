@@ -1,6 +1,6 @@
 <template>
   <div class="featured-text">
-    <h2 @click="answer">Featured Products</h2>
+    <h2>Featured Products</h2>
   </div>
 
   <div class="Categories-product">
@@ -18,7 +18,7 @@ import Store from "../Store/index";
 import { computed, onMounted } from "vue";
 
 const FeaturedProducts = computed(() => {
-  return Store.state.allproduct.slice(0, 5);
+  return Store.state.firebaseproducts.slice(0, 5);
 });
 </script>
 
@@ -85,7 +85,7 @@ const FeaturedProducts = computed(() => {
 .product-contant button {
   // padding: 10px 10px 10px 10px;
   border-radius: 20px;
-  border: 1px solid black;
+
   width: 100%;
   display: flex;
   align-items: center;

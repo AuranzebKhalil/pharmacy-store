@@ -4,13 +4,23 @@
         <p class="para"> Due to the COVID 19 epidemic, orders may be processed with a slight delay</p>
         <v-spacer></v-spacer>
        
-
+<p>{{ user.email }}</p>
 
     </v-layout>
 </template>
   
 <script setup lang="ts">
+import { computed } from 'vue';
+import store from '../Store';
+import { watch } from 'vue';
 
+const user = computed(()=>{
+    return store.state.user
+})
+
+watch(store.state.user, (value)=>{
+    console.log(value)
+})
 
 </script>
   

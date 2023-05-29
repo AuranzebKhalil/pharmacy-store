@@ -1,51 +1,110 @@
 <template>
-  <div class="app">
-    <div class="bg-white">
-      <MainHeader />
-      <covidSection />
-      <SearchBar />
-      <navlist />
-      <!-- <Banner/>
-            <ProductCategory/>
-            <Gridcards/>
-            <PopularCategories/>
-            <FeaturedProducts/>
-            <some/>
-            <more/>
-            <newlist/>
-            <lastSection/> -->
+  <v-app class="bannner">
+      <state class="alls" v-if="data" />
+      <searchhome class="alls" v-if="item" />
+      <storeSidebar class="alls" v-if="side" />
+      <div class="burger">
+      <burger />
+      </div>
+      <div class="abs" v-if="sum">
+   <covidSection />
+        <SearchBar />
+        <navlist />
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts" setup>
-// import MainHeader from '../components/MainHeader.vue'
+import { computed, onMounted } from "vue";
 import covidSection from "../components/covidSection.vue";
 import SearchBar from "../components/SearchBar.vue";
 import navlist from "../components/NavlistSection.vue";
 
 import store from "../Store/index";
+import state from "../components/hameberger.vue";
+import { ref } from "vue";
+import burger from "../components/responsivenavbar.vue";
+import searchhome from "../components/HamSearch.vue";
+import storeSidebar from "../components/resposiveStore.vue";
 
-store.dispatch("getPoducts");
+let data = computed(() => store.state.hameburger);
+
+let item = computed(() => store.state.searchItem);
+
+let side = computed(() => store.state.storeSidebar);
+
+let sum = ref(true);
 </script>
 
 <style scoped lang="scss">
-.app {
-  // background-color: white;
-  background-color: aqua;
+.bannner {
+  height: auto;
+  max-width: 1450px;
+  width: 100%;
+  margin: auto;
+  height: 35vh !important;
+  overflow: hidden;
+  background-color: white;
+ 
+}
 
-  .v-layout--full-height {
-    --v-scrollbar-offset: inherit;
-    height: auto;
+.alls {
+  position: fixed;
+  z-index: 999;
+  margin: auto;
+  height: 100vh;
+}
+
+.pre-loader {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 300px;
+  }
+}
+
+
+
+.abs {
+  z-index: 999;
+}
+@media only screen and (min-width: 1050px){
+
+  .burger {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .abs {
+    display: none;
   }
 
-  .v-main {
-    flex: 1 0 auto;
-    max-width: 100%;
-    padding: var(--v-layout-top) var(--v-layout-right) var(--v-layout-bottom)
-      var(--v-layout-left);
-    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 0px;
+  .bannner {
+
+  height: 17vh !important;
+
+}
+  .burger {
+    display: contents;
+  }
+}
+
+
+
+@media only screen and (max-width: 880px) {
+  .als {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .als {
+    width: 90%;
   }
 }
 </style>

@@ -6,8 +6,9 @@
 
     <div class="box-container">
       <div class="boxes">
-        <div class="box">
-          <select v-model="selectedBrand">
+        <div class="box" >
+          <select  v-model="selectedBrand">
+            <option>Brend</option>
             <option>Jurosa</option>
             <option>Amere</option>
             <option>Mockup</option>

@@ -1,42 +1,16 @@
 <template>
-  <!-- <div class="cart-container">
-    <div class="cartSideBar">
-      <div class="cartReturnShop">
-        <p>Your cart is currently empty.</p>
-        <button @click="shop">Return to shop</button>
-      </div>
-    </div>
-    <div class="cartProduct">
-      <div class="cart-product" v-for="(item, index) in cartproducts" :key="index">
-        <img class="cart-img" :src="item.url" />
-        <div class="text-containers">
-          <span>{{ item.name }}</span>
-          <p>${{ item.price }}</p>
-        </div>
-        <v-spacer></v-spacer>
-        <div class="left-cart">
-          <div class="quantity-container">
-            <button @click="decrementQuantity(item.uId, item.quantit)" class="button">
-              -
-            </button>
-            <p class="input">{{ item.quantit }}</p>
-            <button @click="incrementQuantity(item.uId, item.quantit)" class="button">
-              +
-            </button>
-          </div>
-          <img
-            @click="deleteProduct(item.uId)"
-            class="delete"
-            src="../assets/delete (1).png"
-            alt=""
-          />
-        </div> -->
-  <!-- </div>
-    </div>
-  </div> -->
 
   <div class="cart-main-container">
-    <div class="product-container" v-for="(item, index) in cartproducts" :key="index">
+
+
+    <div class="emptycart" v-if="  cartproducts.length == 0">
+    
+    
+    <h2  @click="shop">Return to shop and select to product for your cart</h2>
+
+    </div>
+
+    <div  class="product-container" v-for="(item, index) in cartproducts" :key="index">
       <div class="img-section">
         <img @click="deleteProduct(item.uId)" src="../assets/close (1).png" alt="" />
 
@@ -73,8 +47,8 @@
           <p>$55</p>
         </div>
         <div>
-          <p>Shipping</p>
-          <p>$20</p>
+          <p>name</p>
+          <p>{{ store.state.user.email}}</p>
         </div>
         <div>
           <p>Coupou</p>
@@ -102,15 +76,22 @@ import firebase from "firebase/compat/app";
 import router from "../router";
 
 let cartproducts: any = computed(() => {
-  return store.state.cartProducts;
+
+  return JSON.parse(JSON.stringify(store.state.cartProducts))
 });
 
-onMounted(async () => {});
+onMounted(async () => {
+
+
+  console.log(cartproducts , 'kooooo')
+
+});
+
 
 
 let joy = () =>{
 
-  
+ 
   console.log(store.state.cartProducts , 'kkkkkk')
 
 }
@@ -174,6 +155,28 @@ let Cart = () => {
   align-items: center;
 }
 
+.emptycart  {
+
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+.emptycart h2{
+
+  font-family: sans-serif;
+  width: 80%;
+  font-size: 18px;
+  color: #262626;
+  cursor: pointer;
+  text-align: center;
+
+
+}
 .img-section {
   width: 62%;
   height: 100px;

@@ -37,7 +37,6 @@
 
         <v-rating
           v-model="item.Rating"
-          item-aria-label="custom icon label text {0} of {1}"
         ></v-rating>
 
         <p>{{ item.Rating }}</p>
@@ -59,7 +58,7 @@
 
 <script setup lang="ts">
 import { reactive, computed } from "vue";
-import Store from "../Store";
+import store from "../Store";
 import popup from "../components/popup.vue";
 import vue3starRatings from "vue3-star-ratings";
 
@@ -99,7 +98,7 @@ let clear = () => {
 
 let optionsStatus = ref(false);
 
-const showOptions = (id: string) => {
+const showOptions = (id: boolean) => {
   props.items.forEach((e) => {
     if (e.id == id) {
       e.showOptions = true;
@@ -110,31 +109,8 @@ const showOptions = (id: string) => {
 };
 
 let Sending = async (data: any) => {
-  let url = ref<string>(data.url);
-
-  let price = ref<number>(data.Price);
-
-  let name = ref<string>(data.name);
-  let Rating = ref<number>(data.Rating);
-
-  const uniqueId = uuidv4();
-
-  let quantit = ref<number>(1);
-
-  try {
-    await db.collection("Cartproducts").doc(uniqueId).set({
-      url: url.value,
-      price: price.value,
-      Rating: Rating.value,
-      quantit: quantit.value,
-      name: name.value,
-      uId: uniqueId,
-    });
-    alert("product set to firebase successfully");
-    console.log("successfully!");
-  } catch (error) {
-    console.error("Error", error);
-  }
+  data.productId = data.id
+store.dispatch('setCartProducts', data)
 
   // selecteditem.value = false;
   // viewitems.value = true;
@@ -183,7 +159,7 @@ let Wishlist = async (data: any) => {
 };
 </script>
 
-<style lang="scss">
+<style  lang="scss">
 .product-item {
   width: 100%;
   height: auto;

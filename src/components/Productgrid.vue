@@ -135,7 +135,6 @@
   width: 110px;
   height: 40px;
   border-radius: 20px;
-  border: 1px solid black;
   color: whitesmoke;
   font-size: 16px;
   font-weight: 500;

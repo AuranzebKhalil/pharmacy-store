@@ -66,11 +66,11 @@ import Store from "../Store/index";
 import { computed } from "vue";
 
 const displayedProducts = computed(() => {
-  return Store.state.allproduct.slice(0, 9);
+  return Store.state.firebaseproducts.slice(0, 9);
 });
 
 const MoreToLove = computed(() => {
-  return Store.state.allproduct.slice(0, 5);
+  return Store.state.firebaseproducts.slice(0, 5);
 });
 
 let Supplements: any = () => {

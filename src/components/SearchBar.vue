@@ -54,7 +54,7 @@ let selected = () => {
 };
 </script>
 
-<style lang="scss">
+<style  lang="scss">
 .Search-box-container {
   height: 96px;
   background-color: white;
@@ -108,13 +108,15 @@ let selected = () => {
   }
 
   .v-field__field {
-    height: 45px;
+    height: 28px;
     display: flex;
     align-items: center;
     margin-left: 9px;
     margin-top: 3px;
     font-size: 15px;
     font-weight: 300;
+
+    margin-bottom: 19px !important;
   }
 
   .text-area {

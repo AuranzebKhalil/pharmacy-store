@@ -115,14 +115,15 @@ let selectedCategory = ref<string>();
 let selectedBrand = ref<string>();
 
 let selected = () => {
-  console.log(selectedCategory.value, selectedBrand.value);
 
-  Store.commit("CategoryBrandProduct", {
-    Category: selectedCategory.value,
-    Brand: selectedBrand.value,
-  });
+console.log(Store.state.user)
 
-  router.push("/store");
+  // Store.commit("CategoryBrandProduct", {
+  //   Category: selectedCategory.value,
+  //   Brand: selectedBrand.value,
+  // });
+
+  // router.push("/store");
 };
 </script>
 
@@ -163,7 +164,6 @@ let selected = () => {
 .banner-btns {
   width: 145px;
   height: 45px;
-  color: blue;
   border-radius: 40px;
   background-color: #f29720;
   margin-top: 15px;
@@ -288,7 +288,9 @@ let selected = () => {
 
   .v-field__field {
     align-items: center;
-    height: 40px;
+    height: 23px;
+    display: flex;
+    margin-bottom: 16px !important;
   }
 
   .field__append-inner {

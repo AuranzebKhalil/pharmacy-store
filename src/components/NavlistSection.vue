@@ -21,6 +21,7 @@
         <v-list @click="shop"> Shop</v-list>
         <v-list @click="Element">Element</v-list>
         <v-list @click="form"> Form</v-list>
+        <v-list @click="logOut">Log out</v-list>
       </v-layout>
 
       <v-spacer></v-spacer>
@@ -104,6 +105,16 @@ let Element = () => {
 let form = () => {
   router.push("./form");
 };
+
+
+let logOut =() =>{
+
+  Store.dispatch('logout')
+
+
+
+}
+
 </script>
 
 <style scoped lang="scss">

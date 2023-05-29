@@ -1,20 +1,23 @@
 <template>
   <v-app class="app">
-    <v-main class="bg-white">
+    <div class="bg-white">
+      <navber/>
       <Banner />
       <ProductCategory />
       <Gridcards />
-      <PopularCategories />
+      <PopularCategories/>
       <FeaturedProducts />
       <some />
       <more />
       <newlist />
       <lastSection />
-    </v-main>
+    </div>
   </v-app>
 </template>
 
 <script lang="ts" setup>
+
+import navber from '../views/navbar.vue'
 import covidSection from "../components/covidSection.vue";
 import SearchBar from "../components/SearchBar.vue";
 import navlist from "../components/NavlistSection.vue";
@@ -45,7 +48,11 @@ onMounted(() => {
   max-width: 1350px;
   margin: auto;
   height: auto;
-  overflow: hidden;
-  position: revert !important;
+
+
 }
+
+
+
+
 </style>

@@ -213,7 +213,6 @@ let Herbs = () => {
   padding: 2px;
   width: 120px;
   border-radius: 20px;
-  border: 1px solid black;
   background-color: orange;
   text-align: center;
   color: #ffffff;
@@ -230,7 +229,6 @@ let Herbs = () => {
   height: 40px;
   text-align: center;
   border-radius: 20px;
-  border: 1px solid black;
 }
 
 .product-banner img {

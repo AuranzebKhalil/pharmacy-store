@@ -1,7 +1,9 @@
 export type State = {
+  firebaseproducts: any;
   storeProduct : Array<any>
     SaleProduct : Array<any>
     cataProduct:Array<any>
+    user: CurrentUser;
     BrandProduct:Array<any>
     cartProducts:Array<any>
     minmaxPrice:Array<any>
@@ -26,8 +28,13 @@ export type Supplement = {
   url: string;
 };
 
+export type CurrentUser = {
+  email: string;
+  userId: string;
+}
 
-export type AllProducts = {
+
+export type firebaseproducts = {
   Price: string;
   Rating: string;
   Sale: string;
@@ -44,6 +51,7 @@ export type cartProductsType ={
   quantit: number;
   uId: string;
   url: string;
+  productId: string;
 }
 
 

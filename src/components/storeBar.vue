@@ -1,16 +1,12 @@
 <template>
   <VMain class="main">
-    <VLayout class="navbar">
-      <VList>
-        <RouterLink to="/">Home</RouterLink>
-      </VList>
+    <div class="navbar">
+      <VList @click="home">Home </VList>
       <VList></VList>
-      <VList>
-        <RouterLink to="/cart">Shop</RouterLink>
-      </VList>
-    </VLayout>
+      <VList @click="shop"> Shop </VList>
+    </div>
 
-    <VLayout class="Categorie mt-11">
+    <div class="Categorie mt-11">
       <h3 class="Categories">Shop by Categories</h3>
 
       <ul class="sideBar-navlist">
@@ -25,7 +21,7 @@
         <li @click="render('Sports Nutrition')">Sports Nutrition</li>
         <li @click="render('Supplements')">Supplements</li>
       </ul>
-    </VLayout>
+    </div>
 
     <div class="min-max">
       <h3 class="price">Price</h3>
@@ -39,8 +35,19 @@
         ></v-range-slider>
       </div>
       <div class="contant pl-3 d-flex align-center">
-        <input lable="0" v-model="minprice" class="custom-input" type="number"/> -
-        <input lable="100" v-model="maxprice" class="custom-input" type="number"/>
+        <input
+          lable="0"
+          v-model="minprice"
+          class="custom-input"
+          type="number"
+        />
+        -
+        <input
+          lable="100"
+          v-model="maxprice"
+          class="custom-input"
+          type="number"
+        />
       </div>
     </div>
     <h3 class="prices">Brand</h3>
@@ -58,7 +65,7 @@
           v-on:click="brend('Mockup')"
           class="d-flex"
           label="
-Mockup"
+  Mockup"
           value="Mockup"
         ></VRadio>
 
@@ -66,8 +73,8 @@ Mockup"
           v-on:click="brend('Belt')"
           class="d-flex"
           label="
-Belt
-"
+  Belt
+  "
           value="Belt"
         ></VRadio>
 
@@ -75,7 +82,7 @@ Belt
           v-on:click="brend('Bticin')"
           class="d-flex"
           label="Bticin
-"
+  "
           value="Bticin"
         ></VRadio>
 
@@ -83,8 +90,8 @@ Belt
           v-on:click="brend('Jurosa')"
           class="d-flex"
           label="
-Jurosa
-"
+  Jurosa
+  "
           value="Jurosa"
         ></VRadio>
 
@@ -101,7 +108,7 @@ Jurosa
           v-on:click="brend('Optimize')"
           class="paragraphs d-flex"
           label="
-Optimize"
+  Optimize"
           value="Optimize"
         ></VRadio>
 
@@ -116,8 +123,8 @@ Optimize"
           v-on:click="brend('Sport')"
           class="paragraphs d-flex"
           label="
-Sport
-"
+  Sport
+  "
           value="Sport"
         ></VRadio>
 
@@ -125,8 +132,8 @@ Sport
           v-on:click="brend('Unter')"
           class="paragraphs d-flex"
           label="
-  Unter
-"
+    Unter
+  "
           value="Unter"
         ></VRadio>
 
@@ -135,8 +142,8 @@ Sport
           class="paragraphs d-flex"
           label="
 
-  Waveset
-"
+    Waveset
+  "
           value="Waveset"
         ></VRadio>
       </VRadioGroup>
@@ -146,15 +153,14 @@ Sport
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Store } from "vuex";
 import store from "../Store/index";
 import { defineEmits } from "vue";
-import { reactive } from "vue";
+import router from "../router";
 const selectedOption = ref<string>("");
 const emits = defineEmits(["childEvent", "Events", "minmax"]);
 
 let render = (val: String) => {
-  store.dispatch("Catagory", val);
+  (store.state.storeProduct = []), store.dispatch("Catagory", val);
 
   emits("Events");
 };
@@ -165,6 +171,14 @@ let brend = (val: any) => {
   setTimeout(() => {
     emits("childEvent");
   }, 1000);
+};
+
+let home = () => {
+  router.push("/");
+};
+
+let shop = () => {
+  router.push("/store");
 };
 
 let priceRange = ref([0, 1000]);
@@ -182,10 +196,8 @@ function onPriceRangeChange() {
 </script>
 
 <style scoped lang="scss">
-
 .v-main .v-radio-group > .v-input__control {
-   
-    width: 230px !important;
+  width: 230px !important;
 }
 
 .v-main {
@@ -210,7 +222,11 @@ function onPriceRangeChange() {
     font-weight: 400;
     line-height: 22px;
     text-transform: none;
+    cursor: pointer;
   }
+
+
+  
 
   .Categories {
     font-family: PT Sans;
@@ -226,6 +242,7 @@ function onPriceRangeChange() {
   }
 
   .v-slider.v-input--horizontal .v-input__control {
+    display: flex;
     align-items: center;
     display: flex;
     min-height: 32px;
@@ -258,12 +275,14 @@ function onPriceRangeChange() {
     display: flex;
     min-height: 32px;
     width: 197px !important;
-}  width: 212px !important;
+  }
 
-.v-slider__container {
+  width: 212px !important;
 
-    width: 203px !important; 
-}
+  .v-slider__container {
+    width: 203px !important;
+  }
+
   .sideBar-navlist:hover li {
     // color: #15a9e3;
     cursor: pointer;
@@ -282,18 +301,13 @@ function onPriceRangeChange() {
     list-style: none;
   }
 
-
-
   .v-slider__container {
-
     width: 73% !important;
-}
+  }
 
-
-.min-max{
-
-  margin-left: 11px;
-}
+  .min-max {
+    margin-left: 11px;
+  }
 
   .prices {
     font-size: 18px;
@@ -304,13 +318,13 @@ function onPriceRangeChange() {
     margin-top: 50px;
     margin-bottom: 10px;
   }
-  
 
   .v-main .v-selection-control--density-default[data-v-be320b00] {
     --v-selection-control-size: 41px;
     margin-left: 25px;
     width: 136px !important;
-}
+  }
+
   .price {
     font-size: 20px;
     line-height: 8px;
@@ -406,8 +420,9 @@ function onPriceRangeChange() {
     margin-bottom: 21px;
   }
 
-
-  .v-main .v-main .v-slider.v-input--horizontal[data-v-be320b00][data-v-be320b00] {
+  .v-main
+    .v-main
+    .v-slider.v-input--horizontal[data-v-be320b00][data-v-be320b00] {
     font-size: 14px;
     font-weight: 400;
     font-family: PT Sans;
@@ -418,9 +433,6 @@ function onPriceRangeChange() {
     margin: auto;
     height: 40px;
     width: -19px;
+  }
 }
-}
-
-
-
 </style>

@@ -95,7 +95,8 @@ let Brands = (val: any) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: relative;
+  display: inline-block;
   background-color: white;
 
   .v-tabs--density-default {

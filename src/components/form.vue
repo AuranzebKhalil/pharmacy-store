@@ -56,7 +56,7 @@ const Submint = async () => {
 </script>
 
 
-<style lang="scss">
+<style scoped lang="scss">
 
 .v-container {
     width: 52% !important;

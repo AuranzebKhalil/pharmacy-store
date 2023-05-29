@@ -68,7 +68,6 @@
 
     width: 100px;
     height: 20px;
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;

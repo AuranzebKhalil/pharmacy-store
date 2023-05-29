@@ -75,6 +75,15 @@
         </div>
       </div>
 
+      <div class="storeProduct" v-if="  all.length == 0">
+
+        <h1>This Product is out of Stock</h1>
+
+
+      </div>
+
+
+
       <div class="products-items">
         <div class="grid-componet-product">
           <ProductGridcomp :items="all" />
@@ -84,15 +93,13 @@
   </VMain>
 </template>
 
-<script lang="ts" setup>
+<script  lang="ts" setup>
 import ProductGridcomp from "./productGridcomp.vue";
 import SideBar from "./storeBar.vue";
-// import slider from "./storeRespons.vue"
 
 import { computed, reactive } from "vue";
 
-import { onMounted } from "vue";
-import { ref } from "vue";
+
 
 import store from "../Store/index";
 import Store from "../Store/index";
@@ -104,24 +111,16 @@ let products = () => {
 let all = computed(() => store.state.storeProduct);
 
 let handleClick = async () => {
-  store.dispatch("SalePoducts");
-  // all.value = store.state.SaleProduct;
+  store.dispatch("SalePoducts")
 };
 
 const handleChildEvent = () => {
-  // all.value = store.state.BrandProduct;
-  //  all.value = (store.state.cataProduct)
 };
 
 const handleChil = () => {
-  // all.value = (store.state.BrandProduct)
-  // all.value = store.state.cataProduct;
 };
 
 const minmax = () => {
-  // all.value = (store.state.BrandProduct)
-
-  // all.value = store.state.minmaxPrice;
 
   console.log(store.state.minmaxPrice, "kkkkkkkkkkkkkk");
 };
@@ -131,7 +130,7 @@ let storeSidebar = () => {
 };
 </script>
 
-<style  lang="scss">
+<style scoped lang="scss">
 .main-container {
   display: flex;
   max-width: 1350px;
@@ -149,6 +148,29 @@ let storeSidebar = () => {
     width: 234p !important;
   }
 
+.storeProduct{
+
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.storeProduct h1{
+
+  font-family: sans-serif;
+  font-size: 25px;
+  text-align: center;
+  color: #262626;
+}
+  .radio-container{
+display: flex;
+align-items: center;
+
+
+  }
 
   .contant-container {
     width: 100%;
@@ -193,23 +215,7 @@ let storeSidebar = () => {
     margin-bottom: 20px;
   }
 
-  // .v-selection-control .v-label {
-  //   font-size: 14px;
-  //   font-weight: 400;
-  //   font-family: PT Sans;
-  //   line-height: 24px;
-  //   letter-spacing: 0px;
-  //   color: #56778f;
-  // }
 
-
-  // .v-selection-control .v-label {
-  //   height: 100%;
-  //   white-space: normal;
-  //   width: 100%;
-  //   word-break: break-word;
-  //   justify-content: end;
-  // }
   .radio-bar {
     --select-chips-margin-bottom: 0px;
     width: 100%;
@@ -318,11 +324,6 @@ width: 97%;
 }
 
 
-.radio-container{
-  display: flex !important;
-  align-items: center ;
-
-}
 
 // .v-main .v-selection-control-group {
 
@@ -354,11 +355,7 @@ width: 97%;
   margin-bottom: 20px;
 }
 
-.main-container .storeradio[data-v-1797f120] {
-    width: 200px;
-    margin-right: 20px;
-    height: 39px;
-}
+
 .main-container .paragraph[data-v-1797f120] {
   width: 60% !important;
 }
@@ -420,19 +417,10 @@ width: 97%;
   .rating {
     display: contents !important;
     height: 26px;
-    border: 1px solid black;
   }
 }
 
 
-@media only screen and (max-width: 640px) {
-  // .v-selection-control-group {
-  //   display: flex;
-  //   flex-direction: column;
-  //   grid-area: control;
-  //   width: 224% !important;
-  // }
-}
 
 @media only screen and (max-width: 500px) {
   .grid-componet-product {
@@ -442,7 +430,6 @@ width: 97%;
   .rating {
     display: contents !important;
     height: 26px;
-    border: 1px solid black;
   }
 }
 
