@@ -12,7 +12,7 @@
 
     <div  class="product-container" v-for="(item, index) in cartproducts" :key="index">
       <div class="img-section">
-        <img @click="deleteProduct(item.uId)" src="../assets/close (1).png" alt="" />
+        <img @click="deleteProduct(item)" src="../assets/close (1).png" alt="" />
 
         <div class="product-img">
           <img :src="item.url" alt="" />
@@ -22,16 +22,16 @@
       </div>
 
       <div class="counter-section">
-        <p>${{ item.price }}</p>
+        <p>${{ item.Price }}</p>
 
         <div class="button">
-          <div @click="decrementQuantity(item.uId, item.quantit)"><p>-</p></div>
+          <div @click="decrementQuantity(item)"><p>-</p></div>
 
           <p class="input">{{ item.quantit }}</p>
-          <div @click="incrementQuantity(item.uId, item.quantit)"><p>+</p></div>
+          <div @click="incrementQuantity( item)"><p>+</p></div>
         </div>
 
-        <p>${{ item.price * item.quantit }}</p>
+        <p>${{ item.Price * item.quantit }}</p>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
 
         <div>
           <h2>ToTal</h2>
-          <h2>${{ productsWithTotal }}</h2>
+          <h2>${{productsWithTotal}}</h2>
         </div>
 
         <button>Check out</button>
@@ -81,46 +81,52 @@ let cartproducts: any = computed(() => {
 });
 
 onMounted(async () => {
-
-
   console.log(cartproducts , 'kooooo')
+
+
+  
 
 });
 
+const incrementQuantity = async (item:any) => {
 
-
-let joy = () =>{
-
- 
-  console.log(store.state.cartProducts , 'kkkkkk')
+  
+  store.dispatch("increamentQuantity", { docId: item.productId, quantity:item.quantit });
 
 }
 
-const incrementQuantity = async (uId: string, quantity: number) => {
-  store.dispatch("increamentQuantity", { docId: uId, quantity: quantity });
+const decrementQuantity = async (item:any) => {
 
+
+  
+  store.dispatch("decreamentQuantity", { docId: item.productId, quantity:item.quantit });
 };
 
-const decrementQuantity = async (uId: string, quantity: number) => {
-  store.dispatch("decreamentQuantity", { docId: uId, quantity: quantity });
+const deleteProduct = async (item:any) => {
+  store.dispatch("deleatQuantity", item);
 };
 
-const deleteProduct = async (uId: String) => {
-  store.dispatch("deleatQuantity", uId);
 
-  // const product = cartproducts[index];
-  // await db.collection('Cartproducts').doc(product.uId).delete();
-  // cartproducts.splice(index , 1);
-};
+
+
+
 
 const productsWithTotal = computed(() => {
   let total = 0;
   store.state.cartProducts.map((product: any) => {
-    total += product.quantit * product.price;
+    total += product.quantit * product.Price;
   });
-
   return total;
 });
+let joy = async () =>{
+
+
+  store.dispatch("getadminsproduct")
+
+  
+
+}
+
 
 let shop = () => {
   router.push("./store");

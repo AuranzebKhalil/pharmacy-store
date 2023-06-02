@@ -20,7 +20,8 @@
         <v-list>Blog</v-list>
         <v-list @click="shop"> Shop</v-list>
         <v-list @click="Element">Element</v-list>
-        <v-list @click="form"> Form</v-list>
+        <v-list v-if="Admins.admin === true"  @click="form"> Form</v-list>
+        <v-list v-if="Admins.admin === true" @click="admins">Admin</v-list>
         <v-list @click="logOut">Log out</v-list>
       </v-layout>
 
@@ -79,6 +80,13 @@ let storelenght = JSON.parse(JSON.stringify(Store.state.cartProducts));
 
 let heart = computed(() => Store.state.cartProducts) 
 
+let Admins = computed(() => 
+
+ JSON.parse(JSON.stringify(Store.state.user))
+
+) 
+
+
 
 let wish = computed(() => Store.state.wishlistproduct) 
 
@@ -102,17 +110,23 @@ let Element = () => {
   router.push("./element");
 };
 
+
+let admins = () =>{
+
+
+  router.push('/edit')
+
+}
+
+
 let form = () => {
   router.push("./form");
 };
 
 
+
 let logOut =() =>{
-
   Store.dispatch('logout')
-
-
-
 }
 
 </script>

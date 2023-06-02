@@ -5,11 +5,16 @@ import type {
   Supplement,
   firebaseproducts,
   CurrentUser,
+  totalPrice
 } from "../types";
 
 export default {
   firebaseproducts: Array<firebaseproducts>(),
-  user: {},
+  totalPrice:Array<totalPrice>(),
+  user:{},
+
+  usereditdata:Array<Supplement>(),
+
   storeProduct: [],
   SaleProduct: [],
   cataProduct: [],

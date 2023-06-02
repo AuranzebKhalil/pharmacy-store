@@ -48,6 +48,7 @@ auth.onAuthStateChanged(async (user) => {
 
   if (user) {
 
+    console.log(user.email, user.uid)
     const docRef = db.collection('admins').doc(user.uid);
 
     docRef.onSnapshot((doc) => {
@@ -55,14 +56,18 @@ auth.onAuthStateChanged(async (user) => {
       store.commit('SET_USER', data)
     state.bodyLoader = false
 
-      store.dispatch("getPoducts");
+      store.dispatch("getadminsproduct");
       store.dispatch("wishlistproducts");
 
       store.dispatch("getCartProducts");
+
+      Store.dispatch("edit_product");
+
+      
     })
 
   }
-
+  else console.log('Logged Out')
 })
 
 

@@ -21,6 +21,7 @@
 import { ref } from 'vue';
 import db from '../Firebase/firebase'
 import { async } from '@firebase/util';
+import Store from '../Store';
 
 
 const Url = ref<string>('')
@@ -31,12 +32,11 @@ const Price = ref<number>()
 const Rating = ref<string>('')
 const Sale = ref<string>('')
 
-
+    let userId = Store.state.user.userId
 
 const Submint = async () => {
-  
       try {
-        await db.collection('products').add({
+        await db.collection('admins').doc(userId).collection('sellerProduct').add({
           url:Url.value,
           name:Name.value,
           brand:brand.value,

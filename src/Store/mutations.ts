@@ -98,6 +98,31 @@ export default {
     state.storeProduct = brands;
   },
 
+  total(state: State, payload:any) {
+
+    state.totalPrice = []
+
+  state.totalPrice.push(payload)
+
+
+  console.log(state.totalPrice, 'asdasd')
+
+
+  },
+
+
+  editdata(state: State, payload:any) {
+
+
+
+  state.usereditdata.push(payload)
+
+
+ 
+
+
+  },
+
   PriceData(state: State, payload: { min: number; max: number }) {
     let pro = JSON.parse(
       JSON.stringify(

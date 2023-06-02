@@ -1,4 +1,8 @@
 export type State = {
+
+
+  totalPrice:Array<totalPrice>
+  closingpopup:boolean,
   firebaseproducts: any;
   storeProduct : Array<any>
     SaleProduct : Array<any>
@@ -15,6 +19,7 @@ export type State = {
     wishlistproduct:Array<any>
     bodyLoader:boolean
     allproduct:Array<any>
+    usereditdata:Array<Supplement>
 }
 
 
@@ -41,6 +46,20 @@ export type firebaseproducts = {
   brand: string;
   catagory: string;
   name: string;
+  url: string;
+};
+
+export type totalPrice = {
+  Price:number;
+  Rating: string;
+  Sale: string;
+  brand: string;
+  catagory: string;
+  name: string;
+  id:string;
+  productId:string;
+  quantit:string;
+  showOptions:boolean;
   url: string;
 };
 

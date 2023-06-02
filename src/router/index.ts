@@ -11,6 +11,8 @@ import navber from "../views/navbar.vue";
 
 import wishlist from "../components/wishlist.vue";
 import { auth } from "../Firebase/firebase";
+import editorsrouter from "../components/EditProducts.vue" ;
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const routes:any = [
   {
     path: "",
@@ -35,6 +37,19 @@ const routes:any = [
       requiresAuth: true,
     },
   },
+
+  {
+    path: "/edit",
+    name: "editorsrouter",
+    components: {
+      default: editorsrouter,
+      Header: navber,
+    },
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
 
   {
     path: "/store",
@@ -98,12 +113,18 @@ const routes:any = [
     path: "/login",
     name: "login ",
     component: login,
+    meta: {
+      requiresAuth: false,
+    },
   },
 
   {
     path: "/signup",
     name: "signup ",
     component: signup,
+    meta: {
+      requiresAuth: false,
+    },
   },
 ];
 
@@ -112,19 +133,20 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login' && auth.currentUser) {
-//     next('/')
-//     return;
-//   }
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login' && auth.currentUser) {
+    next('/')
+    return;
+  }
 
-//   if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
-//     next('/login')
-//     return;
-//   }
+  if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
+    next('/login')
+    return;
+  }
 
-//   next();
-// })
+  next();
+})
+
 
 
 

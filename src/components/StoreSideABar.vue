@@ -105,7 +105,7 @@ import store from "../Store/index";
 import Store from "../Store/index";
 
 let products = () => {
-  store.dispatch("getPoducts");
+  store.dispatch("getadminsproduct");
 };
 
 let all = computed(() => store.state.storeProduct);

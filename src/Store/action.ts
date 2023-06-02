@@ -8,15 +8,21 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc, updateDoc } from "firebase/firestore";
 import { ref } from "vue";
 import firebase from "firebase/compat";
 import Store from ".";
 
 import { v4 as uuidv4, v4 } from "uuid";
+import state from "./state";
 
 export default {
+
+
   login: async ({ commit }: { commit: Commit }, payload: any) => {
+
+    state.usereditdata = []
+
     try {
       let login = await signInWithEmailAndPassword(
         auth,
@@ -24,7 +30,19 @@ export default {
         payload.password
       );
 
-      router.push("/");
+      if(login){
+        console.log('log i---n')
+         router.push("/");
+      }
+      else{
+
+
+        router.push("login");
+
+      }
+     
+
+
     } catch (error: any) {
       switch (error.code) {
         case "auth/user-not-found":
@@ -45,28 +63,32 @@ export default {
 
   register: async (
     { commit }: { commit: Commit },
-    payload: { email: string; password: string }
+    payload: { email: string; password: string ; admin:boolean }
   ) => {
+
+    
     try {
       let credentials = await createUserWithEmailAndPassword(
         auth,
         payload.email,
-        payload.password
+        payload.password,
       );
 
       let data = {
         email: credentials.user.email,
         userId: credentials.user.uid,
+        admin:payload.admin
       };
-      console.log("SignUp", data, credentials.user);
 
       if (credentials.user) {
         await setDoc(doc(db, "admins", credentials.user.uid), data);
         router.push("/");
       }
-      console.log("Set Doc");
+      else{
+        router.push("login")
+
+      }
     } catch (error: any) {
-      console.log(error, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
       return;
     }
   },
@@ -77,25 +99,60 @@ export default {
   },
 
   async logout({ commit }: { commit: Commit }, details: any) {
-    let logout = await signOut(auth);
 
-    commit("CLEAR_USER");
-    router.push("/login");
+
+    let logout = await signOut(auth);
+    auth.signOut().then(()=>{
+      state.user = {}
+      router.push("/login");
+    })
   },
 
   async fetchUser({ commit }: { commit: Commit }) {
     let test = ref(0);
   },
 
-  getPoducts: async ({ commit, state }: { commit: Commit; state: State }) => {
+  // getPoducts: async ({ commit, state }: { commit: Commit; state: State }) => {
+  //   state.firebaseproducts = [];
+  //   const querySnapshot = await db.collection("products").get();
+  //   state.storeProduct = [];
+  //   querySnapshot.forEach((response) => {
+  //     let data = { ...response.data(), id: response.id, showOptions: false ,productId:response.id  };
+  //     commit("setProduct", data);
+  //   });
+  // },
+
+
+  getadminsproduct: async ({ commit, state }: { commit: Commit; state: State }) => {
     state.firebaseproducts = [];
-    const querySnapshot = await db.collection("products").get();
+    let adminsid:any = []
+
+    const querySnapshot = await db.collection("admins").get();
     state.storeProduct = [];
     querySnapshot.forEach((response) => {
-      let data = { ...response.data(), id: response.id, showOptions: false };
-      commit("setProduct", data);
+      let data = { ...response.data() };
+       adminsid.push(data.userId)
     });
+
+for(let i=0; i < adminsid.length ; i++){
+  const querySnapshot = await db.collection("admins").doc(adminsid[i]).collection('sellerProduct').get();
+  querySnapshot.forEach((response) => {
+    let data = { ...response.data() };
+    commit("setProduct", data);
+  }); 
+}
   },
+
+  edit_product: async ({ commit, state }: { commit: Commit; state: State }) => {
+
+    let uid = state.user.userId
+    const querySnapshot = await db.collection("admins").doc(uid).collection('sellerProduct').get();
+    querySnapshot.forEach((response) => {
+      let data = { ...response.data() , productID:response.id  };
+
+      commit('editdata', data)
+    })
+},
 
   supplements: async ({ commit, state }: { commit: Commit; state: State }) => {
     const querySnapshot = await db.collection("products").get();
@@ -108,7 +165,7 @@ export default {
   },
 
   cartProduct: async ({ commit }: { commit: Commit }) => {
-    console.log("Cart");
+
     const querySnapshot = await db.collection("Cartproducts").get();
     querySnapshot.forEach((response) => {
       commit("cartsproduct", response.data());
@@ -134,24 +191,39 @@ export default {
     commit("PriceData", payload.min);
   },
 
-  setCartProducts: ({ state }: { state: State }, payload: cartProductsType) => {
+  setCartProducts: ({ state }: { state: State }, payload:any) => {
+
+   
+
     let id = state.user.userId;
-    console.log(id)
-    console.log(payload.productId)
+    const parentDocRef = db.collection('admins').doc(id);
+    const subcollectionRef = parentDocRef.collection('cart');
+    const subDocRef = subcollectionRef.doc(payload.productId);
+    subDocRef.set({...payload, quantit:1})
+      .then(() => {
+
+      alert('set to cart successfully')
+
+      })
+      .catch((error) => {
+      });
+  },
+
+
+  popupdata: ({ state }: { state: State }, payload: cartProductsType) => {
+    let id = state.user.userId;
+
     const parentDocRef = db.collection('admins').doc(id);
     const subcollectionRef = parentDocRef.collection('cart');
     const subDocRef = subcollectionRef.doc(payload.productId);
     
     subDocRef.set(payload)
       .then(() => {
-        console.log('Document successfully written!');
+        alert('set to cart successfully')
       })
       .catch((error) => {
         console.error('Error writing document:', error);
       });
-    
-
-    
   },
 
   getCartProducts: ({ commit, state }: { commit: Commit; state: State }) => {
@@ -161,8 +233,19 @@ export default {
 
     parentDocRef.collection("cart").onSnapshot((snapshot) => {
       state.cartProducts = []
-      snapshot.forEach((doc) => {
-        let data = { ...doc.data() };
+      snapshot.forEach((doc:any) => {
+        let data = { ...doc.data(), id: doc.id, showOptions: false ,productId:doc.id, total:doc.quantit * doc.Price,
+
+
+        }
+
+        console.log(data , 'saddddddddddddddddddddddddddddddddddddddddddd')
+
+        
+
+
+
+
         commit('setCartProducts', data)
       });
     });
@@ -186,51 +269,84 @@ export default {
     });
   },
 
+
+
+
   increamentQuantity: async (
+
+
     {},
     payload: { docId: string; quantity: number }
   ) => {
-    
-    
-    const parentDocRef = db.collection("admins").doc(payload.docId);
 
-    parentDocRef.collection("cart").doc(payload.docId);
-    parentDocRef.update({ quantit: payload.quantity + 1 });
+let a:any = state.user
+let productId:any = payload.docId
+
+
+let id:any = state.user
+let uid = id.userId
+   const docRef = db.collection("admins").doc(uid).collection("cart").doc(payload.docId);
+    docRef.update({ quantit: payload.quantity + 1 })
+      .then(() => {
+      })
+      .catch((error) => {
+        console.log( error);
+      });
+     
   },
+
+
 
   decreamentQuantity: async (
     {},
     payload: { docId: string; quantity: number }
   ) => {
-    const parentDocRef = db.collection("admins").doc(payload.docId);
-
-    parentDocRef.collection("cart").doc(payload.docId);
-    parentDocRef.update({ quantit: payload.quantity - 1 });
-  },
-  deleatQuantity: async ({}, payload: string) => {
-    db.collection("cart")
-      .doc(payload)
-      .delete()
+   
+let a:any = state.user
+let productId:any = payload.docId
+let id:any = state.user
+let uid = id.userId
+   const docRef = db.collection("admins").doc(uid).collection("cart").doc(payload.docId);
+    docRef.update({ quantit: payload.quantity - 1 })
       .then(() => {
-        console.log("Item successfully deleted!");
       })
       .catch((error) => {
-        console.error("Error removing item: ", error);
+        console.log( error);
       });
+     
   },
+
+
+  deleatQuantity: async ({}, payload:any) => {
+
+
+    // console.log(payload.id, 'pppppppppppppppppppppppp')
+
+    let id:any = state.user
+let uid = id.userId
+
+try {
+  const userRef = db.collection('admins').doc(uid);
+  const productRef = userRef.collection('cart').doc(payload.id);
+  
+  await productRef.delete();
+  console.log('Product deleted successfully!');
+} catch (error) {
+  console.error('Error deleting product:', error);
+}
+  },
+
 
   wishlistdeleatitem: async ({}, payload: string) => {
     db.collection("WishlistProduct")
       .doc(payload)
       .delete()
       .then(() => {
-        console.log("Item successfully deleted!");
       })
       .catch((error) => {
         console.error("Error removing item: ", error);
       });
 
-    // console.log(payload , 'deleact')
   },
 
   selectedCategoryBrandProduct: async (

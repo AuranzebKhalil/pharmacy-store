@@ -60,7 +60,7 @@ const emits = defineEmits(["cut"]);
 
 // import { v4 as uuidv4 } from "uuid";
 
-let quantity: any = ref(0);
+let quantity:any = ref(0);
 
 let incrementQuantity = () => {
   quantity.value++;
@@ -86,7 +86,7 @@ let some: any = reactive([props.showes.values]);
 let Sending = async (data: any) => {
   let url = ref<string>(data.url);
 
-  let price = ref<number>(data.Price);
+  let Price = ref<number>(data.Price);
 
   let name = ref<string>(data.name);
   let Rating = ref<number>(data.Rating);
@@ -95,21 +95,52 @@ let Sending = async (data: any) => {
 
   let quantit = ref<number>(quantity);
 
-  try {
-    await db.collection("Cartproducts").doc(uniqueId).set({
-      url: url.value,
-      price: price.value,
+
+  
+
+  let popupdata:any ={ url: url.value,
+      Price: Price.value,
       Rating: Rating.value,
       quantit: quantit.value,
       name: name.value,
       uId: uniqueId,
-    });
-    alert("product set to firebase successfully");
-    console.log("successfully!");
-  } catch (error) {
-    console.error("Error", error);
-  }
-};
+}
+
+
+Store.dispatch('popupdata', popupdata)
+
+//   let id = Store.state.user.userId;
+
+// const parentDocRef = db.collection('admins').doc(id);
+// const subcollectionRef = parentDocRef.collection('cart');
+// const subDocRef = subcollectionRef.doc(popupdata.productId);
+
+// subDocRef.set(popupdata)
+// .then(() => {
+//     console.log('Document successfully written!');
+//   })
+// .catch((error) => {
+//     console.error('Error writing document:', error);
+//   });
+
+
+
+}
+//   try {
+//     await db.collection("cart").doc(uniqueId).set({
+//       url: url.value,
+//       price: price.value,
+//       Rating: Rating.value,
+//       quantit: quantit.value,
+//       name: name.value,
+//       uId: uniqueId,
+//     });
+//     alert("product set to firebase successfully");
+//     console.log("successfully!");
+//   } catch (error) {
+//     console.error("Error", error);
+//   }
+// }
 
 // this.$emit('myevent');
 </script>

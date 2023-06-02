@@ -111,14 +111,9 @@ const showOptions = (id: boolean) => {
 let Sending = async (data: any) => {
   data.productId = data.id
 store.dispatch('setCartProducts', data)
-
-  // selecteditem.value = false;
-  // viewitems.value = true;
-
   props.items.forEach((e) => {
     if (e.id == data.id) {
       viewitems.value = true; 
-      // selecteditem.value = false     
 
     } else {
         selecteditem.value = true;
@@ -130,7 +125,7 @@ store.dispatch('setCartProducts', data)
 let Wishlist = async (data: any) => {
   let url = ref<string>(data.url);
 
-  let price = ref<number>(data.Price);
+  let price = ref<number>(data.price);
 
   let name = ref<string>(data.name);
   let Rating = ref<number>(data.Rating);
@@ -159,7 +154,7 @@ let Wishlist = async (data: any) => {
 };
 </script>
 
-<style  lang="scss">
+<style scoped lang="scss">
 .product-item {
   width: 100%;
   height: auto;
