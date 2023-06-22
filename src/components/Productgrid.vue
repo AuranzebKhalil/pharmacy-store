@@ -97,7 +97,7 @@
   margin: auto;
   display: flex;
   position: initial;
-  margin-top: 212px !important;
+  margin-top: -7px !important;
 }
 .four-product {
   width: 65%;

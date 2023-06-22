@@ -7,8 +7,8 @@
     <div class="box-container">
       <div class="boxes">
         <div class="box" >
-          <select  v-model="selectedBrand">
-            <option>Brend</option>
+          <select  v-model="selectedBrand" placeholder="Catagory">
+            <option>Herbs</option>
             <option>Jurosa</option>
             <option>Amere</option>
             <option>Mockup</option>
@@ -38,8 +38,7 @@ import Store from "../Store";
 import store from "../Store/index";
 import router from "../router";
 
-let selectedCategory: any = ref();
-let selectitems = ref<string>();
+let selectedCategory = ref<string>();
 
 let close = () => {
   Store.state.searchItem = false;
@@ -47,17 +46,24 @@ let close = () => {
 
 let selectedBrand = ref<string>();
 
+
+
+
 let selected = () => {
-  store.dispatch("selectedCategoryhomeProduct", {
-    Category: selectedCategory.value,
-    Brand: selectedBrand.value,
+
+
+  console.log(selectedBrand.value , 'asdsadsad' , selectedCategory.value, 'asdsadasdsadsadsa' )
+
+  store.commit("CategoryBrandProduct", {
+    name: selectedCategory.value,
+    Category: selectedBrand.value,
   });
 
-  router.push("/store");
 
-  setTimeout(() => {
-    Store.state.searchItem = false;
-  }, 1000);
+
+ 
+    // Store.state.searchItem = false;
+ 
 
   // console.log(selectedCategory.value, selectedBrand.value);
 };

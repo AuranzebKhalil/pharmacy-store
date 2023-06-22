@@ -3,14 +3,14 @@
   <div class="cart-main-container">
 
 
-    <div class="emptycart" v-if="  cartproducts.length == 0">
+    <div class="emptycart" v-if="cartproducts.length == 0">
     
     
     <h2  @click="shop">Return to shop and select to product for your cart</h2>
 
     </div>
 
-    <div  class="product-container" v-for="(item, index) in cartproducts" :key="index">
+    <div  class="product-container" v-for="(item,index) in cartproducts" :key="index">
       <div class="img-section">
         <img @click="deleteProduct(item)" src="../assets/close (1).png" alt="" />
 
@@ -74,6 +74,7 @@ import store from "../Store";
 
 import firebase from "firebase/compat/app";
 import router from "../router";
+import { getDocs, collection } from "firebase/firestore";
 
 let cartproducts: any = computed(() => {
 
@@ -90,7 +91,6 @@ onMounted(async () => {
 
 const incrementQuantity = async (item:any) => {
 
-  
   store.dispatch("increamentQuantity", { docId: item.productId, quantity:item.quantit });
 
 }
@@ -103,13 +103,11 @@ const decrementQuantity = async (item:any) => {
 };
 
 const deleteProduct = async (item:any) => {
+
+
   store.dispatch("deleatQuantity", item);
+    store.dispatch('changedata')
 };
-
-
-
-
-
 
 const productsWithTotal = computed(() => {
   let total = 0;
@@ -120,8 +118,7 @@ const productsWithTotal = computed(() => {
 });
 let joy = async () =>{
 
-
-  store.dispatch("getadminsproduct")
+  console.log(cartproducts)
 
   
 
@@ -130,6 +127,8 @@ let joy = async () =>{
 
 let shop = () => {
   router.push("./store");
+
+ 
 };
 
 let home = () => {
@@ -145,6 +144,7 @@ let Cart = () => {
   width: 100%;
   height: auto;
   background-color: white;
+  margin-top: 255px !important;
 }
 
 .secion-name {
@@ -156,7 +156,7 @@ let Cart = () => {
   margin: auto;
 
   display: flex;
-  margin-top: 20px;
+  margin-top: 74px !important;
   margin-bottom: 20px;
   align-items: center;
 }
@@ -215,9 +215,7 @@ let Cart = () => {
   align-items: center;
   justify-content: space-around;
 }
-.product-img {
-  // width: 23%;
-}
+
 
 .product-img p {
   margin-left: 50px;
@@ -317,9 +315,15 @@ input {
   background-color: rgb(151, 151, 232);
 }
 
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 1050px) {
   .form {
     width: 35% !important;
+  }
+
+  .cart-main-container{
+
+    margin-top: 130px !important;
+
   }
 }
 @media only screen and (max-width: 800px) {

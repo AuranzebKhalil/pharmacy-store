@@ -78,6 +78,7 @@ let Searchbars = () =>[
 
     margin-right: 19px;
     width: 28px;
+    cursor: pointer;
 }
 
 

@@ -11,8 +11,13 @@
                 <li>inner pages</li>
                 <li>Blog</li>
                 <li @click="Shop">Shop</li>
+
+        <v-list v-if="Admins.admin === true"  @click="form"> Form</v-list>
+        <v-list v-if="Admins.admin === true" @click="admins">Admin</v-list>
+        <v-list @click="logOut">Log out</v-list>
+                
                 <li @click="element">Element</li>
-                <li @click="form">Form</li>
+               
 
 
 
@@ -35,9 +40,29 @@
     </template>
     
     <script setup lang="ts">
+import { computed } from 'vue';
+
 import router from '../router';
 
+import store from "../Store/index";
 
+let Admins = computed(() => 
+
+ JSON.parse(JSON.stringify(store.state.user))
+
+) 
+
+
+let admins = () =>{
+
+
+router.push('/edit')
+
+}
+
+let logOut =() =>{
+  store.dispatch('logout')
+}
 
 
 let home = () =>{

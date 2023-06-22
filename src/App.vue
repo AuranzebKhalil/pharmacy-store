@@ -1,19 +1,26 @@
 <template>
+
+
   <v-app class="bannner">
-    <div class="pre-loader mx-auto" v-if="store.state.bodyLoader">
-      <img src="https://www.acbar.org/Website/Loader/loader3.gif" alt="" />
+ 
+    <div class="loader" v-if="store.state.gifloader" >
+
+      <img src="https://media.tenor.com/YPOStjIfQ2IAAAAM/loading-waiting.gif" alt="">
+
     </div>
+
+   
 
     <div class="navber">
 
       <router-view name="Header"></router-view>
 
 
+
     </div>
-
-
-
     <router-view />
+
+ 
 
   </v-app>
 </template>
@@ -35,41 +42,51 @@ import db, { auth } from "./Firebase/firebase";
 import router from "./router";
 import Store from "./Store/index";
 
+import { useRouter } from 'vue-router';
 
 
 
 
 
+onMounted(()=>{
+  store.state.gifloader = true
+ 
+  store.dispatch("getadminsproduct");
+})
 
 
 auth.onAuthStateChanged(async (user) => {
 
-  state.bodyLoader = true;
+  
 
   if (user) {
+
+   
 
     console.log(user.email, user.uid)
     const docRef = db.collection('admins').doc(user.uid);
 
     docRef.onSnapshot((doc) => {
       let data = { ...doc.data() }
-      store.commit('SET_USER', data)
-    state.bodyLoader = false
 
-      store.dispatch("getadminsproduct");
+     
+      store.commit('SET_USER', data)
+     
       store.dispatch("wishlistproducts");
+
 
       store.dispatch("getCartProducts");
 
       Store.dispatch("edit_product");
-
-      
     })
 
   }
   else console.log('Logged Out')
 })
 
+
+
+let routers = useRouter
 
 
 
@@ -90,16 +107,27 @@ let sum = ref(true);
   width: 100%;
   margin: auto;
   background-color: white;
+  position:absolute !important;
 }
 
+.datas{
+height: 100%;
+width: 100vh;
+border: 1px solid black;
+ 
+}
 
-.pre-loader {
-  position: fixed;
+.loader {
+
+
   width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+  
 
   img {
     width: 300px;

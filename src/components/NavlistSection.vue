@@ -69,7 +69,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import PoductBrend from "../components/Brend.vue";
-import ProductCategory from "../components/ProductCategory.vue";
+import ProductCategory from "../components/Category.vue";
 import router from "../router/index";
 import Store from "../Store/index";
 
@@ -137,10 +137,6 @@ let logOut =() =>{
   width: 0px;
 }
 
-.brand {
-  position: relative;
-  z-index: 99;
-}
 
 .v-tab.v-tab {
   --v-btn-height: var(--v-tabs-height);
@@ -196,7 +192,9 @@ let logOut =() =>{
   margin-right: -26px;
 
   margin-top: -4px;
-  background-color: #15a9e3;
+  
+  background-color: #39cb74;
+
 }
 
 .wish-length {
@@ -207,7 +205,9 @@ let logOut =() =>{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #15a9e3;
+ 
+  background-color: #39cb74;
+
   margin-left: 29px;
   position: absolute;
   margin-top: -3px;
@@ -242,11 +242,21 @@ let logOut =() =>{
   height: 45px;
 }
 
+.brand{
+
+  width: 100%;
+    max-width: 1450px;
+    height: 100px;
+   
+    position: absolute;
+
+}
 .v-list {
   margin-right: 30px;
   color: #184363;
   font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
   /* font-family: PT Sans; */
 }
 

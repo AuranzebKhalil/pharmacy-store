@@ -19,14 +19,14 @@
       <div class="sign-up-form-container">
         <div class="left-content">
           <img src="./Image_2.png" alt="" />
-          <h1>Looking For Support</h1>
-          <p>Build your amazing website with Superfluid</p>
+          <h1>Looking For Medicine</h1>
+          <p>Build your amazing website with Auranzeb Khalil</p>
         </div>
         <div class="form-section">
-          <h1>Superfluid</h1>
+          <h1>Propharm-Medical-Woocommerce</h1>
           <div class="sign-up-text">
             <p class="sign-up">Sign Up</p>
-            <p class="greeting">Enter you details to create an account</p>
+            <p class="greeting">Enter you details to Login in your account</p>
           </div>
           <form class="form" action="#">
          
@@ -64,6 +64,7 @@ let password = ref("");
 
 
 let login_user = () => {
+
   Store.dispatch("login", {
     email: email.value,
     password: password.value,
@@ -97,7 +98,8 @@ let signUp = () =>{
   overflow: hidden;
 }
 .left-content {
-  background-color: #314EDF;
+
+  background-color: #f2971f;
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -165,7 +167,8 @@ let signUp = () =>{
   margin: 7px 0px;
   width: 120px;
   height: 40px;
-  background-color: #314EDF;
+ 
+  background-color: #f2971f;
   color: #fff;
   border-radius: 4px;
   border: none;
@@ -177,7 +180,8 @@ let signUp = () =>{
   background-color: #001CA9;
 }
 .submit-button:active {
-  background-color: #314EDF;
+
+  background-color: #f2971f;
 }
 @media (max-width: 1080px) {
   .sign-up-form-container {

@@ -3,9 +3,10 @@
     <h2>Popular Categories</h2>
 
     <div class="Categories-btn">
-      <v-btn :class="{ active: isActive }" @click="supplement"> Supplements </v-btn>
+      <v-btn :class="{ active: isActive }" @click="supplement"> Supplements sVitamins </v-btn>
 
-      <v-btn @click="MedicinesHerbs"> MedicinesHerbs </v-btn>
+      <v-btn @click="MedicinesHerbs"> Medicines
+ </v-btn>
 
       <v-btn @click="Herbs"> Herbs </v-btn>
     </div>
@@ -49,7 +50,7 @@ let supplement = () => {
 let catadata = Store.dispatch("supplements");
 
 let MedicinesHerbs = () => {
-  Store.commit("MedicinesHerbs");
+  Store.commit("MedicinesHerbss");
 };
 
 let Herbs = () => {
@@ -75,14 +76,21 @@ let Herbs = () => {
     color: #184363;
   }
 
+  .v-btn.v-btn--density-default:hover{
+    background-color: #184363;
+    color: #ffffff !important;
+
+  }
+
   .v-btn.v-btn--density-default {
+  
     border-radius: 34px;
     color: #ffffff;
     // background-color: #184363;
     color: #184363;
     background-color: #ffffff;
     font-size: 14px;
-    width: 166px;
+
     height: 40px;
     font-weight: 800;
   }
@@ -231,9 +239,7 @@ let Herbs = () => {
   border-radius: 20px;
 }
 
-.product-banner img {
-  padding-top: 170px;
-}
+
 
 @media only screen and (max-width: 1024px) {
   .producs {

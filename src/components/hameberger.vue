@@ -69,11 +69,15 @@ let Hamburder = () => {
 }
 
 .als {
-  width: 40%;
+  width: 60%;
   height: 100vh;
   // border: 1px solid black;
   background-color: white;
 }
+
+
+
+
 
 .sum {
   width: 58%;
@@ -102,5 +106,23 @@ let Hamburder = () => {
 
 .homenavlist {
   width: 100%;
+}
+
+
+
+@media only screen and (max-width: 730px) {
+
+.als {
+width: 90%;
+
+}
+
+
+
+.sum {
+width: 10%;
+height: 100vh;
+}
+
 }
 </style>

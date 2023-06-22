@@ -18,7 +18,7 @@ import Store from "../Store/index";
 import { computed, onMounted } from "vue";
 
 const FeaturedProducts = computed(() => {
-  return Store.state.firebaseproducts.slice(0, 5);
+  return Store.state.firebaseproducts.slice(0, 10);
 });
 </script>
 

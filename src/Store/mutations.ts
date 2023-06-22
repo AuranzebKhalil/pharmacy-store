@@ -6,6 +6,7 @@ import type {
   wishlisttype,
   CurrentUser,
 } from "../types";
+import router from "../router";
 
 export default {
   SET_USER(state: State, user: CurrentUser) {
@@ -13,9 +14,31 @@ export default {
   },
 
   setProduct(state: State, responseData: any) {
+
+
     state.storeProduct.push(responseData);
     state.firebaseproducts.push(responseData);
+
+   
   },
+
+
+
+  changedata (state: State, responseData: any) {
+
+    
+   
+
+    state.storeProduct.push(responseData);
+
+    
+
+    state.firebaseproducts.push(responseData);
+
+
+    
+  },
+
 
   supplementproduct(state: State, payload: Populercata) {
     state.populercata.push(payload);
@@ -27,7 +50,7 @@ export default {
     let catagory = [];
 
     catagory = state.storeProduct.filter(
-      (item: { catagory: string }) => item.catagory === "Supplements"
+      (item: { catagory: string }) => item.catagory === "SupplementsVitamins"
     );
 
     state.Supplementcata = catagory;
@@ -40,7 +63,7 @@ export default {
       JSON.stringify(
         state.storeProduct.filter(
           (item: { catagory: string }) =>
-            item.catagory === "Supplements Vitamins"
+            item.catagory === "Medicines"
         )
       )
     );
@@ -63,62 +86,77 @@ export default {
   SaleProduct(state: State, responseData: any) {
     let c = JSON.parse(
       JSON.stringify(
-        state.storeProduct.filter(
+        state.firebaseproducts.filter(
           (item: { Sale: string }) => item.Sale === "Sale"
         )
       )
     );
 
-    state.storeProduct = c;
+    state.firebaseproducts = c;
   },
 
   Catagory(state: State, responseData: String) {
-    state.storeProduct = [];
+
+    state.firebaseproducts = []
 
     let b = JSON.parse(
       JSON.stringify(
-        state.firebaseproducts.filter(
+        state.storeProduct.filter(
           (item: { catagory: string }) => item.catagory === responseData
         )
       )
     );
 
-    state.storeProduct = b;
+    state.firebaseproducts = b;
+
+    console.log(b)
+  },
+
+userid(state: State, responseData: String){
+
+
+console.log(responseData , 'String')
+
+
   },
 
   brands(state: State, responseData: String) {
+
+
+
+    console.log('kkkkkkkkkkkkkkkk')
     let brands = JSON.parse(
       JSON.stringify(
-        state.storeProduct.filter(
+        state.firebaseproducts.filter(
           (item: { brand: string }) => item.brand === responseData
         )
       )
     );
 
-    state.storeProduct = brands;
+    state.firebaseproducts = brands;
   },
 
-  total(state: State, payload:any) {
+  total(state: State, payload: any) {
 
     state.totalPrice = []
 
-  state.totalPrice.push(payload)
+    state.totalPrice.push(payload)
 
 
-  console.log(state.totalPrice, 'asdasd')
+    console.log(state.totalPrice, 'asdasd')
 
 
   },
 
 
-  editdata(state: State, payload:any) {
+  editdata(state: State, payload: any) {
 
 
 
-  state.usereditdata.push(payload)
+    state.usereditdata.push(payload)
 
 
- 
+
 
 
   },
@@ -126,14 +164,14 @@ export default {
   PriceData(state: State, payload: { min: number; max: number }) {
     let pro = JSON.parse(
       JSON.stringify(
-        state.storeProduct.filter(
+        state.firebaseproducts.filter(
           (item: { Price: number }) =>
             item.Price >= payload.min && item.Price <= payload.max
         )
       )
     );
 
-    state.storeProduct = pro;
+    state.firebaseproducts = pro;
   },
   setCartProducts: (state: State, payload: cartProductsType) => {
     state.cartProducts.push(payload);
@@ -144,26 +182,70 @@ export default {
   },
 
   CategoryBrandProduct: (state: State, payload: any) => {
+
+
+
     let Catagorys = JSON.parse(
       JSON.stringify(
         state.storeProduct.filter(
           (item: { catagory: string }) => item.catagory === payload.Category
         )
       )
-    );
-
+    )
     let Brands = JSON.parse(
       JSON.stringify(
         Catagorys.filter(
-          (item: { brand: string }) => item.brand === payload.Brand
+          (item: { name: string }) => item.name === payload.name
         )
       )
     );
-    state.storeProduct = Brands;
+    state.firebaseproducts = Brands;
+    setTimeout(() => {
+      router.push('/store')
+     state.searchItem = false;
+      state.buttonLoader = false
+      
+    }, 1000);
+
+  },
+
+
+  CategoryBrandProductSearch: (state: State, payload: any) => {
+
+    
+
+    let Catagorys = JSON.parse(
+      JSON.stringify(
+        state.storeProduct.filter(
+          (item: { catagory: string }) => item.catagory === payload.Category
+        )
+      )
+    )
+    let Brands = JSON.parse(
+      JSON.stringify(
+        Catagorys.filter(
+          (item: { brand: string }) => item.brand === payload.brand
+        )
+     
+
+
+      )
+
+    
+    );
+    state.firebaseproducts = Brands;
+
+    state.gifloader = false
+ 
+      router.push('/store')
+      
+ 
+
   },
 
   HomeCategory: (state: State, payload: String) => {
-    console.log(payload, "lpoooooooooooooo");
+
+    state.firebaseproducts = []
 
     let Catagorys = JSON.parse(
       JSON.stringify(
@@ -173,7 +255,11 @@ export default {
       )
     );
 
-    state.storeProduct = Catagorys;
+
+    state.firebaseproducts = Catagorys;
+
+    router.push('/store')
+
   },
 
   cartsproduct: (state: State, payload: String) => {
@@ -182,6 +268,9 @@ export default {
   },
 
   HomeBranbs: (state: State, payload: String) => {
+
+    console.log(payload, 'asdasd')
+
     let homeBrands = JSON.parse(
       JSON.stringify(
         state.storeProduct.filter(
@@ -190,7 +279,7 @@ export default {
       )
     );
 
-    state.storeProduct = homeBrands;
+    state.firebaseproducts = homeBrands;
   },
 
   hamburger: (state: State, payload: boolean) => {
@@ -211,7 +300,7 @@ export default {
 
     state.BrandProduct = data;
 
-    //  console.log(data , 'oooooooooooooooooooooo')
+
   },
 
   storeSidebar: (state: State, payload: boolean) => {

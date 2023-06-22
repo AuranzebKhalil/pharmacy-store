@@ -1,23 +1,32 @@
 <template>
-  <VMain class="main-container">
+  <div class="main-container">
     <div class="side-bar">
       <SideBar @Events="handleChil" @minmax="minmax" @childEvent="handleChildEvent" />
     </div>
 
     <div class="product-container">
-      <div class="shop-resposive">
-        <div class="navidation">
-          <ul>
-            <li>Home</li>
-            <li>/</li>
-            <li>Shop</li>
-          </ul>
-        </div>
 
-        <div class="buttonspop">
-          <img @click="storeSidebar" src="../assets/hamburger.png" alt="" />
+
+
+      
+      <div class="shop-resposive">
+       
+
+
+        <div class="navidation">
+      <VList @click="home" class="home">Home </VList>
+      <VList>  ></VList>
+      <VList @click="shop" class="Shop"> Shop </VList>
+    </div>
+
+        <div class="buttonspop" >        
+          <img @click="sidebarSlider()" src="../assets/hamburger.png"  alt="" />
+
         </div>
       </div>
+
+
+
 
       <div class="contant-container d-flex aligh-center">
         <div class="diraction mr-3">
@@ -26,23 +35,29 @@
           <img src="../assets/grid.png" alt="" />
         </div>
 
-        <!-- <VSpacer></VSpacer> -->
 
         <div class="radio-container">
-          <p class="allStore font-size-12" @click="products">Reset</p>
-
+        
           <div class="storeradio d-flex">
-            <VRadioGroup @click="handleClick()">
-              <VRadio label="Sale Products"></VRadio>
+            <VRadioGroup @click="SaleProduct()">
+              <VRadio class="On-Sale-product" label="Only products on sale"></VRadio>
             </VRadioGroup>
           </div>
         </div>
       </div>
 
+
+
+      
+
+
+
+   
+
       <div class="first-two-products">
         <div class="firstall">
           <img
-            src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_8.png"
+            src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_12.png"
             alt=""
           />
           <div>
@@ -53,13 +68,13 @@
               Supplements
             </h2>
 
-            <Button> Buy Now > </Button>
+            <Button class="bay-btn"> Buy Now > </Button>
           </div>
         </div>
 
         <div class="secoundconta">
           <img
-            src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_8.png"
+          src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_2.png"
             alt=""
           />
           <div>
@@ -70,10 +85,12 @@
               Supplements
             </h2>
 
-            <Button> Buy Now > </Button>
+            <Button class="bay-btn"> Buy Now > </Button>
           </div>
         </div>
       </div>
+
+      
 
       <div class="storeProduct" v-if="  all.length == 0">
 
@@ -82,15 +99,24 @@
 
       </div>
 
+      <div class="storeradio d-flex">
+         
+
+          <p class="Reset-btn"  v-on:click="products"> Reset</p>
+             
+            
+          
+          </div>
 
 
+       
       <div class="products-items">
         <div class="grid-componet-product">
           <ProductGridcomp :items="all" />
         </div>
       </div>
     </div>
-  </VMain>
+  </div>
 </template>
 
 <script  lang="ts" setup>
@@ -103,14 +129,25 @@ import { computed, reactive } from "vue";
 
 import store from "../Store/index";
 import Store from "../Store/index";
+import { onMounted } from "vue";
+import router from "../router";
+import { watch } from "vue";
 
-let products = () => {
+let products = () => { 
+  
   store.dispatch("getadminsproduct");
+  store.state.gifloader = true
 };
 
-let all = computed(() => store.state.storeProduct);
 
-let handleClick = async () => {
+
+let all = computed(() => store.state.firebaseproducts 
+);
+
+
+let SaleProduct = async () => {
+
+
   store.dispatch("SalePoducts")
 };
 
@@ -122,18 +159,30 @@ const handleChil = () => {
 
 const minmax = () => {
 
-  console.log(store.state.minmaxPrice, "kkkkkkkkkkkkkk");
+  console.log(store.state.minmaxPrice);
 };
 
-let storeSidebar = () => {
-  Store.commit("storeSidebar", true);
-};
+let home = () =>{
+
+  router.push('/')
+}
+
+let shop = () =>{
+
+router.push('/store')
+}
+
+let sidebarSlider = ( ) =>{
+
+  store.state.storeSidebar = true
+}
 </script>
 
 <style scoped lang="scss">
 .main-container {
   display: flex;
   max-width: 1350px;
+  margin-top: 202px !important;
   width: 100%;
   margin: auto;
   background-color: white;
@@ -143,6 +192,30 @@ let storeSidebar = () => {
     height: auto;
   }
 
+  .home{
+    color: #56778f;
+  }
+
+  .Reset-btn{
+
+ 
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all .2s ease;
+    border-radius: 5px;
+    color: #184363;
+    background-color: #f0f0f0;
+    padding: 4px 16px !important;
+    
+  }
+
+  .hameburger{
+
+
+    cursor: pointer;
+  }
   .v-radio-group > .v-input__control {
     flex-direction: column;
     width: 234p !important;
@@ -155,6 +228,21 @@ let storeSidebar = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+
+}
+
+
+.bay-btn{
+
+  background: #39cb74;
+    height: 40px;
+    font-size: 15px !important;
+    font-weight: 600;
+    line-height: 22px !important;
+    color: #fff;
+    width: 110px;
+    border-radius: 38px;
+    margin-top: 5px;
 
 }
 
@@ -172,6 +260,18 @@ align-items: center;
 
   }
 
+  .v-selection-control .v-label {
+
+    font-size: 13px !important;
+    cursor: pointer;
+}
+  .On-Sale-product{
+
+ 
+  
+    font-size: 11px;
+    cursor: pointer;
+  }
   .contant-container {
     width: 100%;
 
@@ -211,7 +311,7 @@ align-items: center;
     width: 80%;
 
     height: auto;
-    margin-top: 130px;
+    margin-top: 150px !important;
     margin-bottom: 20px;
   }
 
@@ -228,7 +328,7 @@ align-items: center;
 
   .main-container .v-input--density-default {
     --select-chips-margin-bottom: 0px;
-    width: 143px;
+    width: 200px !important;
     height: 22px;
   }
 
@@ -253,7 +353,7 @@ align-items: center;
   }
 
   .secoundconta {
-    background: url(https://enovathemes.com/propharm/wp-content/uploads/slide2_back.jpg)
+    background: url('https://enovathemes.com/propharm/wp-content/uploads/slide2_back.jpg')
       no-repeat center center/cover;
     border-radius: 20px;
     width: 65%;
@@ -291,8 +391,10 @@ width: 97%;
   }
 
   .firstall {
-    background: url(https://enovathemes.com/propharm/wp-content/uploads/slide2_back.jpg)
+  
+    background: url('https://enovathemes.com/propharm/wp-content/uploads/slide6_back.jpg')
       no-repeat center center/cover;
+   
     border-radius: 20px;
     width: 65%;
     height: 258px;
@@ -310,11 +412,11 @@ width: 97%;
 
   .v-input--density-default {
     --select-chips-margin-bottom: 0px;
-    width: 146px;
+    width: 200px;
     height: 40px;
   }
 }
-.main-container .paragraph[data-v-1797f120][data-v-1797f120] {
+.main-container .paragraph {
   width: 73% !important;
 }
 .shop-resposive {
@@ -325,55 +427,32 @@ width: 97%;
 
 
 
-// .v-main .v-selection-control-group {
 
-//     height: 66px !important;
- 
-// }
-.navidation ul {
-  width: 100%;
-  display: flex;
+.navidation{
+  gap: 6px;
+    margin-top: 40px;
+    position: initial !important;
+    display: flex;
+    margin-left: 21px;
+    color: #56778f;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-transform: none;
 }
 
-.navidation ul {
-  list-style: none;
-  gap: 5px;
+.Shop{
+
+  color: #184363 !important;
 }
 
-.buttonspops {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #dfe3e7;
-  widows: 80%;
-  border-radius: 12px;
-  margin: auto;
-  height: 42px;
-  // border: 1px solid black;
 
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
 
 
 .main-container .paragraph[data-v-1797f120] {
   width: 60% !important;
 }
 
-.buttonspop {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #dfe3e7;
-  widows: 80%;
-  border-radius: 12px;
-  margin: auto;
-  height: 42px;
-  // border: 1px solid black;
-
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
 
 @media only screen and (max-width: 1175px) {
   .side-bar {
@@ -385,7 +464,11 @@ width: 97%;
   .side-bar {
     display: none;
   }
+  .product-container{
 
+    margin-top: -130px !important;
+
+  }
   .first-two-products {
     margin-right: 0px !important;
   }
@@ -400,8 +483,22 @@ width: 97%;
   .shop-resposive {
     display: contents;
   }
+
+  .buttonspop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dfe3e7;
+  border-radius: 12px;
+  margin: auto;
+  height: 42px;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
   .main-container {
-    margin-top: -95px !important;
+    margin-top: -11px !important;
   }
   .product-container {
     width: 94% !important;

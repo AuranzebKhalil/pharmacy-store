@@ -109,40 +109,7 @@ let Sending = async (data: any) => {
 
 Store.dispatch('popupdata', popupdata)
 
-//   let id = Store.state.user.userId;
-
-// const parentDocRef = db.collection('admins').doc(id);
-// const subcollectionRef = parentDocRef.collection('cart');
-// const subDocRef = subcollectionRef.doc(popupdata.productId);
-
-// subDocRef.set(popupdata)
-// .then(() => {
-//     console.log('Document successfully written!');
-//   })
-// .catch((error) => {
-//     console.error('Error writing document:', error);
-//   });
-
-
-
 }
-//   try {
-//     await db.collection("cart").doc(uniqueId).set({
-//       url: url.value,
-//       price: price.value,
-//       Rating: Rating.value,
-//       quantit: quantit.value,
-//       name: name.value,
-//       uId: uniqueId,
-//     });
-//     alert("product set to firebase successfully");
-//     console.log("successfully!");
-//   } catch (error) {
-//     console.error("Error", error);
-//   }
-// }
-
-// this.$emit('myevent');
 </script>
 
 <style lang="scss">
@@ -317,6 +284,12 @@ Store.dispatch('popupdata', popupdata)
     width: 95% !important;
   }
 
+  .popup-list{
+
+    display: none;
+
+  }
+
   .popup-container {
     margin: 0px !important;
     margin-left: 1px !important;
@@ -329,13 +302,7 @@ Store.dispatch('popupdata', popupdata)
   .cart-img {
     display: none;
   }
-  // .popup-prodect-con img {
-  //   position: absolute;
-  //   top: 0px;
-  //   right: 0;
-  //   padding-top: 9px;
-  //   padding-right: -6px;
-  // }
+
 
   .popup-container .popup-prodect-con img {
     width: 25px;

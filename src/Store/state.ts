@@ -9,12 +9,13 @@ import type {
 } from "../types";
 
 export default {
-  firebaseproducts: Array<firebaseproducts>(),
+  firebaseproducts:Array<firebaseproducts>(),
+
+  ProductEdit:Array<Supplement>(),
+  
   totalPrice:Array<totalPrice>(),
   user:{},
-
   usereditdata:Array<Supplement>(),
-
   storeProduct: [],
   SaleProduct: [],
   cataProduct: [],
@@ -27,5 +28,8 @@ export default {
   populercata: Array<Populercata>(),
   Supplementcata: Array<Supplement>(),
   wishlistproduct: [],
-  bodyLoader: false,
+  gifloader:false,
+
+
+ activeItemId:false
 };

@@ -9,7 +9,7 @@
           class="catagory"
           v-model="selectedBrand"
           placeholder="Category"
-          :items="['Jurosa', 'Mockup', 'Mape', 'Belt', 'Texas', 'Bticin']"
+          :items="['Herbs', 'Mockup', 'Mape', 'Belt', 'Texas', 'Bticin']"
         ></v-select>
         <input
           type="text"
@@ -29,28 +29,43 @@
       </div>
 
       <v-spacer></v-spacer>
+  <div class="covid-para">
 
-      <img class="logos" src="../assets/Screenshot from 2023-04-06 12-02-17.png" alt="" />
+    <img src="../assets/20211220_131251.jpg" alt="">
+ <p >{{ user.email }}</p>
+
+  </div>
+     
     </div>
   </v-layout>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import store from "../Store/index";
 import productGridcomp from "./productGridcomp.vue";
+
+const user = computed(()=>{
+    return store.state.user
+})
+
+watch(store.state.user, (value)=>{
+    console.log(value)
+})
+
 
 let selectedCategory = ref<string>();
 
 let selectedBrand = ref<string>();
 
 let selected = () => {
+ 
   store.commit("CategoryBrandProduct", {
-    Category: selectedCategory.value,
-    Brand: selectedBrand.value,
+    name: selectedCategory.value,
+    Category: selectedBrand.value,
   });
 
-  console.log(selectedCategory.value);
+
 };
 </script>
 
@@ -67,6 +82,33 @@ let selected = () => {
   .v-btn__underlay {
     height: 45px;
   }
+
+  .covid-para {
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+
+.covid-para img{
+
+width: 30px;
+height: 30px;
+border-radius: 30px;
+border: 1px solid;
+margin-right: 4px;
+
+}
+
+  .covid-para p{
+
+padding-right: 25px;
+color: black;
+font-size: 17px;
+font-family: initial;
+
+}
 
   .v-field--variant-filled {
     height: 45px !important;
@@ -96,6 +138,13 @@ let selected = () => {
     border-bottom-right-radius: 0px;
     border-color: #edf4f6;
     background-color: #edf4f6;
+  }
+
+
+  .v-field--center-affix .v-field__append-inner{
+    align-items: center;
+    padding-top: 0;
+    height: 57px;
   }
 
   .inner-container {

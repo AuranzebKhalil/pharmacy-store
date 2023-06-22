@@ -8,8 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, setDoc, doc, updateDoc } from "firebase/firestore";
-import { ref } from "vue";
+import { collection, setDoc, doc, updateDoc, getDocs, onSnapshot } from "firebase/firestore";
+import { onBeforeUnmount, ref } from "vue";
 import firebase from "firebase/compat";
 import Store from ".";
 
@@ -17,12 +17,9 @@ import { v4 as uuidv4, v4 } from "uuid";
 import state from "./state";
 
 export default {
-
-
   login: async ({ commit }: { commit: Commit }, payload: any) => {
-
+   
     state.usereditdata = []
-
     try {
       let login = await signInWithEmailAndPassword(
         auth,
@@ -31,13 +28,14 @@ export default {
       );
 
       if(login){
-        console.log('log i---n')
+      
          router.push("/");
       }
       else{
 
 
         router.push("login");
+          
 
       }
      
@@ -112,46 +110,162 @@ export default {
     let test = ref(0);
   },
 
-  // getPoducts: async ({ commit, state }: { commit: Commit; state: State }) => {
-  //   state.firebaseproducts = [];
-  //   const querySnapshot = await db.collection("products").get();
-  //   state.storeProduct = [];
-  //   querySnapshot.forEach((response) => {
-  //     let data = { ...response.data(), id: response.id, showOptions: false ,productId:response.id  };
-  //     commit("setProduct", data);
-  //   });
-  // },
+// getadminsproduct: async ({ commit, state }: { commit: Commit; state: State }) => {
+//   let adminsid: any = [];
+//   const querySnapshot = await db.collection("admins").get();
 
+//   state.storeProduct = [];
+//   state.firebaseproducts = [];
 
-  getadminsproduct: async ({ commit, state }: { commit: Commit; state: State }) => {
-    state.firebaseproducts = [];
-    let adminsid:any = []
+//   querySnapshot.forEach((querySnapshot) => {
+//     let adminData = { ...querySnapshot.data() };
+//     adminsid.push(adminData.userId);
+//   });
 
-    const querySnapshot = await db.collection("admins").get();
+//   for (let i = 0; i < adminsid.length; i++) {
+//     const querySnapshot = await db
+      
+//       .collection("admins")
+//       .doc(adminsid[i])
+//       .collection("sellerProduct")
+//       .get();
+
+//       querySnapshot.forEach((querySnapshot) => {
+//       let productData = { ...querySnapshot.data(), id: querySnapshot.id };
+//       commit("setProduct", productData);
+//     });
+//   }
+// },
+
+getadminsproduct:async ({ commit, state }: { commit: Commit; state: State }) => {
+  let adminsid: any[] = [];
+  const unsubscribeAdmins = db.collection("admins").onSnapshot((snapshot) => {
+    adminsid = snapshot.docs.map((doc) => doc.data().userId);
     state.storeProduct = [];
-    querySnapshot.forEach((response) => {
-      let data = { ...response.data() };
-       adminsid.push(data.userId)
-    });
+    state.firebaseproducts = [];
 
-for(let i=0; i < adminsid.length ; i++){
-  const querySnapshot = await db.collection("admins").doc(adminsid[i]).collection('sellerProduct').get();
-  querySnapshot.forEach((response) => {
-    let data = { ...response.data() };
-    commit("setProduct", data);
-  }); 
-}
-  },
+    adminsid.forEach((adminId) => {
+      const unsubscribeProducts = db
+        .collection("admins")
+        .doc(adminId)
+        .collection("sellerProduct")
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            const productData = { ...change.doc.data(), id: change.doc.id };
+            if (change.type === 'added') {
+              state.gifloader = false
+              commit("setProduct", productData);
+           
+            } else if (change.type === 'modified') {
+              commit("setProduct", productData);
+            } else if (change.type === 'removed') {
+              commit("setProduct", productData);
+            }
+          });
+        });
+    });
+  });
+
+  return unsubscribeAdmins;
+},
+
+
+
+changedata:async ({ commit, state }: { commit: Commit; state: State }) => {
+
+
+  state.storeProduct = []
+    state.firebaseproducts = []
+
+
+  let adminsid: any[] = [];
+  const unsubscribeAdmins = db.collection("admins").onSnapshot((snapshot) => {
+    adminsid = snapshot.docs.map((doc) => doc.data().userId);
+    state.storeProduct = [];
+    state.firebaseproducts = [];
+
+    adminsid.forEach((adminId) => {
+      const unsubscribeProducts = db
+        .collection("admins")
+        .doc(adminId)
+        .collection("sellerProduct")
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            const productData = { ...change.doc.data(), id: change.doc.id };
+            if (change.type === 'added') {
+              commit("changedata", productData);
+
+              state.gifloader = false
+              console.log(productData ,'productData')
+            } else if (change.type === 'modified') {
+              commit("changedata", productData);
+            } else if (change.type === 'removed') {
+              commit("changedata", productData);
+            }
+          });
+        });
+    });
+  });
+
+  return unsubscribeAdmins;
+},
+
+
+
+
+
+
+
+// getadminsproduct:async ({ commit, state }: { commit: Commit; state: State }) => {
+
+//   state.gifloader = false
+
+//   const adminsid = ref<string[]>([]);
+
+//   const unsubscribeAdmins = onSnapshot(db.collection('admins'), (snapshot) => {
+//     adminsid.value = snapshot.docs.map((doc) => doc.data().userId);
+//   });
+
+//   onBeforeUnmount(unsubscribeAdmins);
+
+//   const unsubscribeProducts: (() => void)[] = [];
+
+//   for (const adminId of adminsid.value) {
+//     const unsubscribe = onSnapshot(db.collection('admins').doc(adminId).collection('sellerProduct'), (snapshot) => {
+//       snapshot.docChanges().forEach((change) => {
+//         const productData = { ...change.doc.data(), id: change.doc.id };
+
+//         if (change.type === 'added') {
+//           commit('addProduct', productData);
+//         } else if (change.type === 'modified') {
+//           commit('updateProduct', productData);
+//         } else if (change.type === 'removed') {
+//           commit('removeProduct', productData.id);
+//         }
+//       });
+//     });
+//     unsubscribeProducts.push(unsubscribe);
+//   }
+
+//   onBeforeUnmount(() => {
+//     unsubscribeProducts.forEach((unsubscribe) => unsubscribe());
+//   });
+// }
+
+
+
+
 
   edit_product: async ({ commit, state }: { commit: Commit; state: State }) => {
 
-    let uid = state.user.userId
-    const querySnapshot = await db.collection("admins").doc(uid).collection('sellerProduct').get();
-    querySnapshot.forEach((response) => {
-      let data = { ...response.data() , productID:response.id  };
-
-      commit('editdata', data)
-    })
+    let uid = state.user.userId;
+    const querySnapshot = db.collection("admins").doc(uid).collection('sellerProduct');
+    const sellerProductCollectionSnapshot = await querySnapshot.get();
+    
+    sellerProductCollectionSnapshot.forEach((querySnapshot) => {
+      let productData = { ...querySnapshot.data(), productID: querySnapshot.id };
+      commit('editdata', productData);
+    });
 },
 
   supplements: async ({ commit, state }: { commit: Commit; state: State }) => {
@@ -168,6 +282,7 @@ for(let i=0; i < adminsid.length ; i++){
 
     const querySnapshot = await db.collection("Cartproducts").get();
     querySnapshot.forEach((response) => {
+   
       commit("cartsproduct", response.data());
     });
   },
@@ -191,30 +306,31 @@ for(let i=0; i < adminsid.length ; i++){
     commit("PriceData", payload.min);
   },
 
-  setCartProducts: ({ state }: { state: State }, payload:any) => {
+  setCartProducts: ({ state }: { state: State }, payload:cartProductsType) => {
+   let data = { ...payload , quantit:1};
 
-   
 
     let id = state.user.userId;
-    const parentDocRef = db.collection('admins').doc(id);
-    const subcollectionRef = parentDocRef.collection('cart');
+
+    const querySnapshot = db.collection('admins').doc(id);
+    const subcollectionRef = querySnapshot.collection('cart');
     const subDocRef = subcollectionRef.doc(payload.productId);
-    subDocRef.set({...payload, quantit:1})
+    
+    subDocRef.set(data)
       .then(() => {
-
-      alert('set to cart successfully')
-
+      
       })
       .catch((error) => {
+        console.error('Error writing document:', error);
       });
   },
 
 
   popupdata: ({ state }: { state: State }, payload: cartProductsType) => {
     let id = state.user.userId;
-
-    const parentDocRef = db.collection('admins').doc(id);
-    const subcollectionRef = parentDocRef.collection('cart');
+    console.log(payload, 'ppp')
+    const querySnapshot = db.collection('admins').doc(id);
+    const subcollectionRef = querySnapshot.collection('cart');
     const subDocRef = subcollectionRef.doc(payload.productId);
     
     subDocRef.set(payload)
@@ -227,25 +343,29 @@ for(let i=0; i < adminsid.length ; i++){
   },
 
   getCartProducts: ({ commit, state }: { commit: Commit; state: State }) => {
+    // let id = state.user.userId;
+
+    // const parentDocRef = db.collection("admins").doc(id);
+
+    // parentDocRef.collection("cart").onSnapshot((snapshot) => {
+    //   state.cartProducts = []
+    //   snapshot.forEach((doc:any) => {
+    //     let data = { ...doc.data(), id: doc.id, showOptions: false ,productId:doc.id, total:doc.quantit * doc.Price,
+    //     }
+    //     commit('setCartProducts', data)
+    //   });
+    // });
+
+
     let id = state.user.userId;
 
     const parentDocRef = db.collection("admins").doc(id);
-
+  
     parentDocRef.collection("cart").onSnapshot((snapshot) => {
-      state.cartProducts = []
-      snapshot.forEach((doc:any) => {
+      state.cartProducts = [];
+      snapshot.forEach((doc: any) => {
         let data = { ...doc.data(), id: doc.id, showOptions: false ,productId:doc.id, total:doc.quantit * doc.Price,
-
-
-        }
-
-        console.log(data , 'saddddddddddddddddddddddddddddddddddddddddddd')
-
-        
-
-
-
-
+              }
         commit('setCartProducts', data)
       });
     });
@@ -269,12 +389,7 @@ for(let i=0; i < adminsid.length ; i++){
     });
   },
 
-
-
-
   increamentQuantity: async (
-
-
     {},
     payload: { docId: string; quantity: number }
   ) => {
@@ -362,4 +477,15 @@ try {
   ) => {
     commit("CategoryhomeProduct", payload);
   },
+
+
+
+  allTheUser: async ({ commit }: { commit: Commit }) => {
+
+  
+    
+    
+
+  },
+
 };

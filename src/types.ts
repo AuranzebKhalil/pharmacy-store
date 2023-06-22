@@ -1,9 +1,11 @@
 export type State = {
 
 
+
   totalPrice:Array<totalPrice>
   closingpopup:boolean,
-  firebaseproducts: any;
+  firebaseproducts: Array<any>;
+  ProductEdit:Array<Supplement>
   storeProduct : Array<any>
     SaleProduct : Array<any>
     cataProduct:Array<any>
@@ -17,9 +19,11 @@ export type State = {
     populercata:Array<Populercata>,
     Supplementcata:Array<Supplement>,
     wishlistproduct:Array<any>
-    bodyLoader:boolean
+    gifloader:boolean,
+    buttonLoader:boolean,
     allproduct:Array<any>
     usereditdata:Array<Supplement>
+    activeItemId:boolean
 }
 
 

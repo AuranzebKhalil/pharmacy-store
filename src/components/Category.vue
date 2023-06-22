@@ -1,7 +1,7 @@
 <template>
-  <div class="cata-products">
+  <div class="producs">
     <v-card class="v-card">
-      <v-tabs bg-color="deep-purple-darken-4" center-active>
+      <v-tabs bg-color="deep-purple-darken-4" show-btn>
         <v-tab>
           <img
             @click="render('Baby')"
@@ -109,39 +109,30 @@
 <script setup lang="ts">
 import store from "../Store";
 import router from "../router";
-
 let render = (val: String) => {
-
-  store.commit("HomeCategory", val);
+store.commit("HomeCategory", val);
 };
 </script>
 
-<style  lang="scss">
-.cata-products {
+<style lang="scss">
+.producs {
   width: 100%;
   height: 174px;
+  margin-top: 0px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin-bottom: 21px;
+
+  margin-top: 1px;
 
   .v-slide-group__next,
   .v-slide-group__prev {
     color: black;
   }
 
+ 
 
-
-  .v-slide-group__content {
-    display: flex;
-    flex: 1 0 auto;
-    gap: 50px !important;
-    position: relative;
-    transition: all .2s cubic-bezier(.4,0,.2,1);
-    white-space: nowrap;
-}
   .v-tab--selected .v-tab__slider {
     display: none;
   }
@@ -151,8 +142,7 @@ let render = (val: String) => {
     text-transform: none;
     font-weight: 700;
     color: #184363;
-    font-size: 15px;
-    padding-left: 10px;
+
   }
   .bg-deep-purple-darken-4 {
     background-color: white !important;
@@ -194,10 +184,32 @@ let render = (val: String) => {
   margin-bottom: 23px;
 }
 
+.v-tab.v-tab {
+    --v-btn-height: var(--v-tabs-height);
+    min-width: 90px;
+    margin-right: 50px;
+    margin-left: -10px;
+}
 
-.cata-products .v-btn__content {
+
+.v-slide-group__content {
+    display: flex;
+    flex: 1 0 auto;
+    position: relative;
+    gap: 23px !important;
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+    white-space: nowrap;
+    
+}
+
+.producs .v-btn__content {
   display: flex;
-  align-items: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    margin-left: 20px;
+
 }
 
 a {
@@ -207,14 +219,15 @@ a {
   gap: 6px;
 }
 
-.cata-products .bg-deep-purple-darken-4 {
+.producs .bg-deep-purple-darken-4 {
   background-color: white;
   border: none;
   margin-bottom: 17px;
+  height: 80px;
 }
 
 @media only screen and (max-width: 1024px) {
-  .cata-products {
+  .producs {
     width: 100%;
     height: 150px;
 

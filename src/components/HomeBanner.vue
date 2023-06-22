@@ -98,7 +98,16 @@
 
         <h3>or</h3>
         <input class="Sku-input" type="text" placeholder="Enter SKU" />
-        <button @click="selected" class="Sku-btn">Shop Now</button>
+        <button @click="selected" class="Sku-btn">  
+          <div>
+
+         
+
+          </div>
+
+
+
+          Shop Now</button>
       </div>
     </div>
   </div>
@@ -116,14 +125,19 @@ let selectedBrand = ref<string>();
 
 let selected = () => {
 
-console.log(Store.state.user)
+  Store.state.gifloader = true
 
-  // Store.commit("CategoryBrandProduct", {
-  //   Category: selectedCategory.value,
-  //   Brand: selectedBrand.value,
-  // });
 
-  // router.push("/store");
+    Store.commit("CategoryBrandProductSearch", {
+    Category: selectedCategory.value,
+    brand: selectedBrand.value,
+     
+  });
+
+
+
+
+
 };
 </script>
 
@@ -288,7 +302,7 @@ console.log(Store.state.user)
 
   .v-field__field {
     align-items: center;
-    height: 23px;
+    height: 40px;
     display: flex;
     margin-bottom: 16px !important;
   }
@@ -314,7 +328,7 @@ console.log(Store.state.user)
   }
 
   .v-select .v-field .v-field__append-inner > .v-icon {
-    height: 40px;
+    height: 68px;
     margin-bottom: 1px;
   }
 
@@ -341,6 +355,7 @@ console.log(Store.state.user)
     background-color: #edf4f6 !important;
     font-size: 15px;
     padding-left: 10px;
+    outline: none;
   }
 
   .Sku-btn {

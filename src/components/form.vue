@@ -9,6 +9,7 @@
   <v-text-field placeholder="Product price" v-model="Price"></v-text-field>
   <v-text-field placeholder="Product Rating" v-model="Rating"></v-text-field>
   <v-text-field placeholder="Product Sale" v-model="Sale"></v-text-field>
+  
 
   <v-btn @click="Submint">Submint</v-btn>
   
@@ -31,6 +32,7 @@ const catagory = ref<string>('')
 const Price = ref<number>()
 const Rating = ref<string>('')
 const Sale = ref<string>('')
+const inCartd = ref<boolean>(false)
 
     let userId = Store.state.user.userId
 
@@ -43,7 +45,8 @@ const Submint = async () => {
           catagory:catagory.value,
           Rating:Rating.value,
           Sale:Sale.value,
-          Price:Price.value
+          Price:Price.value,
+          inCartd:inCartd.value
         })
         alert('product set to firebase successfully')
         console.log('successfully!')
@@ -60,7 +63,7 @@ const Submint = async () => {
 
 .v-container {
     width: 52% !important;
-    margin-top: 50px;
+    margin-top: 250px;
     .v-btn.v-btn--density-default {
     height: calc(var(--v-btn-height));
     background-color: cadetblue;

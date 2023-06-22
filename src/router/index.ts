@@ -8,7 +8,6 @@ import pop from "../components/popup.vue";
 import login from "../views/login.vue";
 import signup from "../views/singUp.vue";
 import navber from "../views/navbar.vue";
-
 import wishlist from "../components/wishlist.vue";
 import { auth } from "../Firebase/firebase";
 import editorsrouter from "../components/EditProducts.vue" ;
@@ -18,8 +17,7 @@ const routes:any = [
     path: "",
     name: "Home",
     components: {
-      default: Home,
-      // Header: navber,
+      default: Home,     
     },
     meta: {
       requiresAuth: true,
@@ -58,7 +56,6 @@ const routes:any = [
       default: Store,
       Header: navber,
     },
-
     meta: {
       requiresAuth: true,
     },
@@ -122,8 +119,7 @@ const routes:any = [
     path: "/signup",
     name: "signup ",
     component: signup,
-    meta: {
-      requiresAuth: false,
+    meta: {    requiresAuth: false,
     },
   },
 ];
@@ -133,21 +129,25 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.path === '/login' && auth.currentUser) {
-    next('/')
-    return;
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.auth);
+  const auth = getAuth();
+  const user = await new Promise((resolve) => {
+    onAuthStateChanged(auth, resolve);
+  });
+  const isAuthenticated = !!user;
+  if (requiresAuth && !isAuthenticated) {
+    next("/signin");
+  } else if (isAuthenticated && to.name === "Signin") {
+    next("/");
+  } else if (isAuthenticated && requiresAuth) {
+    next();
+  } else if (!isAuthenticated && requiresAuth) {
+    next("/login");
+  } else {
+    next();
   }
-
-  if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
-    next('/login')
-    return;
-  }
-
-  next();
-})
-
-
+});
 
 
 export default router;

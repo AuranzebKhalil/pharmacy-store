@@ -1,5 +1,5 @@
 <template>
-  <v-app class="bannner">
+  <div class="bannner">
       <state class="alls" v-if="data" />
       <searchhome class="alls" v-if="item" />
       <storeSidebar class="alls" v-if="side" />
@@ -7,11 +7,11 @@
       <burger />
       </div>
       <div class="abs" v-if="sum">
-   <covidSection />
+        <covidSection />
         <SearchBar />
         <navlist />
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -42,9 +42,12 @@ let sum = ref(true);
   max-width: 1450px;
   width: 100%;
   margin: auto;
-  height: 35vh !important;
-  overflow: hidden;
-  background-color: white;
+  height: 209px !important;
+  position: revert !important;
+
+  overflow: inherit !important;
+
+
  
 }
 
@@ -67,11 +70,32 @@ let sum = ref(true);
   }
 }
 
+.burger{
+  display: none;
+  position: sticky;
+ z-index: 1;
+
+}
 
 
 .abs {
-  z-index: 999;
+ position: sticky;
+ z-index: 1;
+
+
 }
+
+
+
+@media only screen and (min-width: 1050px){
+
+.alls {
+  display: none;
+}
+}
+
+
+
 @media only screen and (min-width: 1050px){
 
   .burger {
@@ -86,7 +110,7 @@ let sum = ref(true);
 
   .bannner {
 
-  height: 17vh !important;
+  height: 8vh !important;
 
 }
   .burger {

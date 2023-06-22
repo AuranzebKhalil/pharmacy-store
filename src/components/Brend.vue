@@ -1,7 +1,7 @@
 <template>
-  <div class="conta">
+  <div class="conta" outline-none  >
     <v-card>
-      <v-tabs bg-color="White" center-active>
+      <v-tabs class="gap-0" outline-none   center-active >
         <v-tab>
           <router-link to="/store"
             ><img
@@ -13,7 +13,7 @@
         <v-tab
           ><router-link to="/store"
             ><img
-              @click="Brands('ameren')"
+              @click="Brands('Amere')"
               class="product-imgs"
               src="https://enovathemes.com/propharm/wp-content/uploads/ameren.svg"
           /></router-link>
@@ -37,7 +37,7 @@
         <v-tab>
           <router-link to="/store"
             ><img
-              @click="Brands('bticinocom')"
+              @click="Brands('Bticin')"
               class="product-imgs"
               src="https://enovathemes.com/propharm/wp-content/uploads/logo-bticinocom.svg"
           /></router-link>
@@ -83,21 +83,21 @@
 import store from "../Store/index";
 
 let Brands = (val: any) => {
+
+
   store.commit("HomeBranbs", val);
 };
 </script>
 
 <style lang="scss">
 .conta {
-  width: 100%;
-  height: 180px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  display: inline-block;
-  background-color: white;
+ 
+  height: 215px;
+    max-width: 1445px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
 
   .v-tabs--density-default {
     height: 100px;
@@ -108,11 +108,34 @@ let Brands = (val: any) => {
     height: 100px;
   }
 
+
+  .v-icon--size-default {
+    font-size: calc(var(--v-icon-size-multiplier)*1.5em);
+    background-color: #edf4f6 !important;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+
+       
+  
+}
+
+  .v-icon--size-default:hover {
+
+     background-color: #15a9e3 !important;
+     color: white;
+  
+
+}
+
+.v-btn__underlay {
+   
+    width: 1px !important;
+
+}
+
   .v-card--variant-elevated {
-    box-shadow: 0 2px 1px -1px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)),
-      0 1px 1px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)),
-      0 1px 3px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12));
-    padding-bottom: 25px;
+padding-bottom: 25px;
   }
 
   .v-btn__content {
@@ -130,20 +153,16 @@ let Brands = (val: any) => {
     --v-tabs-width: 195px;
   }
 
-  .v-btn__underlay {
-    width: 94%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
 }
 
 .conta img {
-  width: 195px;
-  height: 100px;
-  border: 1px solid #eaeaea;
-  border-radius: 5px;
-  outline: none;
-  border-bottom: none !important;
+
+  width: 178px;
+    height: 100px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin-right: -77px;
+
 }
 </style>

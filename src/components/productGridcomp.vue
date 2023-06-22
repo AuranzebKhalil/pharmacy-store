@@ -1,88 +1,88 @@
 <template>
-  <div class="product-item" v-for="item in items" :key="item.id">
-    <div
-      class="d-flex"
-      @mouseleave="showOptions(false)"
-      @mouseover="showOptions(item.id)"
+  <div class="product-item" v-for="item in itemes" :key="item.id">
+    <img
+      class="preloader"
+      v-if="item.showLoader"
+      src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/08/s_2A9C470D38F43091CCD122E63014ED4503CAA7508FAF0C6806AE473C2B94B83E_1627522653545_loadinfo.gif?resize=200%2C200&ssl=1"
+      alt=""
     >
-      <img :src="item.url" @click="showing(item)" alt="" />
-
-      <div class="Sale" v-if="item.Sale === 'Sale'">
-        <p>{{ item.Sale }}</p>
+    <div>
+      <div
+        class="d-flex productimg"
+        @mouseleave="showOptions(false)"
+        @mouseover="showOptions(item.id)"
+      >
+        <img :src="item.url" @click="showing(item)" alt="" />
+        <div class="Sale" v-if="item.Sale === 'Sale'">
+          <p>{{ item.Sale }}</p>
+        </div>
+        <div class="imgages" v-if="item.showOptions">
+          <img src="../assets/heart.png" alt="" />
+          <img @click="Wishlist(item)" src="../assets/commit-git.png" alt="" />
+          <img src="../assets/loupe.png" alt="" />
+        </div>
       </div>
-
-      <div class="imgages" v-if="item.showOptions">
-        <img src="../assets/heart.png" alt="" />
-        <img @click="Wishlist(item)" src="../assets/commit-git.png" alt="" />
-        <img src="../assets/search.png" alt="" />
+      <div class="product-contant-text">
+        <div class="imgage">
+          <img class="heart-img" src="../assets/heart.png" alt="" />
+          <img
+            class="gitpng"
+            @click="Wishlist(item)"
+            src="../assets/commit-git.png"
+            alt=""
+          />
+          <img class="searcpng" src="../assets/search.png" alt="" />
+        </div>
+        <span>{{ item.catagory }}</span>
+        <p class="position">{{ item.name }}</p>
+        <div class="ratings">
+          <v-rating v-model="item.Rating" color="blue"></v-rating>
+          <p>{{ item.Rating }}</p>
+        </div>
+        <h5>$ {{ item.Price }}</h5>
+        <button v-if="existincart(item.id)" @click="Sending(item)" class="addtocartbtn" >
+          <img src="../assets/shopping-cart (2).png" alt="" /> Add to Cart
+        </button>
+        <button v-else  @click="cartview" class="addtocartbtn">
+          <img src="../assets/shopping-cart (2).png" alt="" /> View to Cart
+        </button>
       </div>
-    </div>
-    <div class="product-contant-text">
-      <div class="imgage">
-        <img class="heart-img" src="../assets/heart.png" alt="" />
-        <img
-          class="gitpng"
-          @click="Wishlist(item)"
-          src="../assets/commit-git.png"
-          alt=""
-        />
-        <img class="searcpng" src="../assets/search.png" alt="" />
-      </div>
-
-      <span>{{ item.catagory }}</span>
-
-      <p class="postiotion">{{ item.name }}</p>
-      <div class="ratings">
-        <!-- <StarRating></StarRating> -->
-
-        <v-rating
-          v-model="item.Rating"
-        ></v-rating>
-
-        <p>{{ item.Rating }}</p>
-      </div>
-      <h5>$ {{ item.Price }}</h5>
-
-      <button @click="Sending(item)" class="addtocartbtn" v-if="selecteditem">
-        <img src="../assets/shopping-cart (2).png" alt="" /> Add to Cart
-      </button>
-      <button @click="cartview" v-if="viewitems" class="addtocartbtn">
-        <img src="../assets/shopping-cart (2).png" alt="" /> View to Cart
-      </button>
     </div>
   </div>
   <div v-if="shows">
-    <router-view> <popup :showes="allsum" @cut="clear" /> </router-view>
+    <RouterView>
+      <popup :showes="allsum" @cut="clear" />
+    </RouterView>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, watch } from "vue";
 import store from "../Store";
 import popup from "../components/popup.vue";
 import vue3starRatings from "vue3-star-ratings";
-
 import { PropType, ref } from "vue";
 import db from "../Firebase/firebase";
-
 import { v4 as uuidv4 } from "uuid";
 import router from "../router";
+import { cartProductsType } from "../types";
+import { getDocs,QuerySnapshot, collection } from "firebase/firestore";
 
 const props = defineProps<{
   items: Array<any>;
 }>();
 
-let selecteditem: any = ref(true);
+const itemes = ref(props.items);
 
-let viewitems: any = ref(false);
 
-let hoveredProduct = ref(null);
-let shows = ref();
+watch(() => props.items, (newItems) => {
+  itemes.value = newItems;
+});
+
+let shows = ref(false);
 
 let cartview = () => {
-  viewitems.value = false;
-  selecteditem.value = true;
-  router.push("/store");
+  router.push("/cart");
 };
 
 let allsum = reactive([]);
@@ -108,30 +108,58 @@ const showOptions = (id: boolean) => {
   });
 };
 
-let Sending = async (data: any) => {
-  data.productId = data.id
-store.dispatch('setCartProducts', data)
-  props.items.forEach((e) => {
-    if (e.id == data.id) {
-      viewitems.value = true; 
+let activeItemId = computed(() => {
+  return store.state.activeItemId;
+});
 
-    } else {
-        selecteditem.value = true;
-        viewitems.value = false;
-    }
-  });
+let Sending = async (item: any) => {
+
+
+
+
+  let data = { ...item, saller: item.id };
+  activeItemId = item.id;
+  store.dispatch('setCartProducts', data);
+  item.showLoader = true;
+  setTimeout(() => {
+    item.showLoader = false; 
+  }, 2000);
+
+
+
+  
+
+
+
 };
+
+
+let existincart =(id:String)=>{
+
+
+let existincarts = store.state.cartProducts
+
+let test = existincarts.some((e)=>{
+
+
+
+
+  return e.saller == id
+
+
+})
+
+return !test
+
+
+}
 
 let Wishlist = async (data: any) => {
   let url = ref<string>(data.url);
-
   let price = ref<number>(data.price);
-
   let name = ref<string>(data.name);
   let Rating = ref<number>(data.Rating);
-
   const uniqueId = uuidv4();
-
   let quantit = ref<number>(1);
 
   try {
@@ -148,22 +176,30 @@ let Wishlist = async (data: any) => {
   } catch (error) {
     console.error("Error", error);
   }
-
-
-
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .product-item {
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.postiotion {
+.position {
   max-height: 22px;
   overflow: hidden;
   margin-bottom: 5px;
+}
+
+.preloader {
+  position: absolute;
+  z-index: 1000;
+  overflow: hidden;
+  width: 75px;
 }
 
 .imgage {
@@ -174,18 +210,8 @@ let Wishlist = async (data: any) => {
   display: none;
 }
 
-.heart-img {
-  width: 25px !important;
-  background-color: #f0efef;
-  padding: 4px;
-}
-
-.gitpng {
-  width: 25px !important;
-  background-color: #f0efef;
-  padding: 4px;
-}
-
+.heart-img,
+.gitpng,
 .searcpng {
   width: 25px !important;
   background-color: #f0efef;
@@ -198,7 +224,7 @@ let Wishlist = async (data: any) => {
   padding: 4px;
 }
 
-.product-item img {
+.productimg img {
   width: 100%;
   height: 1%;
   position: relative;
@@ -233,18 +259,17 @@ let Wishlist = async (data: any) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* gap: 0rem; */
     height: 22px;
     width: 100%;
   }
 }
+
 .Sale {
   position: absolute;
   margin-left: 15px;
   display: flex;
   margin-top: 14px;
   flex-direction: column;
-  /* border: 1px solid; */
   font-size: 14px;
   width: 44px;
   display: flex;
@@ -269,21 +294,21 @@ let Wishlist = async (data: any) => {
 }
 
 .v-rating__item .v-btn .v-icon {
-  /* transition: inherit; */
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-
   height: 27px !important;
   position: absolute !important;
 }
 
 .product-contant-text p {
   color: #56778f;
-  padding-top: 3px;
-  padding-left: 4px;
-  font-weight: 500;
-
-  font-size: 15px;
-  cursor: pointer;
+    padding-top: 3px;
+    padding-left: 4px;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    max-height: 22px;
+    overflow: hidden;
+    margin-bottom: 5px;
 }
 
 .product-contant-text h5 {
@@ -319,16 +344,13 @@ let Wishlist = async (data: any) => {
   width: 100%;
   height: 40px;
   text-align: center;
-
   border-radius: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   margin-top: 7px;
-
   background-color: #edf4f6;
-
   font-size: 17px;
   font-weight: bold;
 }
@@ -345,8 +367,4 @@ let Wishlist = async (data: any) => {
   font-size: 17px;
   font-weight: bold;
 }
-
-// imgages
-
-
 </style>

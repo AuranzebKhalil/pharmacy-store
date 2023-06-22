@@ -4,7 +4,7 @@
         <p class="para"> Due to the COVID 19 epidemic, orders may be processed with a slight delay</p>
         <v-spacer></v-spacer>
        
-<p>{{ user.email }}</p>
+
 
     </v-layout>
 </template>
@@ -36,6 +36,15 @@ watch(store.state.user, (value)=>{
     position: fixed;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.covid-para{
+
+    padding-right: 25px;
+    color: black;
+    font-size: 17px;
+    font-family: initial;
+
 }
 
 .Buy-btn {

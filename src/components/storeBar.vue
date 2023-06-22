@@ -1,9 +1,21 @@
 <template>
   <VMain class="main">
     <div class="navbar">
-      <VList @click="home">Home </VList>
-      <VList></VList>
-      <VList @click="shop"> Shop </VList>
+
+      <div class="d-flex ">
+
+    <VList @click="home">Home </VList>
+      <VList>  ></VList>
+      <VList @click="shop" class="Shop"> Shop </VList>
+
+
+      </div>
+    
+      <div>
+
+  <img @click="closed" src="../assets/close (1).png" alt="">
+
+      </div>
     </div>
 
     <div class="Categorie mt-11">
@@ -29,10 +41,14 @@
       <div>
         <v-range-slider
           v-model="priceRange"
-          step="15"
-          thumb-label="always"
+  
+
+          color="blue"
+          height="2pxs"
+          class="Range-slider"
           @click="onPriceRangeChange"
         ></v-range-slider>
+
       </div>
       <div class="contant pl-3 d-flex align-center">
         <input
@@ -148,19 +164,47 @@
         ></VRadio>
       </VRadioGroup>
     </div>
+
+
+
+
+
+    <div class="sideBanner">
+
+
+      <img src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_1.png" alt="">
+
+      <p>Pyridoxine Vitamin B6</p>
+
+      <h5>Vitamins & <br>
+Supplements</h5>
+
+      <button>Shop now</button>
+
+
+    </div>
+
+
   </VMain>
+
+
+
+
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import store from "../Store/index";
-import { defineEmits } from "vue";
+
 import router from "../router";
 const selectedOption = ref<string>("");
 const emits = defineEmits(["childEvent", "Events", "minmax"]);
 
 let render = (val: String) => {
-  (store.state.storeProduct = []), store.dispatch("Catagory", val);
+
+
+  
+  store.dispatch("Catagory", val);
 
   emits("Events");
 };
@@ -193,6 +237,14 @@ function onPriceRangeChange() {
 
   store.commit("PriceData", { min: min, max: max });
 }
+
+
+let closed = () =>{
+
+
+  store.state.storeSidebar = false
+
+}
 </script>
 
 <style scoped lang="scss">
@@ -201,13 +253,20 @@ function onPriceRangeChange() {
 }
 
 .v-main {
-  padding-left: 20px;
-  // position: fixed;
 
+.Shop{
+  color: #184363 !important;
+}
   .navbar {
+    width: 100%;
     gap: 6px;
     margin-top: 40px;
     position: initial !important;
+    display: flex;
+    margin-left: 21px;
+    color: #56778f;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .v-main .Categorie {
@@ -225,8 +284,61 @@ function onPriceRangeChange() {
     cursor: pointer;
   }
 
+  .Range-slider{
 
-  
+    height: 1px;
+
+  }
+
+  .sideBanner{
+    background: url(https://enovathemes.com/propharm/wp-content/uploads/slide2_back.jpg) no-repeat center center/cover;
+
+    width: 210px;
+    margin-bottom: 55PX;
+    margin-top: 40px;
+    height: 390px;
+    display: flex;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 14px;
+
+  p{
+
+    color: #184363;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+    margin-top: 7px;
+  }
+
+
+  h5{
+
+    color: #184363;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: none;
+    margin-top: 7px;
+  }
+
+  button{
+    background: #39cb74;
+    height: 40px;
+    font-size: 15px !important;
+    font-weight: 600;
+    line-height: 22px !important;
+    color: #fff;
+    width: 110px;
+    margin-top: 7px;
+    border-radius: 38px;
+    margin-top: 5px;
+
+
+  }
+  }
 
   .Categories {
     font-family: PT Sans;
@@ -250,12 +362,6 @@ function onPriceRangeChange() {
     margin-right: 21px;
   }
 
-  .v-slider.v-input--horizontal .v-input__control {
-    align-items: center;
-    display: flex;
-    min-height: 32px;
-    width: 300px !important;
-  }
 
   .Categorie .v-theme--myCustomLightTheme {
     font-size: 14px;
@@ -315,7 +421,7 @@ function onPriceRangeChange() {
     font-weight: 700;
     font-family: PT Sans;
     margin-left: 25px;
-    margin-top: 50px;
+    margin-top: 89px;
     margin-bottom: 10px;
   }
 
@@ -339,7 +445,7 @@ function onPriceRangeChange() {
     gap: 7px;
     margin-left: -11px;
     width: 60% !important;
-
+    margin-top: -99px;
     .v-input__control {
       align-items: center;
       display: flex;
@@ -347,6 +453,11 @@ function onPriceRangeChange() {
     }
   }
 
+  .navbar img{
+    position: absolute;
+    right: 16px;
+    top: 15px;
+  }
   .custom-input {
     height: 41px;
     width: 81px;
@@ -388,10 +499,12 @@ function onPriceRangeChange() {
   }
 
   .v-selection-control .v-label {
-    font-family: PT Sans;
-    font-weight: 700;
-    letter-spacing: 0px;
-    color: #102f46;
+    margin-left: 16px;
+    margin-right: 0;
+    position: relative;
+    padding-left: 24px;
+    font-size: 13px;
+    cursor: pointer;
   }
 
   .v-main .v-input--density-default[data-v-be320b00] {
@@ -406,7 +519,7 @@ function onPriceRangeChange() {
     line-height: 13px;
     letter-spacing: 0px;
     color: blue !important;
-    width: 280px !important;
+    width: 210px !important;
     margin: auto;
     height: 40px;
   }
@@ -420,8 +533,7 @@ function onPriceRangeChange() {
     margin-bottom: 21px;
   }
 
-  .v-main
-    .v-main
+
     .v-slider.v-input--horizontal[data-v-be320b00][data-v-be320b00] {
     font-size: 14px;
     font-weight: 400;

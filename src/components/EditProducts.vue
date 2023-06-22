@@ -9,20 +9,56 @@
   
 <div class="products-item">
 
-        <div class="grid-componet" v-for="item in items">
-          <img :src="item.url">
+  <div class="product-item" v-for="item in items" :key="item.id">
+    <div
+      class="editer"
+  
+    >
+      <img :src="item.url" alt="" />
 
-          <div class="para-para">
-       <p>name : {{ item.name }}</p>
-           <p>catagory : {{ item.catagory }}</p>
-           <p>price : {{ item.Price }}</p>
-           <p>ratting : {{ item.Rating }}</p>
-           <p>brand : {{ item.brand }}</p>
-           <button @click="data(item)">Edit product</button>
+      <div class="Sale" v-if="item.Sale === 'Sale'">
+        <p>{{ item.Sale }}</p>
+      </div>
 
-          </div>
     
-        </div>
+    </div>
+    <div class="product-contant-text">
+      <div class="imgage">
+        <img class="heart-img" src="../assets/heart.png" alt="" />
+        <img
+          class="gitpng"
+
+          src="../assets/commit-git.png"
+          alt=""
+        />
+        <img class="searcpng" src="../assets/search.png" alt="" />
+      </div>
+
+      <span>{{ item.catagory }}</span>
+
+      <p class="postiotion">{{ item.name }}</p>
+      <div class="ratings">
+        
+
+        <v-rating
+        v-model="item.Rating"
+
+      color="blue"
+    ></v-rating>
+
+        <p>{{ item.Rating }}</p>
+      </div>
+      <h5>$ {{ item.Price }}</h5>
+      <h5>{{ item.brand }}</h5>
+      
+
+      <button @click="data(item)" class="addtocartbtn" >
+        <img src="../assets/shopping-cart (2).png" alt="" /> Edit Product
+      </button>
+    
+    </div>
+  </div>
+
       </div>
   
 </div>
@@ -42,15 +78,20 @@ onMounted(() => {
 });
 
 let items = computed(()=>{
-
  return JSON.parse(JSON.stringify(Store.state.usereditdata))
 })
 
 let popdata:any = ref([])
 
 let data = (data:any) =>{
+  Store.state.ProductEdit = []
+  
   popdata.value.push(data)
-  Store.state.closingpopup = true
+
+ Store.state.closingpopup = true
+
+Store.state.ProductEdit.push(data)
+
 }
 
 
@@ -60,15 +101,25 @@ let data = (data:any) =>{
 <style lang="scss" >
 
 .full-div-container{
-  max-width: 100%;
+    max-width: 100%;
     width: 90%;
-  margin: auto;
+    margin: auto;
     height: auto;
+    margin-top: 230px;
 
 
 
 }
 
+.editer {
+
+  display: flex;
+}
+.editer img{
+
+  width: 100%;
+
+}
 
 .para-para{
 
@@ -90,7 +141,9 @@ let data = (data:any) =>{
 .products-item{
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .grid-componet{
@@ -114,6 +167,42 @@ border-radius: 10px;
 
 }
 
+
+@media only screen and (max-width: 860px) {
+
+
+  .products-item{
+
+grid-template-columns: repeat(3, 1fr);
+
+}
+
+}
+
+
+
+
+@media only screen and (max-width: 620px) {
+
+
+.products-item{
+
+grid-template-columns: repeat(2, 1fr);
+
+}
+
+}
+
+@media only screen and (max-width: 350px) {
+
+
+.products-item{
+
+grid-template-columns: repeat(1, 1fr);
+
+}
+
+}
 
 
 </style>

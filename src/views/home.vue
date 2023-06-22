@@ -45,7 +45,9 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .app {
-  max-width: 1350px;
+  max-width: 1450px;
+  position: relative;
+  z-index: 1000;
   margin: auto;
   height: auto;
 
