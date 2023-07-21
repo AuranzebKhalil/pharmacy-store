@@ -1,4 +1,5 @@
 export type State = {
+  [x: string]: any;
 
 
 

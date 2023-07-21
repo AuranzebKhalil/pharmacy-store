@@ -26,7 +26,7 @@ export default {
   searchItem: false,
   storeSidebar: false,
   populercata: Array<Populercata>(),
-  Supplementcata: Array<Supplement>(),
+  z: Array<Supplement>(),
   wishlistproduct: [],
   gifloader:false,
 

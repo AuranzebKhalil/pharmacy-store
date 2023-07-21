@@ -10,9 +10,6 @@ import '@mdi/font/css/materialdesignicons.min.css'
 
 
 loadFonts()
-
-
-
 createApp(App).use(vuetify).use(store).use(router).mount('#app')
 
 

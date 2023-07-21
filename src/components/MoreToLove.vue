@@ -23,24 +23,24 @@
 
   <hr class="hr" />
 
-  <div class="full-container">
-    <div class="cata">
+  <div class="full-container flex-arround">
+    <div class="cata flex-center">
       <img src="../assets/wallet.png" alt="" />
       <h4>100% Money back</h4>
     </div>
 
-    <div class="cata">
+    <div class="cata flex-center">
       <img src="../assets/email.png" alt="" />
       <h4>Non-contact shipping</h4>
     </div>
 
-    <div class="cata">
+    <div class="cata flex-center">
       <img src="../assets/vehicle.png" alt="" />
       <h4>Free delivery over $200</h4>
     </div>
   </div>
 
-  <div class="bottomText">
+  <div class="bottomText flex-center">
     <h2>Best Selling Products in</h2>
   </div>
 
@@ -73,11 +73,10 @@ const MoreToLove = computed(() => {
   return Store.state.storeProduct.slice(0, 5);
 });
 
-let Supplements: any = () => {
-  console.log(displayedProducts.value, "asdadasdasd");
-};
+let Supplements: any = () => {};
 </script>
 <style lang="scss">
+@import "../scss/variables";
 .topText {
   width: 100%;
   text-align: center;
@@ -94,7 +93,6 @@ hr {
 .products-Container {
   width: 95%;
   margin: auto;
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background-color: white;
@@ -127,36 +125,26 @@ hr {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+  @include left-right-10;
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
 .full-container {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   margin-top: 50px;
 
   .cata {
-    display: flex;
-    align-items: center;
     gap: 20px;
     width: 30%;
     padding: 20px 20px;
     border-radius: 10px;
-    justify-content: center;
     background-color: #fafafa;
   }
 }
 
 .bottomText {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-top: 35px;
 }
 
@@ -199,10 +187,7 @@ hr {
 @media only screen and (max-width: 720px) {
   .text-container .Categories-btn {
     gap: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include flex-all-center-col;
     gap: 20px;
   }
 }

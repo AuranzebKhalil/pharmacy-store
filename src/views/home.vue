@@ -18,9 +18,7 @@
 <script lang="ts" setup>
 
 import navber from '../views/navbar.vue'
-import covidSection from "../components/covidSection.vue";
-import SearchBar from "../components/SearchBar.vue";
-import navlist from "../components/NavlistSection.vue";
+
 import Banner from "../components/HomeBanner.vue";
 import ProductCategory from "../components/ProductCategory.vue";
 import Gridcards from "../components/Productgrid.vue";

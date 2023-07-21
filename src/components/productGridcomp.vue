@@ -1,11 +1,11 @@
 <template>
-  <div class="product-item" v-for="item in itemes" :key="item.id">
+  <div class="product-item flex-center" v-for="item in itemes" :key="item.id">
     <img
       class="preloader"
       v-if="item.showLoader"
       src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/08/s_2A9C470D38F43091CCD122E63014ED4503CAA7508FAF0C6806AE473C2B94B83E_1627522653545_loadinfo.gif?resize=200%2C200&ssl=1"
       alt=""
-    >
+    />
     <div>
       <div
         class="d-flex productimg"
@@ -13,7 +13,7 @@
         @mouseover="showOptions(item.id)"
       >
         <img :src="item.url" @click="showing(item)" alt="" />
-        <div class="Sale" v-if="item.Sale === 'Sale'">
+        <div class="Sale flex-align" v-if="item.Sale === 'Sale'">
           <p>{{ item.Sale }}</p>
         </div>
         <div class="imgages" v-if="item.showOptions">
@@ -40,10 +40,14 @@
           <p>{{ item.Rating }}</p>
         </div>
         <h5>$ {{ item.Price }}</h5>
-        <button v-if="existincart(item.id)" @click="Sending(item)" class="addtocartbtn" >
+        <button
+          v-if="existincart(item.id)"
+          @click="Sending(item)"
+          class="addtocartbtn flex-center"
+        >
           <img src="../assets/shopping-cart (2).png" alt="" /> Add to Cart
         </button>
-        <button v-else  @click="cartview" class="addtocartbtn">
+        <button v-else @click="cartview" class="addtocartbtn">
           <img src="../assets/shopping-cart (2).png" alt="" /> View to Cart
         </button>
       </div>
@@ -60,13 +64,10 @@
 import { reactive, computed, watch } from "vue";
 import store from "../Store";
 import popup from "../components/popup.vue";
-import vue3starRatings from "vue3-star-ratings";
 import { PropType, ref } from "vue";
 import db from "../Firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import router from "../router";
-import { cartProductsType } from "../types";
-import { getDocs,QuerySnapshot, collection } from "firebase/firestore";
 
 const props = defineProps<{
   items: Array<any>;
@@ -74,10 +75,12 @@ const props = defineProps<{
 
 const itemes = ref(props.items);
 
-
-watch(() => props.items, (newItems) => {
-  itemes.value = newItems;
-});
+watch(
+  () => props.items,
+  (newItems) => {
+    itemes.value = newItems;
+  }
+);
 
 let shows = ref(false);
 
@@ -113,46 +116,24 @@ let activeItemId = computed(() => {
 });
 
 let Sending = async (item: any) => {
-
-
-
-
   let data = { ...item, saller: item.id };
   activeItemId = item.id;
-  store.dispatch('setCartProducts', data);
+  store.dispatch("setCartProducts", data);
   item.showLoader = true;
   setTimeout(() => {
-    item.showLoader = false; 
+    item.showLoader = false;
   }, 2000);
-
-
-
-  
-
-
-
 };
 
+let existincart = (id: String) => {
+  let existincarts = store.state.cartProducts;
 
-let existincart =(id:String)=>{
+  let test = existincarts.some((e) => {
+    return e.saller == id;
+  });
 
-
-let existincarts = store.state.cartProducts
-
-let test = existincarts.some((e)=>{
-
-
-
-
-  return e.saller == id
-
-
-})
-
-return !test
-
-
-}
+  return !test;
+};
 
 let Wishlist = async (data: any) => {
   let url = ref<string>(data.url);
@@ -180,13 +161,12 @@ let Wishlist = async (data: any) => {
 </script>
 
 <style lang="scss">
+@import "../scss/variables";
+
 .product-item {
   width: 100%;
   height: auto;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .position {
@@ -232,20 +212,17 @@ let Wishlist = async (data: any) => {
 }
 
 .imgages img {
-  width: 30px;
-  height: 30px;
-  padding: 6px;
-  margin-top: 5px;
-  border-radius: 16px;
-  background-color: white;
+
+  @include product-img;
+
 }
 
 .imgages {
   z-index: 1000;
   margin-left: -39px;
-  display: flex;
   margin-top: 16px;
-  flex-direction: column;
+  @include flex-col
+
 }
 
 .show-message {
@@ -256,28 +233,14 @@ let Wishlist = async (data: any) => {
   display: flex;
 
   .vue3-star-ratings[data-v-786b615e] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     height: 22px;
     width: 100%;
   }
 }
 
 .Sale {
-  position: absolute;
-  margin-left: 15px;
-  display: flex;
-  margin-top: 14px;
-  flex-direction: column;
-  font-size: 14px;
-  width: 44px;
-  display: flex;
-  align-items: center;
-  border-radius: 24px;
-  height: 21px;
-  background: #39cb74;
-  color: white;
+  @include Sales;
 }
 
 .product-contant-text {
@@ -285,12 +248,7 @@ let Wishlist = async (data: any) => {
 }
 
 .product-contant-text:hover p {
-  color: #15a9e3;
-  padding-left: 4px;
-  font-size: 15px;
-  cursor: pointer;
-  font-weight: 500;
-  padding-top: 3px;
+  @include Hover-p;
 }
 
 .v-rating__item .v-btn .v-icon {
@@ -300,26 +258,11 @@ let Wishlist = async (data: any) => {
 }
 
 .product-contant-text p {
-  color: #56778f;
-    padding-top: 3px;
-    padding-left: 4px;
-    font-weight: 500;
-    font-size: 15px;
-    cursor: pointer;
-    max-height: 22px;
-    overflow: hidden;
-    margin-bottom: 5px;
+  @include text-p;
 }
 
 .product-contant-text h5 {
-  font-size: 14px;
-  font-weight: 400;
-  font-family: PT Sans;
-  line-height: 24px;
-  letter-spacing: 0px;
-  color: #56778f;
-  padding-left: 4px;
-  padding-top: 4px;
+  @include text-h5;
 }
 
 .product-contant-text span {
@@ -341,18 +284,7 @@ let Wishlist = async (data: any) => {
 }
 
 .addtocartbtn {
-  width: 100%;
-  height: 40px;
-  text-align: center;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 7px;
-  background-color: #edf4f6;
-  font-size: 17px;
-  font-weight: bold;
+  @include cart-btn;
 }
 
 .addtocartbtn img {
@@ -362,9 +294,6 @@ let Wishlist = async (data: any) => {
 }
 
 .addtocartbtn:hover {
-  background-color: #184363;
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
+  @include cart-btn-hover;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="cata-products">
-    <v-card class="v-card">
+  <div class="cata-products flex-center">
+    <v-card class="v-card flex-align">
       <v-tabs bg-color="deep-purple-darken-4" center-active>
         <v-tab>
           <img
@@ -90,7 +90,11 @@
         </v-tab>
 
         <v-tab>
-          <img class="product-img" src="../assets/protein-powder.png" alt="" />Spots
+          <img
+            class="product-img"
+            src="../assets/protein-powder.png"
+            alt=""
+          />Spots
           <p class="cata-text">Nutrition</p>
         </v-tab>
         <v-tab>
@@ -111,19 +115,15 @@ import store from "../Store";
 import router from "../router";
 
 let render = (val: String) => {
-
   store.commit("HomeCategory", val);
 };
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 .cata-products {
   width: 100%;
   height: 174px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   margin-bottom: 21px;
 
@@ -132,16 +132,14 @@ let render = (val: String) => {
     color: black;
   }
 
-
-
   .v-slide-group__content {
     display: flex;
     flex: 1 0 auto;
     gap: 50px !important;
     position: relative;
-    transition: all .2s cubic-bezier(.4,0,.2,1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
-}
+  }
   .v-tab--selected .v-tab__slider {
     display: none;
   }
@@ -158,53 +156,10 @@ let render = (val: String) => {
     background-color: white !important;
   }
 
-  .v-slide-group__prev {
-    background: white !important;
-  }
-
-  .v-slide-group__next {
-    background: white !important;
-  }
-
   .v-card {
     height: 146px;
     display: 1px solid;
-
-    display: flex;
-    align-items: center;
   }
-}
-
-.v-tabs--density-default {
-  --v-tabs-height: 91px;
-}
-.product-img {
-  width: 48px;
-}
-.v-slide-group__container {
-  margin-right: 0px !important;
-}
-
-.v-btn__content {
-  color: black;
-}
-
-.bg-deep-purple-darken-4 {
-  background-color: white !important;
-  margin-bottom: 23px;
-}
-
-
-.cata-products .v-btn__content {
-  display: flex;
-  align-items: center;
-}
-
-a {
-  /* background-color: transparent; */
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .cata-products .bg-deep-purple-darken-4 {

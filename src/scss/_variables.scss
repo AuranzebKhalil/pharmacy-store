@@ -1,1 +1,341 @@
-$pt-font: 'PT-Sans', sans-serif;
+$pt-font: "PT-Sans", sans-serif;
+
+@mixin flex-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-basline() {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+@mixin flex-around() {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin align-center() {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-all-center-col() {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+@mixin flex-col() {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin align-col() {
+  align-items: center;
+  flex-direction: column;
+}
+
+@mixin cart-btn() {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  border-radius: 40px;
+  gap: 10px;
+  margin-top: 7px;
+  background-color: #edf4f6;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+@mixin cart-btn-hover() {
+  background-color: #184363;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+@mixin text-h5() {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: PT Sans;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: #56778f;
+  padding-left: 4px;
+  padding-top: 4px;
+}
+
+@mixin store-h5() {
+  color: #184363;
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: none;
+  margin-top: 7px;
+}
+
+@mixin store-p() {
+  color: #184363;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  margin-top: 7px;
+}
+
+@mixin Sales() {
+  position: absolute;
+  margin-left: 15px;
+  margin-top: 14px;
+  flex-direction: column;
+  font-size: 14px;
+  width: 44px;
+  border-radius: 24px;
+  height: 21px;
+  background: #39cb74;
+  color: white;
+}
+
+@mixin text-p() {
+  color: #56778f;
+  padding-top: 3px;
+  padding-left: 4px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  max-height: 22px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+@mixin Hover-p() {
+  color: #15a9e3;
+  padding-left: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+  padding-top: 3px;
+}
+
+@mixin product-img() {
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  margin-top: 5px;
+  border-radius: 16px;
+  background-color: white;
+}
+
+@mixin text-h2() {
+  font-family: sans-serif;
+  width: 80%;
+  font-size: 18px;
+  color: #262626;
+  cursor: pointer;
+  text-align: center;
+}
+
+@mixin buy-btn() {
+  margin-right: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: sans-serif;
+  box-shadow: 0 2px 0 ongoing;
+}
+
+@mixin popup-css() {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;  
+    background-color: rgb(255 252 252) !important;
+
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  margin: 30px;
+  margin-left: 38px;
+  display: flex;
+  background-color: white;
+}
+
+@mixin para-btn() {
+  width: 63%;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 20px;
+  border-radius: 12px;
+  color: white;
+  background-color: #184363;
+}
+
+@mixin left-right-10() {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@mixin input() {
+  width: 100%;
+  height: 42px;
+  outline: none;
+  background-color: white;
+  border-radius: 40px;
+  padding-left: 16px;
+  font-size: 13px;
+}
+
+@mixin button() {
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center !important;
+  height: 42px;
+  width: 156px;
+  border-radius: 40px;
+  color: #fff;
+  font-family: PT Sans;
+  font-weight: 700;
+  letter-spacing: 0px;
+  background-color: #f2971f;
+}
+
+@mixin store-button() {
+  background: #39cb74;
+  height: 40px;
+  font-size: 15px !important;
+  font-weight: 600;
+  line-height: 22px !important;
+  color: #fff;
+  width: 110px;
+  margin-top: 7px;
+  border-radius: 38px;
+  margin-top: 5px;
+}
+
+@mixin new-input() {
+  width: 282px;
+  height: 42px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  background-color: white;
+  color: black;
+  padding-left: 10px;
+}
+
+@mixin product() {
+  height: 396px;
+  width: 95%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+@mixin rating() {
+  display: flex;
+  white-space: nowrap;
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+@mixin section() {
+  display: flex;
+  width: 64%;
+  border: 1px solid white;
+  border-radius: 42px;
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 26px;
+  height: 45px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-color: #edf4f6;
+  background-color: #edf4f6;
+}
+
+@mixin border-radius() {
+  border-top-right-radius: 26px;
+  border-bottom-right-radius: 26px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 45px;
+}
+
+@mixin text-h2() {
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 500;
+  padding-bottom: 0px;
+}
+
+@mixin div-btn() {
+  width: 110px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+@mixin text-li {
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 900;
+  font-family: PT Sans;
+  line-height: 16px;
+  letter-spacing: 0px;
+  color: #39444d;
+  margin-left: 20px;
+  padding: 10px;
+  list-style: none;
+}
+
+@mixin price() {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+  font-family: PT Sans;
+  margin-left: 25px;
+  margin-top: 89px;
+  margin-bottom: 10px;
+}
+
+@mixin custom-input() {
+  height: 41px;
+  width: 81px;
+  border-radius: 10px;
+  background-color: #edf4f6;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0 16px;
+  border: none;
+  outline: none;
+}
+
+@mixin naveigation(){
+    gap: 6px;
+    margin-top: 40px;
+    position: initial !important;
+    display: flex;
+    margin-left: 21px;
+    color: #56778f;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-transform: none;
+
+
+}

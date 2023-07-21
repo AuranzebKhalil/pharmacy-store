@@ -8,8 +8,8 @@
       </ul>
     </div>
 
-    <div class="wish" v-for="item in wishdata">
-      <div class="product-wish">
+    <div class="wish flex-center" v-for="item in wishdata" :key="item">
+      <div class="product-wish flex-center">
         <div class="product-wish-img">
           <img :src="item.url" alt="" />
 
@@ -52,7 +52,7 @@ let home = () => {
 };
 
 let wish = () => {
-  // console.log("sadsd");
+
 
   router.push("/store");
 };
@@ -63,14 +63,12 @@ let closing = (id: string) => {
 </script>
 
 <style lang="scss">
+@import "../scss/variables";
 .wish {
   max-width: 100%;
   width: 90%;
   margin: auto;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-top: 13px;
   background-color: white;
 }
@@ -87,18 +85,13 @@ let closing = (id: string) => {
   width: 98%;
   margin-top: 20px;
   margin: auto;
-  display: flex;
   height: 100px;
-  // padding-top: 10px;
   padding-bottom: 10px;
-  //   position: absolute;
-  // border: 1px solid black;
-  align-items: center;
-  justify-content: space-between;
+
 }
 
 .product-wish-img {
-  // width: 70px;
+
   height: 70px;
 
   border-radius: 10px;

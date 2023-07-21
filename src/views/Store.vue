@@ -10,16 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-import navbar from "./navbar.vue";
+
 import bottomfooter from "./footer.vue";
 import side from "../components/StoreSideABar.vue";
 
-import store from "../Store/index";
-import { onMounted } from "vue";
 
-onMounted(() => {
-  // store.commit("catasupplement");
-});
+
+
 </script>
 
 <style lang="scss">
@@ -27,6 +24,6 @@ onMounted(() => {
   max-width: 1350px;
   width: 100%;
   margin: auto;
-  // background-color: aqua;
+
 }
 </style>

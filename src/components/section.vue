@@ -1,9 +1,9 @@
 <template>
-  <div class="section-container">
+  <div class="section-container flex-center">
     <div class="socalmedia">
       <img src="../assets/Screenshot from 2023-04-06 11-34-44.png" alt="" />
 
-      <p>
+      <p class="para">
         70 Washington Square South,<br />
         New York, NY 10012, United States
       </p>
@@ -29,11 +29,11 @@
         Saturday: 9:00 - 15:00
       </p>
 
-      <div class="email-con">
+      <div class="email-con flex-align">
         <img src="../assets/email.png" alt="" /> <span> inbox@propharm.com</span>
       </div>
     </div>
-    <div class="impormation">
+    <div class="impormation justify-center">
       <div class="information">
         <h4>Information</h4>
 
@@ -58,7 +58,7 @@
 
   <hr class="hr" />
 
-  <v-footer class="footer">
+  <v-footer class="footer flex-center">
     <p>Copyright 2020 Propharm. All Rights Reserved</p>
 
     <img src="https://enovathemes.com/propharm/wp-content/uploads/payments.png" alt="" />
@@ -67,7 +67,7 @@
 
 <script lang="ts" setup></script>
 
-<style lang="scss">
+<style  lang="scss">
 @import "../scss/variables";
 
 .hr {
@@ -77,10 +77,8 @@
 .section-container {
   width: 94%;
   margin: auto;
-  // height: 226px;
   margin-top: 50px;
-  display: flex;
-  justify-content: center;
+
 
   .socalmedia {
     width: 310px;
@@ -88,16 +86,21 @@
     border-right: 2px solid #d7d7d7;
   }
 
-  .socalmedia p {
-    color: #184363;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-    line-height: 26px;
-    padding-top: 12px;
-    padding-bottom: 13px;
-    font-family: $pt-font;
-  }
+
+  .para{
+
+color: #184363;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  line-height: 26px;
+  padding-top: 12px;
+  padding-bottom: 13px;
+
+
+
+
+}
 
   .socalmedia button {
     color: #15a9e3 !important;
@@ -133,15 +136,12 @@
   }
 
   .email-con {
-    display: flex;
-    align-items: center;
+  
     gap: 10px;
-
     color: #15a9e3;
     font-size: 14px;
     font-weight: initial;
     line-height: 14px;
-
     padding-top: 55px;
   }
 
@@ -159,9 +159,6 @@
   .impormation {
     width: 413px;
     height: 226px;
-
-    display: flex;
-    justify-content: center;
   }
 
   .information {
@@ -202,9 +199,7 @@
   width: 100%;
   height: 77px;
   border: 1px sollid black;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
 }
 
 .footer p {
@@ -237,18 +232,12 @@
   }
 }
 
-@media only screen and (max-width: 990px) {
-  .section-container {
-  }
-}
+
 
 @media only screen and (max-width: 630px) {
   .section-container {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    @include flex-all-center-col;
     gap: 30px;
   }
 
@@ -269,10 +258,7 @@
 @media only screen and (max-width: 523px) {
   .section-container {
     width: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+ @include flex-all-center-col;
   }
 
   .section-container {
@@ -295,10 +281,7 @@
 @media only screen and (max-width: 411px) {
   .section-container {
     width: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  @include flex-all-center-col;
   }
 
   .section-container {

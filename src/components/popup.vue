@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-container" v-for="data in some">
+  <div class="popup-container" v-for="data in some" :key="data">
     <div class="popup-img-section">
       <img class="popup-img" :src="data.url" alt="" />
     </div>
@@ -19,8 +19,8 @@
 
         <div class="popup-list">
           <ul>
-            <li>3 cleaning programs</li>
-            <li>Digital display</li>
+            <li>Brand : <span>{{ data.brand }}</span></li>
+            <li>Rating : <span>{{ data.Rating }}</span></li>
             <li>Memory for 1 user</li>
           </ul>
         </div>
@@ -29,8 +29,8 @@
 
         <hr />
 
-        <div class="popup-cart">
-          <div class="quantity-container">
+        <div class="popup-cart flex-center">
+          <div class="quantity-container flex-center">
             <button @click="decrementQuantity" class="button">-</button>
 
             <input v-model="quantity" class="input" type="number" />
@@ -38,7 +38,7 @@
             <button @click="incrementQuantity" class="button">+</button>
           </div>
 
-          <button class="addtocartbtn" @click="Sending(data)">
+          <button class="addtocartbtn flex-center" @click="Sending(data)">
             <img class="cart-img" src="../assets/shopping-cart (1).png" alt="" /> Add to
             Cart
           </button>
@@ -50,7 +50,6 @@
 
 <script lang="ts" setup>
 import { PropType, ref } from "vue";
-import quatity from "./quantity.vue";
 import { reactive } from "vue";
 import Store from "../Store/index";
 import db from "../Firebase/firebase";
@@ -113,28 +112,15 @@ Store.dispatch('popupdata', popupdata)
 </script>
 
 <style lang="scss">
+@import "../scss/variables";
+
 .popup-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-  background-color: rgba($color: #000000, $alpha: 1);
 
-  width: 90%;
-  // height: 90vh;
-
-  border-radius: 10px;
-  margin: 30px;
-  margin-left: 38px;
-  display: flex;
-  background-color: white;
+  @include popup-css;
+ 
 
   .quantity-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
     gap: 3px;
     height: 50px;
 
@@ -152,13 +138,13 @@ Store.dispatch('popupdata', popupdata)
       width: 30px;
       height: 30px;
       border-radius: 77px;
-      /* padding: 11px; */
       color: white;
       padding-left: 11px;
       padding-right: 11px;
     }
   }
 
+  
   .popup-img-section {
     width: 50%;
 
@@ -227,9 +213,7 @@ Store.dispatch('popupdata', popupdata)
     border-radius: 50px;
     color: white;
     background-color: #15a9e3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  
   }
 
   .popup-cart:hover button {
@@ -237,12 +221,11 @@ Store.dispatch('popupdata', popupdata)
   }
 
   .popup-cart {
-    display: flex;
+ 
     margin-top: 40px;
     width: 70%;
     height: 90px;
-    align-items: center;
-    justify-content: center;
+
     gap: 30px;
     border-radius: 15px;
     background-color: #f0f0f0;

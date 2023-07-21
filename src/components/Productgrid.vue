@@ -2,7 +2,7 @@
   <div class="grids">
     <div class="four-product">
       <div class="first-two-product">
-        <div class="first">
+        <div class="first flex-center">
           <img
             src="https://enovathemes.com/propharm/wp-content/uploads/bn_img_8.png"
             alt=""
@@ -119,9 +119,6 @@
   border-radius: 20px;
   width: 65%;
   height: 258px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 20px;
 }
 

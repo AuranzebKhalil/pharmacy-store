@@ -110,65 +110,35 @@ export default {
     let test = ref(0);
   },
 
-// getadminsproduct: async ({ commit, state }: { commit: Commit; state: State }) => {
-//   let adminsid: any = [];
-//   const querySnapshot = await db.collection("admins").get();
-
-//   state.storeProduct = [];
-//   state.firebaseproducts = [];
-
-//   querySnapshot.forEach((querySnapshot) => {
-//     let adminData = { ...querySnapshot.data() };
-//     adminsid.push(adminData.userId);
-//   });
-
-//   for (let i = 0; i < adminsid.length; i++) {
-//     const querySnapshot = await db
-      
-//       .collection("admins")
-//       .doc(adminsid[i])
-//       .collection("sellerProduct")
-//       .get();
-
-//       querySnapshot.forEach((querySnapshot) => {
-//       let productData = { ...querySnapshot.data(), id: querySnapshot.id };
-//       commit("setProduct", productData);
-//     });
-//   }
-// },
-
-getadminsproduct:async ({ commit, state }: { commit: Commit; state: State }) => {
-  let adminsid: any[] = [];
-  const unsubscribeAdmins = db.collection("admins").onSnapshot((snapshot) => {
-    adminsid = snapshot.docs.map((doc) => doc.data().userId);
-    state.storeProduct = [];
-    state.firebaseproducts = [];
-
-    adminsid.forEach((adminId) => {
-      const unsubscribeProducts = db
-        .collection("admins")
-        .doc(adminId)
-        .collection("sellerProduct")
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            const productData = { ...change.doc.data(), id: change.doc.id };
-            if (change.type === 'added') {
-              state.gifloader = false
-              commit("setProduct", productData);
-           
-            } else if (change.type === 'modified') {
-              commit("setProduct", productData);
-            } else if (change.type === 'removed') {
-              commit("setProduct", productData);
-            }
+  getadminsproduct: async ({ commit, state }: { commit: Commit; state: State }) => {
+    let adminsid: any[] = [];
+    const unsubscribeAdmins = db.collection("admins").onSnapshot((snapshot) => {
+      adminsid = snapshot.docs.map((doc) => doc.data().userId);
+      state.storeProduct = [];
+      state.firebaseproducts = [];
+  
+      adminsid.forEach((adminId) => {
+        const unsubscribeProducts = db
+          .collection("admins")
+          .doc(adminId)
+          .collection("sellerProduct")
+          .limit(10)
+          .onSnapshot((snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+              const productData = { ...change.doc.data(), id: change.doc.id };
+              if (change.type === 'added') {
+                state.gifloader = false;
+                commit("setProduct", productData);
+              } else if (change.type === 'modified') {
+                commit("setProduct", productData);
+              }
+            });
           });
-        });
+      });
     });
-  });
-
-  return unsubscribeAdmins;
-},
-
+  
+    return unsubscribeAdmins;
+  },
 
 
 changedata:async ({ commit, state }: { commit: Commit; state: State }) => {
@@ -211,51 +181,6 @@ changedata:async ({ commit, state }: { commit: Commit; state: State }) => {
 },
 
 
-
-
-
-
-
-// getadminsproduct:async ({ commit, state }: { commit: Commit; state: State }) => {
-
-//   state.gifloader = false
-
-//   const adminsid = ref<string[]>([]);
-
-//   const unsubscribeAdmins = onSnapshot(db.collection('admins'), (snapshot) => {
-//     adminsid.value = snapshot.docs.map((doc) => doc.data().userId);
-//   });
-
-//   onBeforeUnmount(unsubscribeAdmins);
-
-//   const unsubscribeProducts: (() => void)[] = [];
-
-//   for (const adminId of adminsid.value) {
-//     const unsubscribe = onSnapshot(db.collection('admins').doc(adminId).collection('sellerProduct'), (snapshot) => {
-//       snapshot.docChanges().forEach((change) => {
-//         const productData = { ...change.doc.data(), id: change.doc.id };
-
-//         if (change.type === 'added') {
-//           commit('addProduct', productData);
-//         } else if (change.type === 'modified') {
-//           commit('updateProduct', productData);
-//         } else if (change.type === 'removed') {
-//           commit('removeProduct', productData.id);
-//         }
-//       });
-//     });
-//     unsubscribeProducts.push(unsubscribe);
-//   }
-
-//   onBeforeUnmount(() => {
-//     unsubscribeProducts.forEach((unsubscribe) => unsubscribe());
-//   });
-// }
-
-
-
-
-
   edit_product: async ({ commit, state }: { commit: Commit; state: State }) => {
 
     let uid = state.user.userId;
@@ -270,13 +195,16 @@ changedata:async ({ commit, state }: { commit: Commit; state: State }) => {
 
   supplements: async ({ commit, state }: { commit: Commit; state: State }) => {
     const querySnapshot = await db.collection("products").get();
-    // state.storeProduct = []
+ 
     querySnapshot.forEach((response) => {
       let data = response.data();
 
       commit("supplementproduct", data);
     });
   },
+
+
+
 
   cartProduct: async ({ commit }: { commit: Commit }) => {
 

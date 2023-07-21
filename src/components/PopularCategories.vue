@@ -1,12 +1,13 @@
 <template>
-  <div class="text-container">
+  <div class="text-container flex-center">
     <h2>Popular Categories</h2>
 
     <div class="Categories-btn">
-      <v-btn :class="{ active: isActive }" @click="supplement"> Supplements sVitamins </v-btn>
+      <v-btn :class="{ active: isActive }" @click="supplement">
+        Supplements sVitamins
+      </v-btn>
 
-      <v-btn @click="MedicinesHerbs"> Medicines
- </v-btn>
+      <v-btn @click="MedicinesHerbs"> Medicines </v-btn>
 
       <v-btn @click="Herbs"> Herbs </v-btn>
     </div>
@@ -16,14 +17,14 @@
     <productGridcomp :items="data" />
   </div>
 
-  <div class="product-banner">
+  <div class="product-banner flex-center">
     <img
       src="https://enovathemes.com/propharm/wp-content/uploads/banner-image-4.png"
       alt=""
     />
 
     <div>
-      <h6>Newest Products</h6>
+      <h6 class="banner-h6">Newest Products</h6>
 
       <p>Save unto 10% extra enjoy FREE delivery with PLUS membership</p>
 
@@ -59,34 +60,21 @@ let Herbs = () => {
 </script>
 
 <style lang="scss">
+@import "../scss/variables";
+
 .text-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   gap: 20px;
   margin-top: 30px;
-
-  .active {
-    background-color: red;
-    color: #184363;
-  }
 
   .btn__underlay {
     color: #184363;
   }
 
-  .v-btn.v-btn--density-default:hover{
-    background-color: #184363;
-    color: #ffffff !important;
-
-  }
-
   .v-btn.v-btn--density-default {
-  
     border-radius: 34px;
     color: #ffffff;
-    // background-color: #184363;
+
     color: #184363;
     background-color: #ffffff;
     font-size: 14px;
@@ -106,103 +94,10 @@ let Herbs = () => {
 }
 
 .Categories-product {
-  height: 396px;
-  width: 95%;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  gap: 30px;
-  margin-top: 10px;
+  @include product;
 }
 
-.products {
-  width: 218px;
-  height: 428px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.product-contant {
-  width: 220px;
-  height: 160px;
-}
-
-.products img {
-  width: 220px;
-  height: 220px;
-}
-
-.cart-img {
-  width: 18px;
-  height: 18px;
-}
-
-.product-contant p {
-  font-size: 14px;
-  font-weight: 300;
-  color: rgb(78, 78, 230);
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.product-contant button {
-  // padding: 10px 10px 10px 10px;
-  border-radius: 20px;
-  border: 1px solid black;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
-}
-
-.product-contant img {
-  width: 20px;
-  height: 20px;
-  border: none;
-  gap: 20px;
-}
-
-.product-contant h3 {
-  font-size: 15px;
-  color: #262626;
-  font-weight: 1000;
-  padding-top: 5px;
-}
-
-.product-contant h3 {
-  font-size: 15px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.product-contant h5 {
-  font-size: 15px;
-  padding-top: 3px;
-}
-
-.v-rating {
-  display: flex;
-  white-space: nowrap;
-  height: 26px;
-  display: flex;
-  align-items: center;
-}
-
-.v-rating__wrapper {
-  width: 23px;
-}
-
-.rating {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.product-banner {
+.product-ban {
   max-width: 100%;
   width: 94%;
   margin: auto;
@@ -212,19 +107,21 @@ let Herbs = () => {
   border-radius: 9px;
   margin-top: 50px;
   margin-bottom: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.product-banner h6 {
-  padding: 2px;
-  width: 120px;
-  border-radius: 20px;
-  background-color: orange;
-  text-align: center;
-  color: #ffffff;
-  font-size: bold;
+.v-rating {
+ 
+  @include rating
+
+}
+
+.v-rating__wrapper {
+  width: 23px;
+}
+
+.rating {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .product-banner p {
@@ -238,8 +135,6 @@ let Herbs = () => {
   text-align: center;
   border-radius: 20px;
 }
-
-
 
 @media only screen and (max-width: 1024px) {
   .producs {
@@ -265,10 +160,7 @@ let Herbs = () => {
 
 @media only screen and (max-width: 720px) {
   .text-container .Categories-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+   @include flex-all-center-col;
     gap: 12px;
     width: 85%;
   }

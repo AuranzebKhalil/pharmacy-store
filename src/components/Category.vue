@@ -1,5 +1,5 @@
 <template>
-  <div class="producs">
+  <div class="producs flex-center">
     <v-card class="v-card">
       <v-tabs bg-color="deep-purple-darken-4" show-btn>
         <v-tab>
@@ -90,7 +90,11 @@
         </v-tab>
 
         <v-tab>
-          <img class="product-img" src="../assets/protein-powder.png" alt="" />Spots
+          <img
+            class="product-img"
+            src="../assets/protein-powder.png"
+            alt=""
+          />Spots
           <p class="cata-text">Nutrition</p>
         </v-tab>
         <v-tab>
@@ -110,28 +114,19 @@
 import store from "../Store";
 import router from "../router";
 let render = (val: String) => {
-store.commit("HomeCategory", val);
+  store.commit("HomeCategory", val);
 };
 </script>
 
 <style lang="scss">
+
+@import "../scss/variables";
 .producs {
   width: 100%;
   height: 174px;
   margin-top: 0px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   margin-top: 1px;
-
-  .v-slide-group__next,
-  .v-slide-group__prev {
-    color: black;
-  }
-
- 
 
   .v-tab--selected .v-tab__slider {
     display: none;
@@ -142,41 +137,20 @@ store.commit("HomeCategory", val);
     text-transform: none;
     font-weight: 700;
     color: #184363;
-
   }
   .bg-deep-purple-darken-4 {
     background-color: white !important;
   }
 
-  .v-slide-group__prev {
-    background: white !important;
-  }
-
-  .v-slide-group__next {
-    background: white !important;
-  }
-
   .v-card {
     height: 146px;
-    display: 1px solid;
-
-    display: flex;
-    align-items: center;
+    @include align-center
+    
   }
 }
 
-.v-tabs--density-default {
-  --v-tabs-height: 91px;
-}
 .product-img {
   width: 48px;
-}
-.v-slide-group__container {
-  margin-right: 0px !important;
-}
-
-.v-btn__content {
-  color: black;
 }
 
 .bg-deep-purple-darken-4 {
@@ -185,37 +159,24 @@ store.commit("HomeCategory", val);
 }
 
 .v-tab.v-tab {
-    --v-btn-height: var(--v-tabs-height);
-    min-width: 90px;
-    margin-right: 50px;
-    margin-left: -10px;
+  min-width: 90px;
+  margin-right: 50px;
+  margin-left: -10px;
 }
 
-
 .v-slide-group__content {
-    display: flex;
-    flex: 1 0 auto;
-    position: relative;
-    gap: 23px !important;
-    transition: all .2s cubic-bezier(.4,0,.2,1);
-    white-space: nowrap;
-    
+  display: flex;
+  gap: 23px !important;
 }
 
 .producs .v-btn__content {
-  display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 12px;
-    justify-content: center;
-    margin-left: 20px;
-
+  @include flex-all-center-col;  
+  gap: 12px;
+  margin-left: 20px;
 }
 
 a {
-  /* background-color: transparent; */
-  display: flex;
-  align-items: center;
+  @include align-center;
   gap: 6px;
 }
 
@@ -230,9 +191,7 @@ a {
   .producs {
     width: 100%;
     height: 150px;
-
     max-width: 100%;
-
     border: none;
     max-width: 100%;
   }

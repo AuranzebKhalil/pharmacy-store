@@ -19,19 +19,20 @@ const user = computed(()=>{
 })
 
 watch(store.state.user, (value)=>{
-    console.log(value)
+ 
 })
 
 </script>
   
-<style scoped>
+<style lang="scss">
+
+
 .para{
     font-size: 14px;
     margin-left: 20px;
 }
 
 .Header {
-    /* background-color: #262626; */
     height: 48px;
     position: fixed;
     overflow-x: hidden;
@@ -46,13 +47,13 @@ watch(store.state.user, (value)=>{
     font-family: initial;
 
 }
+@import "../scss/variables";
+
 
 .Buy-btn {
-    margin-right: 20px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: sans-serif;
-    box-shadow: 0 2px 0 ongoing;
+  
+
+  @include buy-btn
+
 }
 </style>

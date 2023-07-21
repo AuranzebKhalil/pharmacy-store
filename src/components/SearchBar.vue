@@ -1,7 +1,11 @@
 <template>
   <v-layout class="Search-box-container d-flex align-center h-54">
     <div class="inner-container d-flex">
-      <img class="logo" src="../assets/Screenshot from 2023-04-06 11-34-44.png" alt="" />
+      <img
+        class="logo"
+        src="../assets/Screenshot from 2023-04-06 11-34-44.png"
+        alt=""
+      />
       <v-spacer></v-spacer>
 
       <div class="search-section">
@@ -29,13 +33,10 @@
       </div>
 
       <v-spacer></v-spacer>
-  <div class="covid-para">
-
-    <img src="../assets/20211220_131251.jpg" alt="">
- <p >{{ user.email }}</p>
-
-  </div>
-     
+      <div class="covid-para">
+        <img src="../assets/20211220_131251.jpg" alt="" />
+        <p>{{ user.email }}</p>
+      </div>
     </div>
   </v-layout>
 </template>
@@ -43,72 +44,54 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
 import store from "../Store/index";
-import productGridcomp from "./productGridcomp.vue";
 
-const user = computed(()=>{
-    return store.state.user
-})
+const user = computed(() => {
+  return store.state.user;
+});
 
-watch(store.state.user, (value)=>{
-    console.log(value)
-})
-
+watch(store.state.user, (value) => {});
 
 let selectedCategory = ref<string>();
 
 let selectedBrand = ref<string>();
 
 let selected = () => {
- 
   store.commit("CategoryBrandProduct", {
     name: selectedCategory.value,
     Category: selectedBrand.value,
   });
-
-
 };
 </script>
 
-<style  lang="scss">
+<style lang="scss">
+@import "../scss/variables";
 .Search-box-container {
   height: 96px;
   background-color: white;
-  // border: 1px solid black;
-
   .Search-box-container .search-section {
     height: 45px !important;
   }
-
   .v-btn__underlay {
     height: 45px;
   }
-
   .covid-para {
+    @include flex-center;
+  }
 
-display: flex;
-align-items: center;
-justify-content: center;
+  .covid-para img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid;
+    margin-right: 4px;
+  }
 
-}
-
-.covid-para img{
-
-width: 30px;
-height: 30px;
-border-radius: 30px;
-border: 1px solid;
-margin-right: 4px;
-
-}
-
-  .covid-para p{
-
-padding-right: 25px;
-color: black;
-font-size: 17px;
-font-family: initial;
-
-}
+  .covid-para p {
+    padding-right: 25px;
+    color: black;
+    font-size: 17px;
+    font-family: initial;
+  }
 
   .v-field--variant-filled {
     height: 45px !important;
@@ -127,30 +110,17 @@ font-family: initial;
   }
 
   .search-section {
-    display: flex;
-    width: 64%;
-    border: 1px solid white;
-    border-radius: 42px;
-    border-top-left-radius: 26px;
-    border-bottom-left-radius: 26px;
-    height: 45px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-color: #edf4f6;
-    background-color: #edf4f6;
+    @include section;
   }
 
-
-  .v-field--center-affix .v-field__append-inner{
+  .v-field--center-affix .v-field__append-inner {
     align-items: center;
     padding-top: 0;
     height: 57px;
   }
 
   .inner-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    @include flex-around;
     width: 100%;
     height: 45px;
     margin-left: 15px;
@@ -158,8 +128,7 @@ font-family: initial;
 
   .v-field__field {
     height: 28px;
-    display: flex;
-    align-items: center;
+    @include align-center;
     margin-left: 9px;
     margin-top: 3px;
     font-size: 15px;
@@ -179,9 +148,7 @@ font-family: initial;
   }
 
   .inner-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    @include flex-around;
     width: 100%;
     height: 45px;
   }
@@ -197,12 +164,7 @@ font-family: initial;
   }
 
   .v-btn--elevated {
-    border-top-right-radius: 26px;
-    border-bottom-right-radius: 26px;
-
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    height: 45px;
+    @include border-radius;
   }
 
   .Search-box-container .Buy-btm img {
@@ -211,19 +173,12 @@ font-family: initial;
   }
 
   .v-field.v-field--appended {
-    border-top-left-radius: 26px;
-    border-bottom-left-radius: 26px;
-
-    height: 45px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    @include border-radius;
   }
 
   .Search-box-container .v-field__field {
     height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     padding: 11px 13px 8px;
     font-size: 16px;
     font-weight: 300;

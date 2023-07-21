@@ -1,14 +1,14 @@
 <template>
-  <div class="newlist-container">
+  <div class="newlist-container flex-center">
     <span>Join our newsletter</span>
     <p>
       Join over half a million vitamin lovers and get our latest deals, articles, and
       resources!
     </p>
 
-    <div>
+    <div class="flex-center">
       <input placeholder="Enter address" type="text" />
-      <button><img src="../assets/send.png" alt="" /> Subscribe</button>
+      <button class="flex-center"><img src="../assets/send.png" alt="" /> Subscribe</button>
     </div>
   </div>
 </template>
@@ -17,37 +17,26 @@
 import Store from "../Store";
 </script>
 
+
 <style lang="scss">
+
+@import "../scss/variables";
+
 .newlist-container {
   width: 100%;
   height: 240px;
   background: url(https://enovathemes.com/propharm/wp-content/uploads/slide1_back-3.jpg)
     no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+flex-direction: column;
 }
 
 .newlist-container div {
   width: 425px;
-
-  // height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-top: 30px;
 }
 
 .newlist-container input {
-  width: 282px;
-  height: 42px;
-
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
-  background-color: white;
-  color: black;
-  padding-left: 10px;
+  @include new-input
 }
 
 .newlist-container span {
@@ -67,12 +56,8 @@ import Store from "../Store";
 .newlist-container button {
   width: 143px;
   height: 42px;
-
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
   background-color: #fcb900;
   color: white;

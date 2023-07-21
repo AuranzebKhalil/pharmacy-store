@@ -38,12 +38,10 @@ quantity.value --
 
 
 <style scoped lang="scss">
-
+@import "../scss/variables";
 .quantity-container{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     gap: 3px;
      height: 50px;
 
@@ -65,10 +63,8 @@ quantity.value --
     width: 30px;
     height: 30px;
     border-radius: 77px;
-    /* padding: 11px; */
     color: white;
-    padding-left: 11px;
-    padding-right: 11px;
+    @include left-right-10
 
 
 }

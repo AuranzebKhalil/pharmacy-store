@@ -141,7 +141,7 @@ padding-bottom: 25px;
   .v-btn__content {
     grid-area: content;
     justify-content: center;
-    /* white-space: nowrap; */
+  
   }
 
   .v-tab__slider {
@@ -158,7 +158,7 @@ padding-bottom: 25px;
 
 .conta img {
 
-  width: 178px;
+   width: 178px;
     height: 100px;
     border: 1px solid #eaeaea;
     border-radius: 5px;

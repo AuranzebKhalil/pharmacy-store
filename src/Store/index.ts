@@ -13,10 +13,9 @@ export default  createStore({
 
 
   state,
-  mutations,
   getters,
-  actions
-
+  actions,
+  mutations,
   
 
 

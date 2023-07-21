@@ -26,6 +26,7 @@ let render = (val: String) => {
 </script>
 
 <style scoped lang="scss">
+@import "../scss/variables";
 .shop-container {
   width: 100%;
 }

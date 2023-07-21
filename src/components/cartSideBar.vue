@@ -1,18 +1,28 @@
 <template>
-
   <div class="cart-main-container">
-
-
     <div class="emptycart" v-if="cartproducts.length == 0">
-    
-    
-    <h2  @click="shop">Return to shop and select to product for your cart</h2>
+      <h2 @click="shop">Return to shop and select to product for your cart</h2>
+  </div>
+  
 
-    </div>
+  <div class="emptycarts">
+      <h2 >Total = {{ productsWithTotal}}</h2>
+      <p>Email = {{ Store.state.user.email }}</p>
+  </div>
 
-    <div  class="product-container" v-for="(item,index) in cartproducts" :key="index">
-      <div class="img-section">
-        <img @click="deleteProduct(item)" src="../assets/close (1).png" alt="" />
+
+
+    <div
+      class="product-container flex-align"
+      v-for="(item, index) in cartproducts"
+      :key="index"
+    >
+      <div class="img-section flex-align">
+        <img
+          @click="deleteProduct(item)"
+          src="../assets/close (1).png"
+          alt=""
+        />
 
         <div class="product-img">
           <img :src="item.url" alt="" />
@@ -21,92 +31,58 @@
         <p class="secion-name">{{ item.name }}</p>
       </div>
 
-      <div class="counter-section">
+      <div class="counter-section flex-arround">
         <p>${{ item.Price }}</p>
 
-        <div class="button">
-          <div @click="decrementQuantity(item)"><p>-</p></div>
+        <div class="button flex-center">
+          <div class="flex-center" @click="decrementQuantity(item)">
+            <p>-</p>
+          </div>
 
           <p class="input">{{ item.quantit }}</p>
-          <div @click="incrementQuantity( item)"><p>+</p></div>
+          <div class="flex-center" @click="incrementQuantity(item)">
+            <p>+</p>
+          </div>
         </div>
 
         <p>${{ item.Price * item.quantit }}</p>
       </div>
     </div>
 
-    <div class="final-container w-100%">
-      <div class="code">
-        <input type="text" />
-        <button @click="joy">Redeem</button>
-      </div>
+    <div class="final-container flex-center">
 
-      <div class="form">
-        <div>
-          <p>Subtottal</p>
-          <p>$55</p>
-        </div>
-        <div>
-          <p>name</p>
-          <p>{{ store.state.user.email}}</p>
-        </div>
-        <div>
-          <p>Coupou</p>
-          <p>no</p>
-        </div>
-
-        <div>
-          <h2>ToTal</h2>
-          <h2>${{productsWithTotal}}</h2>
-        </div>
-
-        <button>Check out</button>
-      </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { onMounted, computed } from "vue";
-import { reactive, ref } from "vue";
-import db from "../Firebase/firebase";
 import store from "../Store";
-// import firestore from 'firebase/firesto
-
-import firebase from "firebase/compat/app";
 import router from "../router";
-import { getDocs, collection } from "firebase/firestore";
+import Store from "../Store";
 
 let cartproducts: any = computed(() => {
-
-  return JSON.parse(JSON.stringify(store.state.cartProducts))
+  return JSON.parse(JSON.stringify(store.state.cartProducts));
 });
 
-onMounted(async () => {
-  console.log(cartproducts , 'kooooo')
+onMounted(async () => {});
 
-
-  
-
-});
-
-const incrementQuantity = async (item:any) => {
-
-  store.dispatch("increamentQuantity", { docId: item.productId, quantity:item.quantit });
-
-}
-
-const decrementQuantity = async (item:any) => {
-
-
-  
-  store.dispatch("decreamentQuantity", { docId: item.productId, quantity:item.quantit });
+const incrementQuantity = async (item: any) => {
+  store.dispatch("increamentQuantity", {
+    docId: item.productId,
+    quantity: item.quantit,
+  });
 };
 
-const deleteProduct = async (item:any) => {
+const decrementQuantity = async (item: any) => {
+  store.dispatch("decreamentQuantity", {
+    docId: item.productId,
+    quantity: item.quantit,
+  });
+};
 
-
+const deleteProduct = async (item: any) => {
   store.dispatch("deleatQuantity", item);
-    store.dispatch('changedata')
+  store.dispatch("changedata");
 };
 
 const productsWithTotal = computed(() => {
@@ -116,19 +92,10 @@ const productsWithTotal = computed(() => {
   });
   return total;
 });
-let joy = async () =>{
-
-  console.log(cartproducts)
-
-  
-
-}
-
+let joy = async () => {};
 
 let shop = () => {
   router.push("./store");
-
- 
 };
 
 let home = () => {
@@ -139,12 +106,15 @@ let Cart = () => {
   router.push("/cart");
 };
 </script>
-<style scoped lang="scss">
+<style  lang="scss">
+
+@import "../scss/variables";
+
 .cart-main-container {
   width: 100%;
   height: auto;
   background-color: white;
-  margin-top: 255px !important;
+  margin-bottom: 30px;
 }
 
 .secion-name {
@@ -154,50 +124,49 @@ let Cart = () => {
   width: 90%;
   height: 100px;
   margin: auto;
-
-  display: flex;
   margin-top: 74px !important;
   margin-bottom: 20px;
-  align-items: center;
 }
 
-.emptycart  {
-
+.emptycart {
   width: 100%;
   height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
 }
 
+.emptycart h2 {
 
-.emptycart h2{
-
-  font-family: sans-serif;
-  width: 80%;
-  font-size: 18px;
-  color: #262626;
-  cursor: pointer;
-  text-align: center;
-
+  @include text-h2
 
 }
 .img-section {
   width: 62%;
   height: 100px;
-  display: flex;
+}
 
-  display: flex;
-  align-items: center;
+.emptycarts{
+
+  width: 100%;
+  height: 100px;
+  @include flex-around;
+
+}
+
+.emptycart h2{
+
+  @include text-h2
+
+}
+
+.emptycart p{
+ 
+@include store-p
+
 }
 
 .img-section img {
   width: 20px;
   height: 20px;
-  // background-color: rgb(7, 63, 63);
   margin-left: 11px;
-  // border-radius: 17px;
 }
 
 .product-img img {
@@ -211,11 +180,7 @@ let Cart = () => {
 
 .counter-section {
   width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 }
-
 
 .product-img p {
   margin-left: 50px;
@@ -223,96 +188,14 @@ let Cart = () => {
 .button {
   width: 120px;
   height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #cbdad5;
   border-radius: 7px;
-}
-
-input {
-  width: 60px;
-  height: 35px;
-  outline: none;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  text-align: center;
-  background-color: #cbdad5;
 }
 
 .button div {
   width: 30px;
   height: 30px;
   border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.final-container {
-  width: 100%;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.code {
-  width: 50%;
-  height: auto;
-  border: 1px soldi black;
-  display: flex;
-  align-items: center;
-}
-
-.code input {
-  width: 50%;
-  height: 45px !important;
-  height: auto;
-  border: 1px soldi black;
-}
-
-.code button {
-  width: 120px !important;
-  height: 45px !important;
-  height: auto;
-
-  border: 1px solid;
-  background-color: rgb(151, 151, 232);
-}
-
-.form {
-  width: 20%;
-  height: auto;
-  border: 1px soldi black;
-}
-
-.form div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.form div p {
-  margin-top: 10px;
-}
-
-.form div h2 {
-  margin-top: 10px;
-}
-
-.form button {
-  width: 100%;
-  height: 40px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // border: 1px solid black;
-  border-radius: 4px;
-  background-color: rgb(151, 151, 232);
 }
 
 @media only screen and (max-width: 1050px) {
@@ -320,10 +203,8 @@ input {
     width: 35% !important;
   }
 
-  .cart-main-container{
-
+  .cart-main-container {
     margin-top: 130px !important;
-
   }
 }
 @media only screen and (max-width: 800px) {
@@ -333,21 +214,12 @@ input {
   }
 }
 @media only screen and (max-width: 660px) {
-  .form {
-    width: 60% !important;
-    margin-top: 20px;
-  }
 
   .img-section {
     width: 100%;
   }
-  .code {
-    display: none !important;
-  }
 
-  .section-container {
-    width: 95%;
-  }
+
 }
 
 @media only screen and (max-width: 490px) {
@@ -357,13 +229,6 @@ input {
 }
 
 @media only screen and (max-width: 430px) {
-  .newlist-container div {
-    width: 315px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-  }
 
   .counter-section {
     gap: 12px;

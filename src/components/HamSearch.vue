@@ -1,13 +1,13 @@
 <template>
   <div class="search">
-    <div class="close">
+    <div class="close justify-end">
       <img @click="close" src="../assets/close.png" alt="" />
     </div>
 
-    <div class="box-container">
+    <div class="box-container flex-center">
       <div class="boxes">
-        <div class="box" >
-          <select  v-model="selectedBrand" placeholder="Catagory">
+        <div class="box">
+          <select class="select" v-model="selectedBrand" placeholder="Catagory">
             <option>Herbs</option>
             <option>Jurosa</option>
             <option>Amere</option>
@@ -36,7 +36,6 @@
 import { ref } from "vue";
 import Store from "../Store";
 import store from "../Store/index";
-import router from "../router";
 
 let selectedCategory = ref<string>();
 
@@ -46,42 +45,25 @@ let close = () => {
 
 let selectedBrand = ref<string>();
 
-
-
-
 let selected = () => {
-
-
-  console.log(selectedBrand.value , 'asdsadsad' , selectedCategory.value, 'asdsadasdsadsadsa' )
-
   store.commit("CategoryBrandProduct", {
     name: selectedCategory.value,
     Category: selectedBrand.value,
   });
-
-
-
- 
-    // Store.state.searchItem = false;
- 
-
-  // console.log(selectedCategory.value, selectedBrand.value);
 };
-
-let Searchbars = () => [store.commit("Searchbars", true)];
 </script>
 
 <style scoped lang="scss">
+
+@import "../scss/variables";
+
 .search {
   width: 100%;
   max-width: 1250px;
   height: 100vh;
   position: fixed;
-
   background: rgba(0, 0, 0, 0.8);
-
-  display: flex;
-  flex-direction: column;
+  @include flex-col
 }
 
 .img {
@@ -107,53 +89,13 @@ let Searchbars = () => [store.commit("Searchbars", true)];
 .box-container {
   width: 100%;
   height: 30vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
-  // flex-direction: column;
 }
 
 .close {
   width: 100%;
-  display: flex;
-  justify-content: end;
   padding-right: 16px;
   margin-top: 15px;
-}
-.box select {
-  background-color: white;
-  border-radius: 40px;
-  color: black;
-  padding: 12px;
-  width: 157px;
-  height: 42px;
-  font-size: 14px;
-  font-weight: 400;
-  font-family: PT Sans;
-  line-height: 24px;
-  letter-spacing: 0px;
-  color: #56778f;
-  -webkit-appearance: button;
-  appearance: button;
-  padding-right: 10px;
-  outline: none;
-}
-
-.box::before {
-  content: "\f13a";
-  font-family: FontAwesome;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
 }
 
 .textAreas {
@@ -163,28 +105,11 @@ let Searchbars = () => [store.commit("Searchbars", true)];
 }
 
 .textAreas input {
-  width: 100%;
-  height: 42px;
-  outline: none;
-  background-color: white;
-  border-radius: 40px;
-  padding-left: 16px;
-  font-size: 13px;
+@include input
 }
 
 .button {
-  font-size: 15px;
-  line-height: 22px;
-  text-align: center !important;
-
-  height: 42px;
-  width: 156px;
-  border-radius: 40px;
-  color: #fff;
-  font-family: PT Sans;
-  font-weight: 700;
-  letter-spacing: 0px;
-  background-color: #f2971f;
+  @include button
 }
 
 @media only screen and (max-width: 740px) {

@@ -1,19 +1,5 @@
 <template>
-  <!-- <main class="login">
-    <section class="forms">
 
-   
-
-      <form class="login">
-        <h2>Login</h2>
-        <input type="email" placeholder="Email address" v-model="email" />
-        <input type="password" placeholder="Password" v-model="password" />
-        <v-btn  @click="login_user">Log in</v-btn>
-
-           <v-btn router to="/signup">Sign Up</v-btn>
-      </form>
-    </section>
-  </main> -->
 
   <div class="outer-container">
       <div class="sign-up-form-container">

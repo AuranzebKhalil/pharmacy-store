@@ -18,14 +18,12 @@ let storeSide = () => {
 </script>
 
 <style lang="scss">
+@import "../scss/variables";
 .storeSidebar {
   width: 100%;
-
   max-width: 1250px;
   height: 100vh;
-  // border:1px solid black;
   background-color: rgba(0, 0, 0, 0.2);
-
   display: flex;
 }
 
@@ -37,7 +35,6 @@ let storeSide = () => {
 }
 
 .rightbar {
- 
   width: 60%;
 
   height: 100vh;
@@ -55,7 +52,6 @@ let storeSide = () => {
   .rightbar {
     width: 0% !important;
   }
-
 }
 
 @media only screen and (max-width: 500px) {
@@ -66,7 +62,5 @@ let storeSide = () => {
   .rightbar {
     width: 0% !important;
   }
-
-
 }
 </style>
