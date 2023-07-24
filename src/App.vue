@@ -5,7 +5,9 @@
  
     <div class="loader" v-if="store.state.gifloader" >
 
-      <img src="https://media.tenor.com/YPOStjIfQ2IAAAAM/loading-waiting.gif" alt="">
+      <!-- <img src="https://media.tenor.com/YPOStjIfQ2IAAAAM/loading-waiting.gif" alt=""> -->
+
+      <span class="loaders"></span>
 
     </div>
 
@@ -104,6 +106,26 @@ let sum = ref(true);
   background-color: white;
 }
 
+
+.loaders {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
 
 .loader {
 

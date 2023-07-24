@@ -58,7 +58,7 @@
 
   <hr class="hr" />
 
-  <v-footer class="footer flex-center">
+  <v-footer class="footer">
     <p>Copyright 2020 Propharm. All Rights Reserved</p>
 
     <img src="https://enovathemes.com/propharm/wp-content/uploads/payments.png" alt="" />
@@ -199,6 +199,7 @@ color: #184363;
   width: 100%;
   height: 77px;
   border: 1px sollid black;
+  @include flex-between
 
 }
 
@@ -232,6 +233,14 @@ color: #184363;
   }
 }
 
+@media only screen and (max-width: 566px){
+
+.footer{
+
+  flex-direction: column;
+}
+
+}
 
 
 @media only screen and (max-width: 630px) {

@@ -1,4 +1,5 @@
 export type State = {
+  state: Populercata;
   [x: string]: any;
 
 

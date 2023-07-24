@@ -44,15 +44,6 @@
     <h2>Best Selling Products in</h2>
   </div>
 
-  <div class="text-container">
-    <div class="Categories-btn">
-      <v-btn @click="Supplements"> Supplements </v-btn>
-
-      <v-btn> MedicinesHerbs </v-btn>
-
-      <v-btn> Herbs </v-btn>
-    </div>
-  </div>
 
   <div class="Categories-pro">
     <productGridcomp :items="MoreToLove" />
@@ -184,13 +175,6 @@ hr {
   }
 }
 
-@media only screen and (max-width: 720px) {
-  .text-container .Categories-btn {
-    gap: 10px;
-    @include flex-all-center-col;
-    gap: 20px;
-  }
-}
 
 @media only screen and (max-width: 1024px) {
   .Categories-pro {

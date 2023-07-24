@@ -73,7 +73,6 @@ let Herbs = () => {
 
   .v-btn.v-btn--density-default {
     border-radius: 34px;
-    color: #ffffff;
 
     color: #184363;
     background-color: #ffffff;
@@ -82,6 +81,8 @@ let Herbs = () => {
     height: 40px;
     font-weight: 800;
   }
+
+
 
   .Categories-btn {
     gap: 10px;
@@ -97,7 +98,7 @@ let Herbs = () => {
   @include product;
 }
 
-.product-ban {
+.product-banner {
   max-width: 100%;
   width: 94%;
   margin: auto;
@@ -110,9 +111,7 @@ let Herbs = () => {
 }
 
 .v-rating {
- 
-  @include rating
-
+  @include rating;
 }
 
 .v-rating__wrapper {
@@ -160,7 +159,7 @@ let Herbs = () => {
 
 @media only screen and (max-width: 720px) {
   .text-container .Categories-btn {
-   @include flex-all-center-col;
+    @include flex-all-center-col;
     gap: 12px;
     width: 85%;
   }
