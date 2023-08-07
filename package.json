@@ -14,6 +14,7 @@
     "@types/vue": "^2.0.0",
     "autoprefixer": "^10.3.4",
     "firebase": "^9.20.0",
+    "git": "^0.1.5",
     "lottie-web": "^5.11.0",
     "node": "^20.2.0",
     "postcss": "^8.3.6",
