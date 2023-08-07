@@ -168,7 +168,7 @@ justify-content: center;
 
 
 .banner-h6{
-  padding: 2px;
+
   width: 120px;
   border-radius: 20px;
   background-color: orange;
