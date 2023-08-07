@@ -183,12 +183,12 @@ console.log(responseData , 'String')
 
   CategoryBrandProduct: (state: State, payload: any) => {
 
-
+    console.log(payload.name , 'asdasd')
 
     let Catagorys = JSON.parse(
       JSON.stringify(
         state.storeProduct.filter(
-          (item: { catagory: string }) => item.catagory === payload.Category
+          (item: { brand: string }) => item.brand === payload.Category
         )
       )
     )
@@ -199,7 +199,14 @@ console.log(responseData , 'String')
         )
       )
     );
+
+    console.log(Catagorys, 'asdasd')
+
+    console.log(Brands, 'asdasd')
+
+
     state.firebaseproducts = Brands;
+
     setTimeout(() => {
       router.push('/store')
      state.searchItem = false;

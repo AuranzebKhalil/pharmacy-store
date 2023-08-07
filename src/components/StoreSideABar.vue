@@ -140,7 +140,7 @@ let sidebarSlider = () => {
 @import "../scss/variables";
 .main-container {
   display: flex;
-  max-width: 1350px;
+  max-width: 1450px;
   width: 100%;
   margin: auto;
   background-color: white;

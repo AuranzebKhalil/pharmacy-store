@@ -56,6 +56,8 @@ let selectedCategory = ref<string>();
 let selectedBrand = ref<string>();
 
 let selected = () => {
+
+  
   store.commit("CategoryBrandProduct", {
     name: selectedCategory.value,
     Category: selectedBrand.value,
@@ -190,7 +192,6 @@ let selected = () => {
     background-color: #edf4f6;
     border-top-left-radius: 26px;
     border-bottom-left-radius: 26px;
-
     height: 45px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -205,7 +206,12 @@ let selected = () => {
   }
 
   .v-field--variant-filled .v-field__overlay {
+  
     height: 45px;
+    border-top-left-radius: 29px;
+    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 29px;
+    border-top-right-radius: 1px;
   }
 
   .search-section {

@@ -21,7 +21,7 @@ import side from "../components/StoreSideABar.vue";
 
 <style lang="scss">
 .app {
-  max-width: 1350px;
+  max-width: 1448px;
   width: 100%;
   margin: auto;
 

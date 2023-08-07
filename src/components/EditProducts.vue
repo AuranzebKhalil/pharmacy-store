@@ -9,7 +9,7 @@
         <div class="editer">
           <img :src="item.url" alt="" />
 
-          <div class="Sale" v-if="item.Sale === 'Sale'">
+          <div class="Sale flex-align" v-if="item.Sale === 'Sale'">
             <p>{{ item.Sale }}</p>
           </div>
         </div>
