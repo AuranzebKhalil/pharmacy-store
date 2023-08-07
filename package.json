@@ -43,5 +43,20 @@
     "vue-cli-plugin-vuetify": "~2.5.8",
     "vue-tsc": "^1.2.0"
   },
-  "type": "module"
+  "type": "module",
+  "description": "This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
+  "main": "index.js",
+  "author": "Auranzeb Khalil",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AuranzebKhalil/pharmacy-store.git"
+  },
+  "keywords": [
+    "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"
+  ],
+  "bugs": {
+    "url": "https://github.com/AuranzebKhalil/pharmacy-store/issues"
+  },
+  "homepage": "https://github.com/AuranzebKhalil/pharmacy-store#readme"
 }
